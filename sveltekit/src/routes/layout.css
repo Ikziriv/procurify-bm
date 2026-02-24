@@ -1,0 +1,11 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+@theme {
+  --transition-timing-function-premium: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.layout-transition {
+    transition: all 500ms var(--transition-timing-function-premium);
+}

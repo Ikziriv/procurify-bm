@@ -1,0 +1,87 @@
+﻿Loading svelte-check in workspace: c:\Users\user\Documents\GitHub\procurify-bm\sveltekit
+Getting Svelte diagnostics...
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\lib\components\HeroDashboard.svelte[39m:126:8
+[33mWarn[39m: Self-closing HTML tags for non-void elements are ambiguous ΓÇö use `<div ...></div>` rather than `<div ... />`
+https://svelte.dev/e/element_invalid_self_closing_tag (svelte)
+[36m						<div class="h-8 w-8 rounded-lg bg-white/80 p-1 shadow-sm">
+							[35m<div class="h-full w-full rounded bg-blue-50" />[36m
+						</div>[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\lib\components\NavigationProgress.svelte[39m:6:45
+[31mError[39m: Property 'current' does not exist on type 'Navigation | { from: null; to: null; type: null; willUnload: null; delta: null; complete: null; }'.
+  Property 'current' does not exist on type 'NavigationExternal'. (ts)
+[36m	let progress = $state(0);
+	const isNavigating = $derived(!!navigating.[35mcurrent[36m);[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\auth\pungis\+page.svelte[39m:138:5
+[33mWarn[39m: A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control (svelte)
+[36m			<div class="space-y-6">
+				[35m<label class="ml-2 text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase">
+					Select Your Role
+				</label>[36m
+				<div class="grid grid-cols-1 gap-4">[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\procurements\[id]\+page.svelte[39m:475:7
+[33mWarn[39m: A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control (svelte)
+[36m					<div>
+						[35m<label
+							class="mb-2 block text-[10px] font-black tracking-widest text-slate-400 uppercase"
+							>Company Name</label
+						>[36m
+						<input[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\procurements\[id]\+page.svelte[39m:488:7
+[33mWarn[39m: A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control (svelte)
+[36m					<div>
+						[35m<label
+							class="mb-2 block text-[10px] font-black tracking-widest text-slate-400 uppercase"
+							>Company Description / Proposal Summary</label
+						>[36m
+						<textarea[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\procurements\[id]\+page.svelte[39m:512:13
+[33mWarn[39m: A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control (svelte)
+[36m											<div>
+												[35m<label
+													class="mb-2 block text-[10px] font-black tracking-widest text-slate-400 uppercase"
+													>Offered Price</label
+												>[36m
+												<input[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\procurements\[id]\+page.svelte[39m:526:13
+[33mWarn[39m: A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control (svelte)
+[36m											<div>
+												[35m<label
+													class="mb-2 block text-[10px] font-black tracking-widest text-slate-400 uppercase"
+													>Specification Link/Notes</label
+												>[36m
+												<input[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\profile\+page.svelte[39m:12:32
+[33mWarn[39m: This reference only captures the initial value of `user`. Did you mean to reference it inside a derived instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m	let success = $state(false);
+	let selectedProvince = $state([35muser[36m.companyProfile?.provinceId || '');
+	let selectedRegency = $state(user.companyProfile?.regencyId || '');[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\profile\+page.svelte[39m:13:31
+[33mWarn[39m: This reference only captures the initial value of `user`. Did you mean to reference it inside a derived instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m	let selectedProvince = $state(user.companyProfile?.provinceId || '');
+	let selectedRegency = $state([35muser[36m.companyProfile?.regencyId || '');[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\submissions\+page.svelte[39m:90:33
+[33mWarn[39m: This reference only captures the initial value of `options`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m	// Create headless table instance from core
+	const table = createTable<any>([35moptions[36m as any);[39m
+
+====================================
+[31msvelte-check found 1 error and 9 warnings in 6 files
+[39m

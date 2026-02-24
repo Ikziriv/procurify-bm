@@ -1,0 +1,986 @@
+[
+  {
+    "id": "CP-91957",
+    "companyId": "91957",
+    "name": "aan",
+    "phone": "08123",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-56273",
+    "companyId": "56273",
+    "name": "Milka",
+    "phone": "081334699072",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-56215",
+    "companyId": "56215",
+    "name": "Rudi Prihantono",
+    "phone": "+62 818-351-238",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-68551",
+    "companyId": "68551",
+    "name": "Sheila Georgina",
+    "phone": "081311310651",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-58449",
+    "companyId": "58449",
+    "name": "Harry S",
+    "phone": "081235251967",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-54502",
+    "companyId": "54502",
+    "name": "Muji Syukur",
+    "phone": "087882574591",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-85035",
+    "companyId": "85035",
+    "name": "Mochtar Noor Istizam",
+    "phone": "081381005416",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-77140",
+    "companyId": "77140",
+    "name": "Saleh Arasyid",
+    "phone": "081322267672",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94427",
+    "companyId": "94427",
+    "name": "Ir Agus Suryanto",
+    "phone": "081332125268",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94404",
+    "companyId": "94404",
+    "name": "Sukma Wahyu Wijayanti",
+    "phone": "081385655949",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94408",
+    "companyId": "94408",
+    "name": "Lozam Amirulloh",
+    "phone": "089526393570",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-59825",
+    "companyId": "59825",
+    "name": "SUCI SETIAWATI",
+    "phone": "081805396060",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-74007",
+    "companyId": "74007",
+    "name": "xxx",
+    "phone": "0873839",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-69037",
+    "companyId": "69037",
+    "name": "Fidrianto",
+    "phone": "082279033756",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94428",
+    "companyId": "94428",
+    "name": "WINDA MANULLANG",
+    "phone": "085714084102",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-75389",
+    "companyId": "75389",
+    "name": "LINDA TJEN",
+    "phone": "082110158812",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-58546",
+    "companyId": "58546",
+    "name": "Henny Waliyati",
+    "phone": "08161363142",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94401",
+    "companyId": "94401",
+    "name": "Prasetyo",
+    "phone": "08121570776",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-80063",
+    "companyId": "80063",
+    "name": "catur Ari Wibara",
+    "phone": "085729632913",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-56493",
+    "companyId": "56493",
+    "name": "Bayu",
+    "phone": "087877029279",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-69964",
+    "companyId": "69964",
+    "name": "LUQI HERMAWANTI",
+    "phone": "081228587140",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-52458",
+    "companyId": "52458",
+    "name": "SUHARTONO",
+    "phone": "087782280579",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-54644",
+    "companyId": "54644",
+    "name": "Fitri",
+    "phone": "08113071983",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-68092",
+    "companyId": "68092",
+    "name": "BUDIONO",
+    "phone": "081234567890",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-51858",
+    "companyId": "51858",
+    "name": "Choirul",
+    "phone": "0818377278",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-71655",
+    "companyId": "71655",
+    "name": "ILHAM",
+    "phone": "081354477987",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-54291",
+    "companyId": "54291",
+    "name": "Ishana",
+    "phone": "+62 811-845-152",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-56874",
+    "companyId": "56874",
+    "name": "Jainar Berliana",
+    "phone": "082130234578",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-54650",
+    "companyId": "54650",
+    "name": "Bambang Wijaya",
+    "phone": "08122797567",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-55442",
+    "companyId": "55442",
+    "name": "Kania",
+    "phone": "+62 811 2103171",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-54694",
+    "companyId": "54694",
+    "name": "Johannes bong",
+    "phone": "0811848512",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94435",
+    "companyId": "94435",
+    "name": "Lisdiantoro",
+    "phone": "081317421097",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-75247",
+    "companyId": "75247",
+    "name": "Andi Taru",
+    "phone": "085641431377",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94425",
+    "companyId": "94425",
+    "name": "EKO ARIYANTO",
+    "phone": "081548504822",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-74084",
+    "companyId": "74084",
+    "name": "Rio Kayo Arno",
+    "phone": "081219506448",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-52674",
+    "companyId": "52674",
+    "name": "Rony Purwantoro",
+    "phone": "081218951589",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-63352",
+    "companyId": "63352",
+    "name": "test",
+    "phone": "0816889391",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-51880",
+    "companyId": "51880",
+    "name": "Hasna",
+    "phone": "085255766168",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-52003",
+    "companyId": "52003",
+    "name": "Ruly",
+    "phone": "0812-8105-272",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-64859",
+    "companyId": "64859",
+    "name": "Natasha Putriany Nurdin",
+    "phone": "085872705880",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-77683",
+    "companyId": "77683",
+    "name": "Danny",
+    "phone": "081288887360",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-54590",
+    "companyId": "54590",
+    "name": "Tri Yuliati",
+    "phone": "08158820925",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-63104",
+    "companyId": "63104",
+    "name": "Agwi Darma Nugraha",
+    "phone": "087736107674",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-56143",
+    "companyId": "56143",
+    "name": "Egi",
+    "phone": "08112819962",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-56492",
+    "companyId": "56492",
+    "name": "Minar",
+    "phone": "087871270011",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-69032",
+    "companyId": "69032",
+    "name": "Rifky",
+    "phone": "081276658945",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-57304",
+    "companyId": "57304",
+    "name": "Y",
+    "phone": "Y",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-53751",
+    "companyId": "53751",
+    "name": "Nina Daniar",
+    "phone": "08563470660",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-77402",
+    "companyId": "77402",
+    "name": "RUDOLF SIMARMATA",
+    "phone": "0818856178",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-54439",
+    "companyId": "54439",
+    "name": "Atika",
+    "phone": "08112819962",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-68867",
+    "companyId": "68867",
+    "name": "Indrawan",
+    "phone": "081390608878",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-55806",
+    "companyId": "55806",
+    "name": "Dewa Pawitra",
+    "phone": "087853101035",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-77696",
+    "companyId": "77696",
+    "name": "Farizki",
+    "phone": "+62 813-3491-118",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-55497",
+    "companyId": "55497",
+    "name": "AHMAD SODIK",
+    "phone": "+62 811-338-755",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-57023",
+    "companyId": "57023",
+    "name": "LINDA",
+    "phone": "08123011711",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-57127",
+    "companyId": "57127",
+    "name": "Jessica Gunawan",
+    "phone": "08111936956",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94426",
+    "companyId": "94426",
+    "name": "ISTOMO SUSILASTORO",
+    "phone": "08122723078",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-54690",
+    "companyId": "54690",
+    "name": "Vonny Willianti",
+    "phone": "0881080020989",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-59791",
+    "companyId": "59791",
+    "name": "test",
+    "phone": "0816889391",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-57973",
+    "companyId": "57973",
+    "name": "Samudro",
+    "phone": "081234075049",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-79883",
+    "companyId": "79883",
+    "name": "Ramli",
+    "phone": "+62 811-885-473",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-52051",
+    "companyId": "52051",
+    "name": "EGA",
+    "phone": "08112545927",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-60707",
+    "companyId": "60707",
+    "name": "Nancy Kristanto",
+    "phone": "08159027838",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-69636",
+    "companyId": "69636",
+    "name": "Seno",
+    "phone": "+62 822-1393-788",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-77805",
+    "companyId": "77805",
+    "name": "Arik",
+    "phone": "081227799912",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94429",
+    "companyId": "94429",
+    "name": "Nisa",
+    "phone": "08112116885",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-55315",
+    "companyId": "55315",
+    "name": "H. Suwarno",
+    "phone": "08161849361",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-55891",
+    "companyId": "55891",
+    "name": "Ikka Marissa",
+    "phone": "081326612838",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-53694",
+    "companyId": "53694",
+    "name": "Biastomo Adi Hantoro",
+    "phone": "082122331090",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-62746",
+    "companyId": "62746",
+    "name": "ANTON SASMITA",
+    "phone": "0816-629-151",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-93948",
+    "companyId": "93948",
+    "name": "Ahmad Munirun",
+    "phone": "081802505174",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-57105",
+    "companyId": "57105",
+    "name": "Vio Tarigan",
+    "phone": "081281451805",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-91244",
+    "companyId": "91244",
+    "name": "Mario Aditya",
+    "phone": "081239873220",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-53729",
+    "companyId": "53729",
+    "name": "Erik Istanti",
+    "phone": "081235551543",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94431",
+    "companyId": "94431",
+    "name": "S. Mustafa",
+    "phone": "085740574674",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-55357",
+    "companyId": "55357",
+    "name": "Murad",
+    "phone": "08119303636",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-74306",
+    "companyId": "74306",
+    "name": "Aris Budi Prasetya",
+    "phone": "081399992909",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-75421",
+    "companyId": "75421",
+    "name": "Afif",
+    "phone": "081326033325",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-71696",
+    "companyId": "71696",
+    "name": "Gustina Wulandari",
+    "phone": "082113803193",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-72561",
+    "companyId": "72561",
+    "name": "Vitri Juniati",
+    "phone": "085740876824",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-75325",
+    "companyId": "75325",
+    "name": "Timotius Saragih",
+    "phone": "082146158070",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-65151",
+    "companyId": "65151",
+    "name": "Dodi Chandra",
+    "phone": "081291070355",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-53670",
+    "companyId": "53670",
+    "name": "FEBRIDAL JUSRIANSYAH",
+    "phone": "081238375107",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94403",
+    "companyId": "94403",
+    "name": "Ni Putu Ayu Cantika Sukantini",
+    "phone": "081999902262",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-54320",
+    "companyId": "54320",
+    "name": "Yoyok Ikhsan",
+    "phone": "085711637655",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-55487",
+    "companyId": "55487",
+    "name": "Anggun pratiwi",
+    "phone": "081222177703",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94400",
+    "companyId": "94400",
+    "name": "SONY",
+    "phone": "081242422882",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-52245",
+    "companyId": "52245",
+    "name": "LIU CHIA HUNG",
+    "phone": "085649595062",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-52852",
+    "companyId": "52852",
+    "name": "Dimas Dwi Auditya",
+    "phone": "081221588959",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-87638",
+    "companyId": "87638",
+    "name": "Penny",
+    "phone": "085253949500",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-77085",
+    "companyId": "77085",
+    "name": "Yudhi Firmansyah",
+    "phone": "081328390721",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-79620",
+    "companyId": "79620",
+    "name": "RENALTO",
+    "phone": "081210395310",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-51920",
+    "companyId": "51920",
+    "name": "OGGY",
+    "phone": "088216042764",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-69816",
+    "companyId": "69816",
+    "name": "Siswati",
+    "phone": "085259359924",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94406",
+    "companyId": "94406",
+    "name": "Schinta",
+    "phone": "8120108830934",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94430",
+    "companyId": "94430",
+    "name": "Syahrizal M.",
+    "phone": "+62 811-218-243",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94398",
+    "companyId": "94398",
+    "name": "Bawana",
+    "phone": "081393049191",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94407",
+    "companyId": "94407",
+    "name": "Gina Priadini",
+    "phone": "081222666677",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-54993",
+    "companyId": "54993",
+    "name": "Rosalina Faried",
+    "phone": "082111118840",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-58935",
+    "companyId": "58935",
+    "name": "Rosalina Faried",
+    "phone": "08211111884",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-56781",
+    "companyId": "56781",
+    "name": "Adhi Darma",
+    "phone": "0811295939",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-67537",
+    "companyId": "67537",
+    "name": "SAPTO",
+    "phone": "085293333003",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-60868",
+    "companyId": "60868",
+    "name": "Rudi Sinaga",
+    "phone": "081973378596",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-54432",
+    "companyId": "54432",
+    "name": "Widjaja Putra",
+    "phone": "+62 816-505-081",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-54367",
+    "companyId": "54367",
+    "name": "Fung Andoyo",
+    "phone": "+62812-3489-2828",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-56381",
+    "companyId": "56381",
+    "name": "Milka",
+    "phone": "081334699072",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-64829",
+    "companyId": "64829",
+    "name": "Nisa",
+    "phone": "083857322522",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94213",
+    "companyId": "94213",
+    "name": "Noryawati Mulyono",
+    "phone": "+62 813-8079-932",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94402",
+    "companyId": "94402",
+    "name": "Hermanto",
+    "phone": "081237801882",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-74571",
+    "companyId": "74571",
+    "name": "CV SHIAMIQ TERANG ABADI",
+    "phone": "087814092017",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-56776",
+    "companyId": "56776",
+    "name": "Rifky",
+    "phone": "0811-2269-268",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-51924",
+    "companyId": "51924",
+    "name": "Angel",
+    "phone": "081299814432",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-58768",
+    "companyId": "58768",
+    "name": "Heidi",
+    "phone": "0818200700",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-88909",
+    "companyId": "88909",
+    "name": "Sarono",
+    "phone": "08128586515",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-1",
+    "companyId": "1",
+    "name": "test",
+    "phone": "0816666666",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-55253",
+    "companyId": "55253",
+    "name": "Dwiki Ilham Toriyana",
+    "phone": "08212999987",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-63713",
+    "companyId": "63713",
+    "name": "Adriel Lucas Darwali",
+    "phone": "081132285938",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-53830",
+    "companyId": "53830",
+    "name": "RUDOLF SIMARMATA",
+    "phone": "0818856178",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-94433",
+    "companyId": "94433",
+    "name": "Viki dzikir anugerah",
+    "phone": "081284266517",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-76855",
+    "companyId": "76855",
+    "name": "KHOIRUL HIDAYAT",
+    "phone": "08121617003",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-65271",
+    "companyId": "65271",
+    "name": "Putri",
+    "phone": "+62 812-3140-338",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-57755",
+    "companyId": "57755",
+    "name": "xxcxclx",
+    "phone": "09292828",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "CP-51777",
+    "companyId": "51777",
+    "name": "Minarso",
+    "phone": "0818819132",
+    "position": "Contact Person",
+    "status": "ACTIVE"
+  }
+]

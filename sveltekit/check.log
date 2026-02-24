@@ -1,0 +1,69 @@
+﻿Loading svelte-check in workspace: c:\Users\user\Documents\GitHub\procurify-bm\sveltekit
+Getting Svelte diagnostics...
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\lib\components\HeroDashboard.svelte[39m:126:8
+[33mWarn[39m: Self-closing HTML tags for non-void elements are ambiguous ΓÇö use `<div ...></div>` rather than `<div ... />`
+https://svelte.dev/e/element_invalid_self_closing_tag (svelte)
+[36m						<div class="h-8 w-8 rounded-lg bg-white/80 p-1 shadow-sm">
+							[35m<div class="h-full w-full rounded bg-blue-50" />[36m
+						</div>[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\api\procurements\+server.ts[39m:99:20
+[31mError[39m: Argument of type '(proc: any, { and, eq }: { and: any; eq: any; }) => any' is not assignable to parameter of type 'SQL<unknown>'. 
+[36m            })
+            .where([35m(proc, { and, eq }) =>
+                and(eq(proc.id, data.id), eq(proc.createdBy, user.id))[36m
+            );[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\api\procurements\+server.ts[39m:99:21
+[31mError[39m: Parameter 'proc' implicitly has an 'any' type. 
+[36m            })
+            .where(([35mproc[36m, { and, eq }) =>
+                and(eq(proc.id, data.id), eq(proc.createdBy, user.id))[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\api\procurements\+server.ts[39m:99:29
+[31mError[39m: Binding element 'and' implicitly has an 'any' type. 
+[36m            })
+            .where((proc, { [35mand[36m, eq }) =>
+                and(eq(proc.id, data.id), eq(proc.createdBy, user.id))[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\api\procurements\+server.ts[39m:99:34
+[31mError[39m: Binding element 'eq' implicitly has an 'any' type. 
+[36m            })
+            .where((proc, { and, [35meq[36m }) =>
+                and(eq(proc.id, data.id), eq(proc.createdBy, user.id))[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\api\procurements\+server.ts[39m:125:20
+[31mError[39m: Argument of type '(proc: any, { and, eq }: { and: any; eq: any; }) => any' is not assignable to parameter of type 'SQL<unknown>'. 
+[36m            .delete(procurements)
+            .where([35m(proc, { and, eq }) =>
+                and(eq(proc.id, id), eq(proc.createdBy, user.id))[36m
+            );[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\api\procurements\+server.ts[39m:125:21
+[31mError[39m: Parameter 'proc' implicitly has an 'any' type. 
+[36m            .delete(procurements)
+            .where(([35mproc[36m, { and, eq }) =>
+                and(eq(proc.id, id), eq(proc.createdBy, user.id))[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\api\procurements\+server.ts[39m:125:29
+[31mError[39m: Binding element 'and' implicitly has an 'any' type. 
+[36m            .delete(procurements)
+            .where((proc, { [35mand[36m, eq }) =>
+                and(eq(proc.id, id), eq(proc.createdBy, user.id))[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\api\procurements\+server.ts[39m:125:34
+[31mError[39m: Binding element 'eq' implicitly has an 'any' type. 
+[36m            .delete(procurements)
+            .where((proc, { and, [35meq[36m }) =>
+                and(eq(proc.id, id), eq(proc.createdBy, user.id))[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\submissions\+page.svelte[39m:81:33
+[33mWarn[39m: This reference only captures the initial value of `options`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m	// Create headless table instance from core
+	const table = createTable<any>([35moptions[36m as any);[39m
+
+====================================
+[31msvelte-check found 8 errors and 2 warnings in 3 files
+[39m

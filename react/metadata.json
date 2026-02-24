@@ -1,0 +1,5 @@
+{
+  "name": "Procurify - Enterprise Procurement System",
+  "description": "A comprehensive procurement management platform with role-based access for Super Admins, Procurement Admins, and Users. Features include tender publishing, vendor submissions, and AI-powered requirement generation.",
+  "requestFramePermissions": []
+}
