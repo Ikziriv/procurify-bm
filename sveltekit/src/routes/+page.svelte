@@ -3,47 +3,36 @@
 	import { fly } from 'svelte/transition';
 	import HeroDashboard from '$lib/components/HeroDashboard.svelte';
 	import ProcurementCard from '$lib/components/ProcurementCard.svelte';
+	import { formatIDR, formatDate } from '$lib/utils/format';
 	import type { PageData } from './$types';
 
 	let { data } = $props<{ data: PageData }>();
-	const t = $derived(appState.t.landing);
-
-	// Format currency helper
-	const formatIDR = (val: number) => {
-		return new Intl.NumberFormat('id-ID', {
-			style: 'currency',
-			currency: 'IDR',
-			maximumFractionDigits: 0
-		}).format(val);
-	};
 </script>
 
-<div class="relative min-h-screen overflow-hidden bg-slate-50/50">
-	<!-- Background Decorative Elements -->
+<div class="relative min-h-screen overflow-hidden bg-white">
+	<!-- Subtle Background Texture -->
 	<div
-		class="pointer-events-none absolute top-0 left-1/2 h-[800px] w-full -translate-x-1/2 overflow-hidden"
-	>
-		<div
-			class="absolute -top-[10%] left-[10%] h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[120px]"
-		></div>
-		<div
-			class="absolute top-[20%] right-[10%] h-[400px] w-[400px] rounded-full bg-violet-500/10 blur-[120px]"
-		></div>
-	</div>
+		class="pointer-events-none absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_0%,#000_70%,transparent_100%)] [background-size:32px_32px] opacity-20"
+	></div>
 
-	<main class="relative container mx-auto max-w-5xl px-6 pt-12 pb-24">
+	<main class="relative container mx-auto max-w-6xl px-6 pt-10 pb-24 lg:px-10">
 		<!-- Minimalist Header -->
-		<div class="mb-12 flex items-end justify-between" in:fly={{ y: -20, duration: 800 }}>
+		<div
+			class="mb-10 flex items-end justify-between border-b border-slate-100 pb-8"
+			in:fly={{ y: -10, duration: 600 }}
+		>
 			<div>
-				<h1 class="text-4xl font-black tracking-tight text-slate-900 lg:text-5xl">Dashboard</h1>
-				<p class="mt-2 text-sm font-bold tracking-widest text-slate-400 uppercase">
+				<h1 class="text-3xl font-bold tracking-tight text-slate-900 uppercase lg:text-4xl">
+					Dashboard
+				</h1>
+				<p class="mt-2 text-[10px] font-bold tracking-[0.2em] text-slate-400 uppercase">
 					Tracking {data.procurements.length} Active System Tenders
 				</p>
 			</div>
 			<div class="hidden lg:block">
 				<a
 					href="/explore"
-					class="flex items-center gap-2 rounded-2xl bg-white px-6 py-3 text-[10px] font-black tracking-widest text-slate-900 uppercase shadow-sm transition-all hover:bg-slate-50"
+					class="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-[10px] font-bold tracking-widest text-slate-700 uppercase shadow-sm transition-all hover:border-slate-300 hover:bg-slate-50"
 				>
 					Explore All <span class="material-symbols-outlined text-sm">arrow_forward</span>
 				</a>
@@ -56,42 +45,38 @@
 		{/if}
 
 		<!-- Recent Activity / Tracking List -->
-		<div class="mt-16 space-y-6" in:fly={{ y: 30, duration: 800, delay: 400 }}>
-			<div class="flex items-center justify-between">
-				<h3 class="text-[10px] font-black tracking-[0.4em] text-slate-400 uppercase">
+		<div class="mt-12 space-y-6" in:fly={{ y: 20, duration: 600, delay: 300 }}>
+			<div class="flex items-center justify-between px-2">
+				<h3 class="text-[10px] font-bold tracking-[0.2em] text-slate-400 uppercase">
 					Recent Procurement Activity
 				</h3>
 			</div>
 
-			<div class="grid gap-4">
+			<div class="grid gap-3" data-testid="procurement-list">
 				{#each data.procurements as p}
 					<ProcurementCard
 						id={p.id}
 						title={p.title}
 						type={p.type?.name || 'Reguler'}
 						amount={formatIDR(Number(p.budget))}
-						deadline={new Date(p.deadline).toLocaleDateString('id-ID', {
-							day: 'numeric',
-							month: 'short',
-							year: 'numeric'
-						})}
+						deadline={formatDate(p.deadline)}
 						deadlineLabel="Awarding Date"
 					/>
 				{:else}
 					<div
-						class="flex h-48 flex-col items-center justify-center rounded-[2.5rem] border border-dashed border-slate-200 bg-white/40 backdrop-blur-sm"
+						class="flex h-40 flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-slate-50/50"
 					>
-						<span class="material-symbols-outlined mb-4 text-4xl text-slate-300">inventory_2</span>
-						<p class="text-sm font-bold text-slate-400">No active procurements found</p>
+						<span class="material-symbols-outlined mb-3 text-3xl text-slate-300">inventory_2</span>
+						<p class="text-xs font-semibold text-slate-400">No active procurements found</p>
 					</div>
 				{/each}
 			</div>
 
 			{#if data.procurements.length > 0}
-				<div class="flex justify-center pt-8">
+				<div class="flex justify-center pt-6">
 					<a
 						href="/explore"
-						class="text-[10px] font-black tracking-[0.2em] text-blue-600 uppercase hover:underline"
+						class="text-[10px] font-bold tracking-widest text-blue-600 uppercase hover:text-blue-700 hover:underline"
 					>
 						View full procurement pipeline
 					</a>

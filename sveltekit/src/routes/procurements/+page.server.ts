@@ -8,13 +8,17 @@ export const load: PageServerLoad = async ({ locals }) => {
         throw redirect(303, '/auth');
     }
 
-    const [allProvinces, allRegencies] = await Promise.all([
+    const [allProvinces, allRegencies, advancedConfig] = await Promise.all([
         locals.db.select().from(provinces).orderBy(provinces.name),
-        locals.db.select().from(regencies).orderBy(regencies.name)
+        locals.db.select().from(regencies).orderBy(regencies.name),
+        locals.db.query.systemConfigs.findFirst({
+            where: (configs, { eq }) => eq(configs.key, 'ENABLE_ADVANCED_DETAIL_DATA')
+        })
     ]);
 
     return {
         provinces: allProvinces,
-        regencies: allRegencies
+        regencies: allRegencies,
+        enableAdvancedDetailData: advancedConfig?.value === 'true'
     };
 };

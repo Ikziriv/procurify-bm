@@ -13,40 +13,43 @@
 
 <a
 	href="/procurements/{id}"
-	class="group relative flex cursor-pointer flex-col justify-between gap-6 overflow-hidden rounded-[2.5rem] border border-slate-200/50 bg-white p-8 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition-all duration-500 hover:border-blue-200/50 hover:shadow-[0_20px_40px_rgba(37,99,235,0.08)] md:flex-row md:items-center"
+	class="group relative flex cursor-pointer flex-col justify-between gap-6 overflow-hidden rounded-2xl border border-slate-200/60 bg-white p-6 shadow-sm transition-all duration-300 hover:border-blue-400/30 hover:shadow-md md:flex-row md:items-center"
+	data-testid="procurement-card"
 >
-	<div class="flex items-center gap-8">
+	<div class="flex items-center gap-6">
 		<div
-			class="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-3xl bg-slate-50 text-slate-400 ring-1 ring-slate-100 transition-all duration-500 group-hover:bg-blue-50 group-hover:text-blue-600 group-hover:ring-blue-100"
+			class="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-slate-50 text-slate-400 ring-1 ring-slate-100 transition-all duration-300 group-hover:bg-blue-50 group-hover:text-blue-600 group-hover:ring-blue-100"
 		>
-			<span class="material-symbols-outlined text-4xl">inventory_2</span>
+			<span class="material-symbols-outlined text-2xl">inventory_2</span>
 		</div>
-		<div class="space-y-2">
-			<h5 class="text-lg font-black tracking-tight text-slate-900 uppercase">
+		<div class="space-y-1">
+			<h5
+				class="text-base font-bold tracking-tight text-slate-900 transition-colors group-hover:text-blue-700"
+			>
 				{title}
 			</h5>
 			<div class="flex items-center gap-3">
 				<span
-					class="rounded-lg bg-blue-50/50 px-2 py-1 text-[10px] font-black tracking-widest text-blue-600 uppercase"
+					class="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-bold tracking-wider text-slate-600 uppercase"
 				>
 					{type}
 				</span>
-				<span class="text-xs font-bold tracking-widest text-slate-400 uppercase">
-					• {amount}
+				<span class="text-xs font-semibold tracking-wide text-slate-400">
+					&bull; {amount}
 				</span>
 			</div>
 		</div>
 	</div>
 
-	<div class="flex flex-col border-t border-slate-50 pt-6 md:border-none md:pt-0 md:text-right">
-		<p class="mb-1 text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase">
+	<div class="flex flex-col border-t border-slate-50 pt-4 md:border-none md:pt-0 md:text-right">
+		<p class="mb-1 text-[10px] font-bold tracking-widest text-slate-400 uppercase">
 			{deadlineLabel}
 		</p>
-		<p class="text-base font-black tracking-tight text-slate-900 uppercase">{deadline}</p>
+		<p class="text-sm font-bold tracking-tight text-slate-900">{deadline}</p>
 	</div>
 
-	<!-- Hover accent -->
+	<!-- Subtle indicator -->
 	<div
-		class="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-blue-600 to-indigo-600 transition-all duration-500 group-hover:w-full"
+		class="absolute top-0 right-0 h-full w-1 translate-x-full bg-blue-600 transition-transform duration-300 group-hover:translate-x-0"
 	></div>
 </a>

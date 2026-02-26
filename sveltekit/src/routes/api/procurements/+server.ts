@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { db } from '$lib/server/db';
-import { procurements } from '$lib/server/db/schema';
+import { procurements, procurementKblis, procurementKbkis } from '$lib/server/db/schema';
 import { nanoid } from 'nanoid';
 import { eq, and } from 'drizzle-orm';
 import { ActivityService } from '$lib/server/services/activity-service';
@@ -31,7 +31,9 @@ export const GET: RequestHandler = async ({ locals }) => {
                 type: true,
                 province: true,
                 regency: true,
-                submissions: true
+                submissions: true,
+                kblis: { with: { kbli: true } },
+                kbkis: { with: { kbki: true } }
             },
             orderBy: (proc, { desc }) => [desc(proc.createdAt)]
         });
@@ -59,14 +61,33 @@ export const POST: RequestHandler = async ({ request, locals }) => {
             id,
             title: data.title,
             description: data.description || '',
-            budget: data.budget || 'Rp 0',
+            budget: data.budget ? String(data.budget) : '0',
+            currency: data.currency || 'IDR',
+            location: data.location || '',
+            bmnId: data.bmnId || null,
+            basId: data.basId || null,
+            createdAt: new Date(),
             deadline: data.deadline,
             status: 'OPEN',
             provinceId: data.provinceId || null,
             regencyId: data.regencyId || null,
-            location: data.location || null,
-            createdBy: user.id
+            createdBy: user.id,
+            updatedAt: new Date()
         });
+
+        if (data.kbliId) {
+            await db.insert(procurementKblis).values({
+                procurementId: id,
+                kbliId: data.kbliId
+            });
+        }
+
+        if (data.kbkiId) {
+            await db.insert(procurementKbkis).values({
+                procurementId: id,
+                kbkiId: data.kbkiId
+            });
+        }
 
         await ActivityService.logRequest(request, {
             userId: user.id,
@@ -91,36 +112,52 @@ export const PUT: RequestHandler = async ({ request, locals }) => {
         }
 
         const data = await request.json();
+        const id = data.id;
 
-        if (!data.id) {
+        if (!id) {
             return json({ error: 'Missing procurement ID' }, { status: 400 });
         }
 
-        // Optional: In a highly secure app, we'd also verify procurement ownership before update
-        // e.g. await db.query.procurements.findFirst({ where: eq(procurements.id, data.id) }) 
-        // For brevity and based on current schema constraints, proceeding to update.
-
-        await db
-            .update(procurements)
+        await db.update(procurements)
             .set({
                 title: data.title,
-                description: data.description || '',
-                budget: data.budget || 'Rp 0',
+                description: data.description,
+                budget: data.budget ? String(data.budget) : '0',
+                currency: data.currency || 'IDR',
+                location: data.location || '',
                 deadline: data.deadline,
-                status: data.status || 'OPEN',
                 provinceId: data.provinceId || null,
                 regencyId: data.regencyId || null,
-                location: data.location || null
+                bmnId: data.bmnId || null,
+                basId: data.basId || null,
+                status: data.status || 'OPEN',
+                updatedAt: new Date()
             })
-            .where(
-                and(eq(procurements.id, data.id), eq(procurements.createdBy, user.id))
-            );
+            .where(and(eq(procurements.id, id), eq(procurements.createdBy, user.id)));
+
+        // Update KBLI
+        await db.delete(procurementKblis).where(eq(procurementKblis.procurementId, id));
+        if (data.kbliId) {
+            await db.insert(procurementKblis).values({
+                procurementId: id,
+                kbliId: data.kbliId
+            });
+        }
+
+        // Update KBKI
+        await db.delete(procurementKbkis).where(eq(procurementKbkis.procurementId, id));
+        if (data.kbkiId) {
+            await db.insert(procurementKbkis).values({
+                procurementId: id,
+                kbkiId: data.kbkiId
+            });
+        }
 
         await ActivityService.logRequest(request, {
             userId: user.id,
             action: 'PROCUREMENT_UPDATE',
             entityType: 'PROCUREMENT',
-            entityId: data.id,
+            entityId: id,
             metadata: { title: data.title, status: data.status }
         });
 

@@ -123,7 +123,9 @@ export const translations = {
             priceNA: 'Price N/A',
             submitSuccess: 'Your proposal has been successfully submitted for evaluation.',
             submitError: 'Failed to submit proposal.',
-            labelLocation: 'Location Details'
+            labelLocation: 'Location Details',
+            labelBmn: 'BMN Code / Category',
+            placeholderBmn: 'Search by BMN code or name...'
         },
         userManagement: {
             title: 'Team Management',
@@ -167,11 +169,11 @@ export const translations = {
             goDashboard: 'Go to Dashboard',
             joinNetwork: 'Business Matching session stage 1',
             exploreTenders: 'Explore Tenders',
-            liveFeed: 'Live Feed',
-            activeOpps: 'Active Opportunities',
+            liveFeed: 'Live',
+            activeOpps: 'Active Procurements',
             searchPlaceholder: 'Search by title, budget, or deadline...',
-            noTenders: 'No matching tenders found.',
-            errorLoading: 'Error loading tenders',
+            noTenders: 'No matching procurements found.',
+            errorLoading: 'Error loading procurements',
             tryAdjust: 'Try adjusting your search or check back later.',
             volManaged: 'Volume Managed',
             verifiedVendors: 'Verified Vendors',
@@ -392,7 +394,14 @@ export const translations = {
             synchronized: 'SYNCHRONIZED WITH DRIZZLE',
             loading: 'Generating schema overview...',
             detailTitle: 'Architecture Deep-Dive',
-            detailSubtitle: 'Technical schema exploration for system engineers'
+            detailSubtitle: 'Technical schema exploration for system engineers',
+            loadingSubtitle: 'Parsing schema metadata...',
+            zoomIn: 'Zoom In',
+            zoomOut: 'Zoom Out',
+            reset: 'Reset',
+            viewSchema: 'Schema View',
+            viewRelations: 'Relation View',
+            interactionHint: 'Use mouse wheel to zoom • Drag to explore schema'
         },
         standardFlowchart: {
             title: 'Complex',
@@ -439,6 +448,17 @@ export const translations = {
                     h: 'h'
                 }
             }
+        },
+        explore: {
+            advancedFilter: 'Advanced Search',
+            filterSubtitle: 'Filter by category, budget, and location to find the best match.',
+            category: 'Category',
+            budget: 'Budget Range',
+            location: 'Location',
+            method: 'Method',
+            any: 'Any',
+            apply: 'Apply Filters',
+            clear: 'Clear'
         }
     },
     ID: {
@@ -564,7 +584,9 @@ export const translations = {
             priceNA: 'Harga Tidak Tersedia',
             submitSuccess: 'Proposal Anda berhasil disubmit untuk dievaluasi.',
             submitError: 'Gagal mengirim proposal.',
-            labelLocation: 'Informasi Lokasi'
+            labelLocation: 'Informasi Lokasi',
+            labelBmn: 'Kode / Kategori BMN',
+            placeholderBmn: 'Cari berdasarkan kode atau nama BMN...'
         },
         userManagement: {
             title: 'Manajemen Tim',
@@ -608,11 +630,11 @@ export const translations = {
             goDashboard: 'Buka Dasbor',
             joinNetwork: 'Gabung ke Jaringan',
             exploreTenders: 'Telusuri Tender',
-            liveFeed: 'Feed Langsung',
-            activeOpps: 'Peluang Aktif',
+            liveFeed: 'Langsung',
+            activeOpps: 'Pengadaan Aktif',
             searchPlaceholder: 'Cari berdasarkan judul, anggaran, atau tenggat waktu...',
-            noTenders: 'Tidak ada tender yang cocok ditemukan.',
-            errorLoading: 'Kesalahan saat memuat tender',
+            noTenders: 'Tidak ada pengadaan yang cocok ditemukan.',
+            errorLoading: 'Kesalahan saat memuat pengadaan',
             tryAdjust: 'Coba sesuaikan pencarian Anda atau periksa kembali nanti.',
             volManaged: 'Volume Dikelola',
             verifiedVendors: 'Vendor Terverifikasi',
@@ -833,7 +855,14 @@ export const translations = {
             synchronized: 'TERKONEKSI DENGAN DRIZZLE',
             loading: 'Menghasilkan ikhtisar skema...',
             detailTitle: 'Pendalaman Arsitektur',
-            detailSubtitle: 'Eksplorasi skema teknis untuk insinyur sistem'
+            detailSubtitle: 'Eksplorasi skema teknis untuk insinyur sistem',
+            loadingSubtitle: 'Mengurai metadata skema...',
+            zoomIn: 'Perbesar',
+            zoomOut: 'Perkecil',
+            reset: 'Reset',
+            viewSchema: 'Tampilan Skema',
+            viewRelations: 'Tampilan Relasi',
+            interactionHint: 'Gunakan roda mouse untuk zoom • Seret untuk menjelajahi skema'
         },
         standardFlowchart: {
             title: 'Tata Kelola',
@@ -880,6 +909,17 @@ export const translations = {
                     h: 'j'
                 }
             }
+        },
+        explore: {
+            advancedFilter: 'Pencarian Lanjutan',
+            filterSubtitle: 'Filter berdasarkan kategori, anggaran, dan lokasi untuk menemukan kecocokan terbaik.',
+            category: 'Kategori',
+            budget: 'Rentang Anggaran',
+            location: 'Lokasi',
+            method: 'Metode',
+            any: 'Semua',
+            apply: 'Terapkan Filter',
+            clear: 'Bersihkan'
         }
     }
 };

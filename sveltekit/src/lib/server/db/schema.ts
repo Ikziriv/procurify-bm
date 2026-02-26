@@ -244,6 +244,7 @@ export const procurements = pgTable('procurements', {
 	budget: text('budget').notNull(),
 	deadline: text('deadline').notNull(),
 	status: statusEnum('status').notNull().default('OPEN'),
+	currency: text('currency').default('IDR').notNull(),
 	methodId: text('method_id').references(() => procurementMethods.id),
 	typeId: text('type_id').references(() => procurementTypes.id),
 	basId: text('bas_id').references(() => bas.id),
@@ -256,7 +257,8 @@ export const procurements = pgTable('procurements', {
 	tkdnPercentage: integer('tkdn_percentage').default(0).notNull(),
 	sessionTag: integer('session_tag').default(1).notNull(), // Sequences 1, 2, 3, 4
 	createdBy: text('created_by').references(() => user.id).notNull(),
-	createdAt: timestamp('created_at').defaultNow().notNull()
+	createdAt: timestamp('created_at').defaultNow().notNull(),
+	updatedAt: timestamp('updated_at').defaultNow().notNull()
 });
 
 export const submissions = pgTable('submissions', {

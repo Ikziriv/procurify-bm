@@ -3,6 +3,7 @@
 	import ProcurementCard from '$lib/components/ProcurementCard.svelte';
 	import HeroDashboard from '$lib/components/HeroDashboard.svelte';
 	import SearchAutocomplete from '$lib/components/SearchAutocomplete.svelte';
+	import AdvancedFilterCard from '$lib/components/AdvancedFilterCard.svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { type Procurement } from '$lib/server/db/schema';
@@ -16,6 +17,11 @@
 	let pageSize = $state(10);
 	let searchTerm = $state('');
 	let debouncedSearch = $state('');
+
+	// Advanced Filter State
+	let categoryId = $state('');
+	let budgetRange = $state('');
+	let location = $state('');
 
 	// Debounce search input
 	let debounceTimer: ReturnType<typeof setTimeout>;
@@ -35,12 +41,23 @@
 		pageSize: number;
 		totalPages: number;
 	}>(() => ({
-		queryKey: ['procurements-public', page, pageSize, debouncedSearch],
+		queryKey: [
+			'procurements-public',
+			page,
+			pageSize,
+			debouncedSearch,
+			categoryId,
+			budgetRange,
+			location
+		],
 		queryFn: async () => {
 			const params = new URLSearchParams({
 				page: page.toString(),
 				pageSize: pageSize.toString(),
-				search: debouncedSearch
+				search: debouncedSearch,
+				category: categoryId,
+				budget: budgetRange,
+				location: location
 			});
 			const res = await fetch(`/api/public/procurements?${params.toString()}`);
 			if (!res.ok) throw new Error('Network response was not ok');
@@ -52,7 +69,7 @@
 	// (Keeping script clean by using direct data binding)
 </script>
 
-<div class="min-h-screen space-y-24 py-12" in:fade={{ duration: 800 }}>
+<div class="min-h-screen space-y-12 py-12" in:fade={{ duration: 800 }}>
 	<!-- Hero Section - Architect Edition -->
 	<header class="relative">
 		<div
@@ -65,18 +82,29 @@
 				<div class="flex h-full w-full flex-col md:flex-row">
 					<HeroDashboard procurements={query.data?.items ?? []} />
 				</div>
+			{:else}
+				<div class="w-full" in:fly={{ y: 20, duration: 600 }}>
+					<AdvancedFilterCard
+						onFilter={(filters) => {
+							categoryId = filters.category;
+							budgetRange = filters.budget;
+							location = filters.location;
+							page = 1;
+						}}
+					/>
+				</div>
 			{/if}
 		</div>
 	</header>
 
 	<!-- Public Feed Section -->
-	<section id="feed" class="space-y-12">
+	<section id="feed" class="space-y-8">
 		<div
 			class="flex flex-col gap-8 border-b border-slate-100 pb-8 lg:flex-row lg:items-end lg:justify-between"
 		>
 			<div class="space-y-2">
 				<h4 class="text-xs font-black tracking-[0.3em] text-blue-600 uppercase">{t.liveFeed}</h4>
-				<h3 class="text-4xl font-black tracking-tight text-slate-900">{t.activeOpps}</h3>
+				<h3 class="text-xl font-black tracking-tight text-slate-900 uppercase">{t.activeOpps}</h3>
 			</div>
 
 			<!-- Search Interface -->
@@ -114,18 +142,20 @@
 
 				<!-- Pagination Controls -->
 				{#if query.data.totalPages > 1}
-					<div class="mt-12 flex items-center justify-between border-t border-slate-100 pt-12">
+					<div
+						class="mt-12 flex flex-col gap-6 border-t border-slate-100 pt-12 sm:flex-row sm:items-center sm:justify-between"
+					>
 						<div class="text-sm font-medium text-slate-400">
 							{pt.page}
 							<span class="font-bold text-slate-900">{query.data.page}</span>
 							{pt.of}
 							<span class="font-bold text-slate-900">{query.data.totalPages}</span>
 						</div>
-						<div class="flex items-center gap-4">
+						<div class="flex items-center gap-3 sm:gap-4">
 							<button
 								onclick={() => (page = Math.max(1, page - 1))}
 								disabled={page === 1}
-								class="flex h-12 items-center gap-2 rounded-xl border border-slate-200 bg-white px-6 text-xs font-black tracking-widest text-slate-900 uppercase transition-all hover:bg-slate-50 disabled:opacity-30 disabled:hover:bg-white"
+								class="flex h-12 flex-1 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 text-[10px] font-bold tracking-[0.15em] text-slate-900 uppercase transition-all hover:bg-slate-50 sm:flex-none"
 							>
 								<span class="material-symbols-outlined text-base">arrow_back</span>
 								{pt.previous}
@@ -133,7 +163,7 @@
 							<button
 								onclick={() => (page = Math.min(query.data?.totalPages || 1, page + 1))}
 								disabled={page === query.data.totalPages}
-								class="flex h-12 items-center gap-2 rounded-xl bg-slate-900 px-6 text-xs font-black tracking-widest text-white uppercase transition-all hover:bg-slate-800 disabled:opacity-30"
+								class="flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-slate-900 px-6 text-[10px] font-bold tracking-[0.15em] text-white uppercase transition-all hover:bg-slate-800 sm:flex-none"
 							>
 								{pt.next}
 								<span class="material-symbols-outlined text-base">arrow_forward</span>
@@ -162,27 +192,38 @@
 	</section>
 
 	<!-- Trust / Stats Section -->
-	<section
-		class="rounded-[4rem] bg-slate-950 p-16 text-white shadow-2xl shadow-slate-900/40 lg:p-24"
-		in:fly={{ y: 40, duration: 800, delay: 1000 }}
-	>
-		<div class="grid grid-cols-1 gap-16 lg:grid-cols-3">
-			<div class="space-y-4">
-				<span class="text-5xl font-black tracking-tighter text-blue-400">$2.4B</span>
-				<p class="text-xs font-black tracking-[0.2em] text-slate-500 uppercase">{t.volManaged}</p>
+	{#if data.showStats}
+		<section
+			class="relative overflow-hidden rounded-3xl bg-slate-900 p-12 text-white shadow-xl lg:p-20"
+			in:fly={{ y: 40, duration: 800, delay: 1000 }}
+		>
+			<!-- Subtle Background Accents -->
+			<div
+				class="pointer-events-none absolute inset-0 bg-[radial-gradient(#ffffff10_1px,transparent_1px)] [background-size:24px_24px] opacity-20"
+			></div>
+
+			<div class="relative grid grid-cols-1 gap-12 lg:grid-cols-3 lg:gap-8">
+				<div class="flex flex-col gap-3 lg:border-r lg:border-slate-800 lg:pr-8">
+					<span class="text-5xl font-bold tracking-tight text-blue-400">Rp 37.2T</span>
+					<p class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase">
+						{t.volManaged}
+					</p>
+				</div>
+				<div class="flex flex-col gap-3 lg:border-r lg:border-slate-800 lg:px-8">
+					<span class="text-5xl font-bold tracking-tight text-blue-400">
+						{appState.language === 'ID' ? '1.2rb+' : '1.2k+'}
+					</span>
+					<p class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase">
+						{t.verifiedVendors}
+					</p>
+				</div>
+				<div class="flex flex-col gap-3 lg:px-8">
+					<span class="text-5xl font-bold tracking-tight text-blue-400">99.9%</span>
+					<p class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase">
+						{t.compliance}
+					</p>
+				</div>
 			</div>
-			<div class="space-y-4">
-				<span class="text-5xl font-black tracking-tighter text-blue-400">1.2k+</span>
-				<p class="text-xs font-black tracking-[0.2em] text-slate-500 uppercase">
-					{t.verifiedVendors}
-				</p>
-			</div>
-			<div class="space-y-4">
-				<span class="text-5xl font-black tracking-tighter text-blue-400">99.9%</span>
-				<p class="text-xs font-black tracking-[0.2em] text-slate-500 uppercase">
-					{t.compliance}
-				</p>
-			</div>
-		</div>
-	</section>
+		</section>
+	{/if}
 </div>

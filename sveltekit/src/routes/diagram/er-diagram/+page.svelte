@@ -38,17 +38,26 @@
 <style>
 	:global(.svelte-flow__node-er) {
 		border-radius: 0.75rem;
+		border: none !important;
 	}
 	:global(.svelte-flow__edge-path) {
-		stroke-dasharray: 5;
-		animation: dash 1s linear infinite;
+		stroke: #cbd5e1 !important;
+		stroke-width: 1.5 !important;
 	}
-	@keyframes dash {
-		from {
-			stroke-dashoffset: 10;
-		}
-		to {
-			stroke-dashoffset: 0;
-		}
+	:global(.svelte-flow__controls) {
+		border-radius: 1rem !important;
+		box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1) !important;
+		border: none !important;
+		background: white !important;
+		padding: 4px !important;
+	}
+	:global(.svelte-flow__controls-button) {
+		border-radius: 0.5rem !important;
+		border: none !important;
+		background: transparent !important;
+		transition: background 0.2s !important;
+	}
+	:global(.svelte-flow__controls-button:hover) {
+		background: #f1f5f9 !important;
 	}
 </style>

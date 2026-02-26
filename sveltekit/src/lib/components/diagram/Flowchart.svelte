@@ -24,7 +24,7 @@
 </script>
 
 <div
-	class="h-[600px] w-full overflow-hidden rounded-[2.5rem] border border-slate-200/50 bg-slate-50/30 shadow-inner"
+	class="h-[600px] w-full overflow-hidden rounded-3xl border border-slate-200/50 bg-slate-50/30 shadow-inner"
 >
 	<SvelteFlow {nodes} {edges} {nodeTypes} fitView colorMode="light">
 		<Controls />

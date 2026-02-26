@@ -21,18 +21,17 @@
 </script>
 
 <div
-	class="min-w-[220px] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-2xl transition-all duration-300 hover:shadow-blue-500/10"
+	class="min-w-[220px] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl transition-all duration-300"
 >
 	<!-- Header -->
-	<div class="border-b border-slate-100 bg-slate-50/80 px-4 py-2.5 backdrop-blur-sm">
+	<div class="border-b border-slate-100 bg-slate-50/50 px-4 py-3">
 		<div class="flex items-center justify-between">
-			<span class="text-xs font-black tracking-widest text-slate-400 uppercase"
+			<span class="text-[9px] font-bold tracking-widest text-slate-400 uppercase"
 				>{appState.t.erDiagram.tableLabel}</span
 			>
-			<span class="h-1.5 w-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]"
-			></span>
+			<span class="h-1.5 w-1.5 rounded-full bg-slate-300"></span>
 		</div>
-		<h3 class="mt-0.5 font-bold tracking-tight text-slate-800">{data.label}</h3>
+		<h3 class="mt-1 text-sm font-bold tracking-tight text-slate-900">{data.label}</h3>
 	</div>
 
 	<!-- Columns -->
@@ -45,15 +44,13 @@
 					{#if col.isPK}
 						<span class="material-symbols-outlined text-[14px] text-amber-500">key</span>
 					{:else if col.isFK}
-						<span class="material-symbols-outlined text-[14px] text-blue-400">link</span>
+						<span class="material-symbols-outlined text-[14px] text-slate-400">link</span>
 					{:else}
 						<div class="w-[14px]"></div>
 					{/if}
 					<span class="text-xs font-medium text-slate-700">{col.name}</span>
 				</div>
-				<span
-					class="font-mono text-[10px] text-slate-400 opacity-60 transition-opacity group-hover:opacity-100"
-				>
+				<span class="font-mono text-[9px] text-slate-400">
 					{col.type.toLowerCase()}
 				</span>
 
@@ -63,13 +60,13 @@
 						type="source"
 						position={Position.Right}
 						id="{col.name}-source"
-						class="!top-1/2 !-right-1.5 !h-2.5 !w-2.5 !border-2 !border-white !bg-blue-400 opacity-0 transition-opacity group-hover:opacity-100"
+						class="!top-1/2 !-right-1 !h-2 !w-2 !border-2 !border-white !bg-blue-500 opacity-0 transition-opacity group-hover:opacity-100"
 					/>
 					<Handle
 						type="target"
 						position={Position.Left}
 						id="{col.name}-target"
-						class="!top-1/2 !-left-1.5 !h-2.5 !w-2.5 !border-2 !border-white !bg-blue-400 opacity-0 transition-opacity group-hover:opacity-100"
+						class="!top-1/2 !-left-1 !h-2 !w-2 !border-2 !border-white !bg-blue-500 opacity-0 transition-opacity group-hover:opacity-100"
 					/>
 				{/if}
 			</div>

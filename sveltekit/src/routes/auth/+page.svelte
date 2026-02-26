@@ -2,10 +2,8 @@
 	import { authClient } from '$lib/auth-client';
 	import { appState } from '$lib/state.svelte';
 	import { fade, fly } from 'svelte/transition';
-	import { goto } from '$app/navigation';
-
 	import { page } from '$app/state';
-	import { Shield } from '@lucide/svelte';
+	import { Shield, Eye, EyeOff, Loader2 } from '@lucide/svelte';
 
 	let identifier = $state('');
 	let password = $state('');
@@ -30,7 +28,7 @@
 
 		try {
 			if (isForgotPassword) {
-				const { data, error: forgotError } = await authClient.requestPasswordReset({
+				const { error: forgotError } = await authClient.requestPasswordReset({
 					email: identifier,
 					redirectTo: `${window.location.origin}/auth/reset-password`
 				});
@@ -51,17 +49,16 @@
 					return;
 				}
 
-				const { data, error: signUpError } = await authClient.signUp.email({
-					email: identifier, // Use identifier as email for signup (validation will handle if it's not)
+				const { error: signUpError } = await authClient.signUp.email({
+					email: identifier,
 					password,
 					name,
-					// Custom field 'role' is passed directly in standard better-auth signUp
 					role
 				} as any);
 				if (signUpError) throw new Error(signUpError.message);
 			} else {
 				const isEmail = identifier.includes('@');
-				const { data, error: signInError } = isEmail
+				const { error: signInError } = isEmail
 					? await authClient.signIn.email({
 							email: identifier,
 							password
@@ -74,17 +71,11 @@
 				if (signInError) throw new Error(signInError.message);
 			}
 
-			// Show full screen indicator while we fetch the new page
 			isRedirecting = true;
-
-			// Using window.location.href forces a full hard reload of the application,
-			// which is often best practice after authentication to clear any stale state
 			window.location.href = callbackURL;
 		} catch (e: any) {
 			error = e.message || t.auth.authError;
 		} finally {
-			// Only turn off loading if we are not actively redirecting away
-			// This prevents flickering where loading turns off right before the page unloads
 			if (!isRedirecting) {
 				loading = false;
 			}
@@ -94,52 +85,26 @@
 
 {#if isRedirecting}
 	<div
-		class="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden"
-		in:fade={{ duration: 600 }}
-		out:fade={{ duration: 400 }}
+		class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white/80 backdrop-blur-xl"
+		in:fade={{ duration: 400 }}
+		out:fade={{ duration: 300 }}
 	>
-		<!-- Animated Background Layers -->
-		<div class="absolute inset-0 bg-white/40 backdrop-blur-2xl"></div>
-		<div
-			class="bg-radial-at-tr absolute inset-0 from-blue-500/10 via-transparent to-transparent"
-		></div>
-		<div
-			class="bg-radial-at-bl absolute inset-0 from-purple-500/5 via-transparent to-transparent"
-		></div>
-
 		<div class="relative flex flex-col items-center">
 			<div class="relative flex items-center justify-center">
-				<!-- Outer Pulse -->
+				<!-- Minimalistic Progress Ring -->
 				<div
-					class="absolute h-40 w-40 animate-ping rounded-full bg-blue-500/10 [animation-duration:3s]"
+					class="h-20 w-20 animate-spin rounded-full border-[3px] border-slate-100 border-t-blue-600"
 				></div>
 
-				<!-- Multiple Rotating Rings for Depth -->
 				<div
-					class="h-32 w-32 animate-spin rounded-full border-t-2 border-r-2 border-blue-600/30 [animation-duration:2s]"
-				></div>
-				<div
-					class="absolute h-24 w-24 animate-spin rounded-full border-b-2 border-l-2 border-blue-600 [animation-direction:reverse] [animation-duration:1.5s]"
-				></div>
-
-				<!-- Center Logo Container -->
-				<div
-					class="absolute flex h-16 w-16 items-center justify-center rounded-[1.5rem] bg-white shadow-2xl shadow-blue-200/50"
+					class="absolute flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-lg shadow-blue-500/5"
 				>
-					<Shield class="h-8 w-8 animate-pulse text-blue-600" />
+					<Shield class="h-6 w-6 text-blue-600" />
 				</div>
 			</div>
 
-			<!-- Status Text -->
-			<div class="mt-12 flex flex-col items-center space-y-4">
-				<div class="flex items-center gap-3">
-					<span class="h-1.5 w-1.5 animate-bounce rounded-full bg-blue-600 [animation-delay:-0.3s]"
-					></span>
-					<span class="h-1.5 w-1.5 animate-bounce rounded-full bg-blue-600 [animation-delay:-0.15s]"
-					></span>
-					<span class="h-1.5 w-1.5 animate-bounce rounded-full bg-blue-600"></span>
-				</div>
-				<p class="text-[10px] font-black tracking-[0.5em] text-slate-900 uppercase opacity-80">
+			<div class="mt-8 flex flex-col items-center space-y-2">
+				<p class="text-[11px] font-bold tracking-widest text-slate-900 uppercase opacity-60">
 					{t.auth.processing}
 				</p>
 			</div>
@@ -147,20 +112,25 @@
 	</div>
 {/if}
 
-<div class="flex min-h-[80vh] items-center justify-center p-1 md:p-6" in:fade>
+<div class="flex min-h-[85vh] items-center justify-center p-4" in:fade>
 	<div
-		class="w-full max-w-[500px] space-y-10 rounded-[3rem] border border-slate-200/60 bg-white p-12 shadow-2xl shadow-slate-200/50"
-		in:fly={{ y: 40, duration: 800 }}
+		class="w-full max-w-[460px] space-y-8 rounded-3xl border border-slate-200/60 bg-white p-8 shadow-xl shadow-slate-200/40 md:p-10"
+		in:fly={{ y: 20, duration: 600 }}
 	>
-		<div class="space-y-0 text-center">
-			<h1 class="text-xl font-black tracking-tight text-slate-900 uppercase md:text-2xl">
+		<div class="space-y-1 text-left">
+			<div
+				class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600"
+			>
+				<Shield size={24} />
+			</div>
+			<h1 class="text-2xl font-bold tracking-tight text-slate-900">
 				{#if isForgotPassword}
 					{t.auth.resetPassword}
 				{:else}
 					{isSignUp ? t.auth.createAccount : t.auth.welcomeBack}
 				{/if}
 			</h1>
-			<p class="md:text-md text-sm font-medium text-slate-400">
+			<p class="text-sm font-medium text-slate-400">
 				{#if isForgotPassword}
 					{t.auth.resetLinkDesc}
 				{:else}
@@ -170,10 +140,10 @@
 		</div>
 
 		{#if !isForgotPassword}
-			<div class="flex rounded-2xl bg-slate-50 p-1">
+			<div class="flex rounded-xl bg-slate-50 p-1">
 				<button
 					onclick={() => (isSignUp = false)}
-					class="flex-1 rounded-xl py-3 text-[10px] font-black tracking-widest uppercase transition-all {!isSignUp
+					class="flex-1 rounded-lg py-2.5 text-[11px] font-bold tracking-wider uppercase transition-all {!isSignUp
 						? 'bg-white text-blue-600 shadow-sm'
 						: 'text-slate-400 hover:text-slate-600'}"
 				>
@@ -184,7 +154,7 @@
 						isSignUp = true;
 						role = 'USER_PROCUREMENT';
 					}}
-					class="flex-1 rounded-xl py-3 text-[10px] font-black tracking-widest uppercase transition-all {isSignUp
+					class="flex-1 rounded-lg py-2.5 text-[11px] font-bold tracking-wider uppercase transition-all {isSignUp
 						? 'bg-white text-blue-600 shadow-sm'
 						: 'text-slate-400 hover:text-slate-600'}"
 				>
@@ -193,26 +163,19 @@
 			</div>
 		{/if}
 
-		{#if successMessage}
+		{#if successMessage || error}
 			<div
-				class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4 text-center text-xs font-bold text-emerald-600 uppercase"
+				class="rounded-xl border p-4 text-center text-[11px] font-bold uppercase transition-all {error
+					? 'border-rose-100 bg-rose-50 text-rose-600'
+					: 'border-emerald-100 bg-emerald-50 text-emerald-600'}"
 				in:fade
 			>
-				{successMessage}
-			</div>
-		{/if}
-
-		{#if error}
-			<div
-				class="rounded-2xl border border-rose-100 bg-rose-50 p-4 text-center text-xs font-bold text-rose-600 uppercase"
-				in:fade
-			>
-				{error}
+				{successMessage || error}
 			</div>
 		{/if}
 
 		<form
-			class="space-y-6"
+			class="space-y-5"
 			onsubmit={(e) => {
 				e.preventDefault();
 				handleSubmit();
@@ -220,52 +183,55 @@
 		>
 			<div class="space-y-4">
 				{#if isSignUp}
-					<div class="space-y-2" in:fly={{ y: 10, duration: 400 }}>
+					<div class="space-y-1.5" in:fly={{ y: 10, duration: 400 }}>
 						<label
 							for="name"
-							class="ml-2 text-[10px] font-black tracking-widest text-slate-400 uppercase"
-							>{t.auth.fullName}</label
+							class="ml-1 text-[10px] font-bold tracking-wider text-slate-400 uppercase"
 						>
+							{t.auth.fullName}
+						</label>
 						<input
 							id="name"
 							type="text"
 							bind:value={name}
 							required
-							class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-sm font-medium transition-all outline-none focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-100"
+							class="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-5 py-3.5 text-sm font-medium transition-all outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/5"
 							placeholder={t.auth.fullNamePlaceholder}
 						/>
 					</div>
 				{/if}
 
-				<div class="space-y-2">
+				<div class="space-y-1.5">
 					<label
 						for="identifier"
-						class="ml-2 text-[10px] font-black tracking-widest text-slate-400 uppercase"
-						>{isSignUp ? t.auth.emailAddress : 'Email or Username'}</label
+						class="ml-1 text-[10px] font-bold tracking-wider text-slate-400 uppercase"
 					>
+						{isSignUp ? t.auth.emailAddress : 'Email or Username'}
+					</label>
 					<input
 						id="identifier"
 						type={isSignUp ? 'email' : 'text'}
 						bind:value={identifier}
 						required
-						class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-sm font-medium transition-all outline-none focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-100"
+						class="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-5 py-3.5 text-sm font-medium transition-all outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/5"
 						placeholder={isSignUp ? t.auth.emailPlaceholder : 'Enter your email or username'}
 					/>
 				</div>
 
 				{#if !isForgotPassword}
-					<div class="space-y-2">
+					<div class="space-y-1.5">
 						<div class="flex items-center justify-between">
 							<label
 								for="password"
-								class="ml-2 text-[10px] font-black tracking-widest text-slate-400 uppercase"
-								>{t.auth.password}</label
+								class="ml-1 text-[10px] font-bold tracking-wider text-slate-400 uppercase"
 							>
+								{t.auth.password}
+							</label>
 							{#if !isSignUp}
 								<button
 									type="button"
 									onclick={() => (isForgotPassword = true)}
-									class="mr-2 text-[10px] font-black tracking-widest text-blue-600 uppercase transition-all hover:text-blue-500"
+									class="mr-1 text-[10px] font-bold tracking-wider text-blue-600 uppercase transition-all hover:text-blue-500"
 								>
 									{t.auth.forgot}
 								</button>
@@ -277,7 +243,7 @@
 								type={showPassword ? 'text' : 'password'}
 								bind:value={password}
 								required={!isForgotPassword}
-								class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 pr-14 text-sm font-medium transition-all outline-none focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-100"
+								class="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-5 py-3.5 pr-12 text-sm font-medium transition-all outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/5"
 								placeholder="••••••••"
 							/>
 							<button
@@ -285,30 +251,31 @@
 								onclick={() => (showPassword = !showPassword)}
 								class="absolute top-1/2 right-4 -translate-y-1/2 text-slate-400 transition-colors hover:text-blue-600"
 							>
-								<span class="material-symbols-outlined text-xl">
-									{showPassword ? 'visibility_off' : 'visibility'}
-								</span>
+								{#if showPassword}
+									<EyeOff size={18} />
+								{:else}
+									<Eye size={18} />
+								{/if}
 							</button>
 						</div>
 					</div>
 
 					{#if isSignUp}
-						<div class="space-y-2" in:fly={{ y: 10, duration: 400 }}>
+						<div class="space-y-1.5" in:fly={{ y: 10, duration: 400 }}>
 							<label
 								for="confirmPassword"
-								class="ml-2 text-[10px] font-black tracking-widest text-slate-400 uppercase"
-								>{t.auth.confirmPassword}</label
+								class="ml-1 text-[10px] font-bold tracking-wider text-slate-400 uppercase"
 							>
-							<div class="relative">
-								<input
-									id="confirmPassword"
-									type={showPassword ? 'text' : 'password'}
-									bind:value={confirmPassword}
-									required
-									class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 pr-14 text-sm font-medium transition-all outline-none focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-100"
-									placeholder={t.auth.confirmPasswordPlaceholder}
-								/>
-							</div>
+								{t.auth.confirmPassword}
+							</label>
+							<input
+								id="confirmPassword"
+								type={showPassword ? 'text' : 'password'}
+								bind:value={confirmPassword}
+								required
+								class="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-5 py-3.5 text-sm font-medium transition-all outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/5"
+								placeholder={t.auth.confirmPasswordPlaceholder}
+							/>
 						</div>
 					{/if}
 				{/if}
@@ -317,24 +284,24 @@
 			<button
 				type="submit"
 				disabled={loading}
-				class="group relative w-full overflow-hidden rounded-2xl bg-blue-600 py-5 text-xs font-black tracking-[0.3em] text-white uppercase shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-500 hover:shadow-blue-500/40 active:scale-95 disabled:opacity-50"
+				class="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-slate-900 py-4 text-[11px] font-bold tracking-widest text-white uppercase transition-all hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-500/20 active:scale-[0.98] disabled:opacity-50"
 			>
-				<span class="relative z-10">
-					{#if loading}
-						{t.auth.processing}
-					{:else if isForgotPassword}
-						{t.auth.sendResetLink}
-					{:else}
-						{isSignUp ? t.auth.signUp : t.auth.signIn}
-					{/if}
-				</span>
-				<div
-					class="absolute inset-0 z-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent group-hover:animate-[shimmer_1.5s_infinite]"
-				></div>
+				{#if loading}
+					<Loader2 class="h-4 w-4 animate-spin" />
+					<span>{t.auth.processing}</span>
+				{:else}
+					<span>
+						{#if isForgotPassword}
+							{t.auth.sendResetLink}
+						{:else}
+							{isSignUp ? t.auth.signUp : t.auth.signIn}
+						{/if}
+					</span>
+				{/if}
 			</button>
 		</form>
 
-		<div class="text-center">
+		<div class="pt-2 text-center">
 			<button
 				onclick={() => {
 					if (isForgotPassword) {
@@ -344,7 +311,7 @@
 						if (isSignUp) role = 'USER_PROCUREMENT';
 					}
 				}}
-				class="text-[10px] font-black tracking-widest text-slate-400 uppercase transition-all hover:text-blue-600"
+				class="text-[10px] font-bold tracking-wider text-slate-400 uppercase transition-all hover:text-blue-600"
 			>
 				{#if isForgotPassword}
 					{t.auth.backToSignIn}
@@ -357,11 +324,3 @@
 		</div>
 	</div>
 </div>
-
-<style>
-	@keyframes shimmer {
-		100% {
-			transform: translateX(100%);
-		}
-	}
-</style>

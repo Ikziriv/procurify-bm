@@ -27,7 +27,7 @@
 </script>
 
 <div
-	class="min-w-[180px] rounded-2xl border bg-white/40 p-4 shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105 {styleClass}"
+	class="min-w-[180px] rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-300 {styleClass}"
 >
 	<Handle type="target" position={Position.Top} class="!bg-slate-300" />
 
@@ -40,10 +40,10 @@
 			</div>
 		{/if}
 		<div>
-			<p class="text-[10px] font-black tracking-widest uppercase opacity-60">
+			<p class="text-[9px] font-bold tracking-widest text-slate-400 uppercase">
 				{data.label_top || 'Step'}
 			</p>
-			<h4 class="text-sm font-bold tracking-tight text-slate-900">{data.label}</h4>
+			<h4 class="text-sm font-semibold tracking-tight text-slate-900">{data.label}</h4>
 		</div>
 	</div>
 

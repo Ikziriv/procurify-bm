@@ -1,4 +1,6 @@
 <script lang="ts">
+	import BMNAutocomplete from '$lib/components/BMNAutocomplete.svelte';
+	import MasterDataAutocomplete from '$lib/components/MasterDataAutocomplete.svelte';
 	import { appState } from '$lib/state.svelte';
 	import { formatDate } from '$lib/utils/date';
 	import { createQuery, createMutation, useQueryClient } from '@tanstack/svelte-query';
@@ -87,7 +89,12 @@
 		status: 'OPEN',
 		provinceId: '',
 		regencyId: '',
-		location: ''
+		location: '',
+		currency: 'IDR', // Added currency
+		bmnId: '', // Added bmnId
+		kbliId: '',
+		kbkiId: '',
+		basId: ''
 	});
 
 	const filteredRegencies = $derived(
@@ -114,13 +121,26 @@
 			status: 'OPEN',
 			provinceId: '',
 			regencyId: '',
-			location: ''
+			location: '',
+			currency: 'IDR', // Added currency
+			bmnId: '', // Added bmnId
+			kbliId: '',
+			kbkiId: '',
+			basId: ''
 		};
 		isEditing = false;
 	}
 
 	function handleEdit(procurement: any) {
-		formData = { ...procurement };
+		formData = {
+			...procurement,
+			currency: procurement.currency || 'IDR',
+			location: procurement.location || '',
+			bmnId: procurement.bmnId || '',
+			kbliId: procurement.kblis?.[0]?.kbliId || '',
+			kbkiId: procurement.kbkis?.[0]?.kbkiId || '',
+			basId: procurement.basId || ''
+		};
 		isEditing = true;
 		showModal = true;
 	}
@@ -247,6 +267,44 @@
 								</select>
 							</div>
 						</div>
+
+						<!-- BMN Autocomplete -->
+						<div class="space-y-4">
+							<BMNAutocomplete
+								bind:value={formData.bmnId}
+								label={t.labelBmn}
+								placeholder={t.placeholderBmn}
+								class="w-full"
+							/>
+						</div>
+
+						{#if data.enableAdvancedDetailData}
+							<div
+								class="grid grid-cols-1 gap-4 rounded-2xl border border-slate-100 bg-white/50 p-4"
+								transition:slide
+							>
+								<MasterDataAutocomplete
+									type="kbli"
+									bind:value={formData.kbliId}
+									label="KBLI"
+									placeholder="Search KBLI..."
+								/>
+								<MasterDataAutocomplete
+									type="kbki"
+									bind:value={formData.kbkiId}
+									label="KBKI"
+									placeholder="Search KBKI..."
+								/>
+								<MasterDataAutocomplete
+									type="bas"
+									bind:value={formData.basId}
+									label="BAS"
+									placeholder="Search BAS..."
+								/>
+							</div>
+						{/if}
+
+						<div class="flex h-auto w-full flex-col"></div>
 
 						<div class="space-y-2">
 							<label

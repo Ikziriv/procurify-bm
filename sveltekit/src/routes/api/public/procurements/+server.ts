@@ -9,6 +9,9 @@ export const GET: RequestHandler = async ({ url }) => {
         const page = Number(url.searchParams.get('page')) || 1;
         const pageSize = Number(url.searchParams.get('pageSize')) || 10;
         const search = url.searchParams.get('search') || '';
+        const category = url.searchParams.get('category');
+        const location = url.searchParams.get('location');
+        const budget = url.searchParams.get('budget'); // Format: "min-max"
         const offset = (page - 1) * pageSize;
 
         const whereClause = and(
@@ -18,7 +21,23 @@ export const GET: RequestHandler = async ({ url }) => {
                     ilike(procurements.title, `%${search}%`),
                     ilike(procurements.description, `%${search}%`)
                 )
-                : undefined
+                : undefined,
+            category ? eq(procurements.bmnId, category) : undefined,
+            location ? ilike(procurements.location, `%${location}%`) : undefined,
+            budget ? (() => {
+                const [min, max] = budget.split('-').map(Number);
+                if (!isNaN(min) && !isNaN(max)) {
+                    return and(
+                        sql`CAST(${procurements.budget} AS NUMERIC) >= ${min}`,
+                        sql`CAST(${procurements.budget} AS NUMERIC) <= ${max}`
+                    );
+                } else if (!isNaN(min)) {
+                    return sql`CAST(${procurements.budget} AS NUMERIC) >= ${min}`;
+                } else if (!isNaN(max)) {
+                    return sql`CAST(${procurements.budget} AS NUMERIC) <= ${max}`;
+                }
+                return undefined;
+            })() : undefined
         );
 
         const items = await db.query.procurements.findMany({

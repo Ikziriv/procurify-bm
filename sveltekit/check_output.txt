@@ -1,0 +1,40 @@
+Loading svelte-check in workspace: c:\Users\user\Documents\GitHub\procurify-bm\sveltekit
+Getting Svelte diagnostics...
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\diagram\er-diagram\detail\+page.svelte[39m:18:14
+[31mError[39m: Type instantiation is excessively deep and possibly infinite. (ts)
+[36m	let viewMode = $state<'SCHEMA' | 'RELATIONS'>('SCHEMA');
+	let nodes = [35m$state.raw<Node[]>($state.snapshot(data.nodes))[36m;
+	let edges = $state.raw<Edge[]>($state.snapshot(data.edges));[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\diagram\er-diagram\detail\+page.svelte[39m:18:33
+[31mError[39m: Argument of type '{ id: string; position: { x: number; y: number; }; data: { [x: string]: never; }; sourcePosition?: Position | undefined; targetPosition?: Position | undefined; hidden?: boolean | undefined; ... 24 more ...; domAttributes?: { ...; } | undefined; }[]' is not assignable to parameter of type 'Node[]'.
+  Type '{ id: string; position: { x: number; y: number; }; data: { [x: string]: never; }; sourcePosition?: Position | undefined; targetPosition?: Position | undefined; hidden?: boolean | undefined; ... 24 more ...; domAttributes?: { ...; } | undefined; }' is not assignable to type 'Node'.
+    Type '{ id: string; position: { x: number; y: number; }; data: { [x: string]: never; }; sourcePosition?: Position | undefined; targetPosition?: Position | undefined; hidden?: boolean | undefined; ... 24 more ...; domAttributes?: { ...; } | undefined; }' is not assignable to type '{ class?: ClassValue | undefined; style?: string | undefined; focusable?: boolean | undefined; ariaRole?: AriaRole | null | undefined; domAttributes?: Omit<HTMLAttributes<HTMLDivElement>, "role" | ... 6 more ... | keyof DOMAttributes<...>> | undefined; }'.
+      Types of property 'domAttributes' are incompatible.
+        Type '{ [x: symbol]: false | {} | null | undefined; [x: `data-${string}`]: any; title?: string | null | undefined; property?: string | null | undefined; is?: string | null | undefined; hidden?: boolean | "" | "until-found" | null | undefined; ... 89 more ...; 'aria-valuetext'?: string | ... 1 more ... | undefined; } | und...' is not assignable to type 'Omit<HTMLAttributes<HTMLDivElement>, "role" | "id" | "style" | "draggable" | "class" | "aria-label" | "dangerouslySetInnerHTML" | keyof DOMAttributes<...>> | undefined'.
+          Type '{ [x: symbol]: false | {} | null | undefined; [x: `data-${string}`]: any; title?: string | null | undefined; property?: string | null | undefined; is?: string | null | undefined; hidden?: boolean | "" | "until-found" | null | undefined; ... 89 more ...; 'aria-valuetext'?: string | ... 1 more ... | undefined; }' is not assignable to type 'Omit<HTMLAttributes<HTMLDivElement>, "role" | "id" | "style" | "draggable" | "class" | "aria-label" | "dangerouslySetInnerHTML" | keyof DOMAttributes<HTMLDivElement>>'.
+            'symbol' index signatures are incompatible.
+              Type 'false | {} | null | undefined' is not assignable to type 'false | Attachment<HTMLDivElement> | null | undefined'.
+                Type '{}' is not assignable to type 'false | Attachment<HTMLDivElement> | null | undefined'. (ts)
+[36m	let viewMode = $state<'SCHEMA' | 'RELATIONS'>('SCHEMA');
+	let nodes = $state.raw<Node[]>([35m$state.snapshot(data.nodes)[36m);
+	let edges = $state.raw<Edge[]>($state.snapshot(data.edges));[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\diagram\er-diagram\detail\+page.svelte[39m:19:33
+[31mError[39m: Argument of type '{ id: string; type?: string | undefined; source: string; target: string; sourceHandle?: string | null | undefined; targetHandle?: string | null | undefined; animated?: boolean | undefined; ... 16 more ...; domAttributes?: { ...; } | undefined; }[]' is not assignable to parameter of type 'Edge[]'.
+  Type '{ id: string; type?: string | undefined; source: string; target: string; sourceHandle?: string | null | undefined; targetHandle?: string | null | undefined; animated?: boolean | undefined; ... 16 more ...; domAttributes?: { ...; } | undefined; }' is not assignable to type 'Edge'.
+    Type '{ id: string; type?: string | undefined; source: string; target: string; sourceHandle?: string | null | undefined; targetHandle?: string | null | undefined; animated?: boolean | undefined; ... 16 more ...; domAttributes?: { ...; } | undefined; }' is not assignable to type '{ label?: string | undefined; labelStyle?: string | undefined; style?: string | undefined; class?: ClassValue | undefined; focusable?: boolean | undefined; ariaRole?: AriaRole | null | undefined; domAttributes?: Omit<...> | undefined; }'.
+      Types of property 'domAttributes' are incompatible.
+        Type '{ [x: `data-${string}`]: any; string?: string | number | null | undefined; name?: string | null | undefined; mode?: string | number | null | undefined; type?: string | null | undefined; filter?: string | ... 1 more ... | undefined; ... 629 more ...; zoomAndPan?: string | ... 1 more ... | undefined; } | undefined' is not assignable to type 'Omit<SVGAttributes<SVGGElement>, "role" | "id" | "style" | "class" | "aria-label" | "dangerouslySetInnerHTML"> | undefined'.
+          Type '{ [x: `data-${string}`]: any; string?: string | number | null | undefined; name?: string | null | undefined; mode?: string | number | null | undefined; type?: string | null | undefined; filter?: string | ... 1 more ... | undefined; ... 629 more ...; zoomAndPan?: string | ... 1 more ... | undefined; }' is not assignable to type 'Omit<SVGAttributes<SVGGElement>, "role" | "id" | "style" | "class" | "aria-label" | "dangerouslySetInnerHTML">'.
+            Types of property 'children' are incompatible.
+              Type '{} | undefined' is not assignable to type 'Snippet<[]> | undefined'.
+                Type '{}' is not assignable to type 'Snippet<[]>'.
+                  Type '{}' provides no match for the signature '(this: void): { '{@render ...} must be called with a Snippet': "import type { Snippet } from 'svelte'"; } & typeof SnippetReturn'. (ts)
+[36m	let nodes = $state.raw<Node[]>($state.snapshot(data.nodes));
+	let edges = $state.raw<Edge[]>([35m$state.snapshot(data.edges)[36m);[39m
+
+====================================
+[31msvelte-check found 3 errors and 20 warnings in 9 files
+[39m

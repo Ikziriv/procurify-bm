@@ -172,16 +172,16 @@
 <div class="min-h-screen bg-[#fafbfc] p-8 md:p-12 lg:p-16">
 	<div class="mx-auto max-w-7xl">
 		<!-- Header Section -->
-		<div class="mb-16">
+		<div class="mb-12">
 			<div class="flex items-end justify-between gap-8">
 				<div>
-					<h1 class="text-5xl font-black tracking-tighter text-slate-900 lg:text-7xl">
+					<h1 class="text-5xl font-bold tracking-tight text-slate-900 lg:text-6xl">
 						{appState.t.flowchart.title.split(' ')[0]}
-						<span class="bg-gradient-to-r from-zinc-600 to-blue-600 bg-clip-text text-transparent">
+						<span class="text-slate-400">
 							{appState.t.flowchart.title.split(' ').slice(1).join(' ')}
 						</span>
 					</h1>
-					<p class="mt-6 max-w-2xl text-lg leading-relaxed font-medium text-slate-500">
+					<p class="mt-4 max-w-2xl text-lg leading-relaxed text-slate-500">
 						{appState.t.flowchart.subtitle}
 					</p>
 				</div>
@@ -189,114 +189,110 @@
 		</div>
 
 		<!-- Navigation Tabs -->
-		<div class="mb-12 flex flex-wrap gap-4">
+		<div class="mb-10 flex flex-wrap gap-2">
 			<button
 				onclick={() => (activeTab = 'vendor')}
-				class="flex items-center gap-3 rounded-2xl px-6 py-4 transition-all duration-500 {activeTab ===
+				class="flex items-center gap-3 rounded-xl px-6 py-3 transition-all duration-300 {activeTab ===
 				'vendor'
-					? 'scale-105 bg-white text-blue-600 shadow-xl ring-1 ring-slate-100'
-					: 'text-slate-400 hover:text-slate-600'}"
+					? 'bg-slate-900 text-white shadow-lg shadow-slate-900/10'
+					: 'text-slate-500 hover:bg-slate-100'}"
 			>
-				<span class="material-symbols-outlined {activeTab === 'vendor' ? 'text-blue-500' : ''}"
+				<span class="material-symbols-outlined text-xl {activeTab === 'vendor' ? 'text-white' : ''}"
 					>storefront</span
 				>
-				<span class="text-sm font-black tracking-widest uppercase"
+				<span class="text-[11px] font-bold tracking-widest uppercase"
 					>{appState.t.flowchart.tabs.vendor}</span
 				>
 			</button>
 			<button
 				onclick={() => (activeTab = 'admin-proc')}
-				class="flex items-center gap-3 rounded-2xl px-6 py-4 transition-all duration-500 {activeTab ===
+				class="flex items-center gap-3 rounded-xl px-6 py-3 transition-all duration-300 {activeTab ===
 				'admin-proc'
-					? 'scale-105 bg-white text-emerald-600 shadow-xl ring-1 ring-slate-100'
-					: 'text-slate-400 hover:text-slate-600'}"
+					? 'bg-slate-900 text-white shadow-lg shadow-slate-900/10'
+					: 'text-slate-500 hover:bg-slate-100'}"
 			>
 				<span
-					class="material-symbols-outlined {activeTab === 'admin-proc' ? 'text-emerald-500' : ''}"
+					class="material-symbols-outlined text-xl {activeTab === 'admin-proc' ? 'text-white' : ''}"
 					>admin_panel_settings</span
 				>
-				<span class="text-sm font-black tracking-widest uppercase"
+				<span class="text-[11px] font-bold tracking-widest uppercase"
 					>{appState.t.flowchart.tabs.adminProc}</span
 				>
 			</button>
 			<button
 				onclick={() => (activeTab = 'admin-tbp')}
-				class="flex items-center gap-3 rounded-2xl px-6 py-4 transition-all duration-500 {activeTab ===
+				class="flex items-center gap-3 rounded-xl px-6 py-3 transition-all duration-300 {activeTab ===
 				'admin-tbp'
-					? 'scale-105 bg-white text-purple-600 shadow-xl ring-1 ring-slate-100'
-					: 'text-slate-400 hover:text-slate-600'}"
+					? 'bg-slate-900 text-white shadow-lg shadow-slate-900/10'
+					: 'text-slate-500 hover:bg-slate-100'}"
 			>
-				<span class="material-symbols-outlined {activeTab === 'admin-tbp' ? 'text-purple-500' : ''}"
+				<span
+					class="material-symbols-outlined text-xl {activeTab === 'admin-tbp' ? 'text-white' : ''}"
 					>shield_person</span
 				>
-				<span class="text-sm font-black tracking-widest uppercase"
+				<span class="text-[11px] font-bold tracking-widest uppercase"
 					>{appState.t.flowchart.tabs.adminTbp}</span
 				>
 			</button>
 		</div>
 
 		<!-- Diagram Content -->
-		<div class="group relative">
-			<div
-				class="absolute -inset-1 rounded-[3rem] bg-gradient-to-r from-blue-500 to-purple-600 opacity-10 blur transition duration-1000 group-hover:opacity-20"
-			></div>
-			<div class="relative">
-				{#key activeTab}
-					{#if activeTab === 'vendor'}
-						<Flowchart nodes={vendorNodes} edges={vendorEdges} />
-					{:else if activeTab === 'admin-proc'}
-						<Flowchart nodes={adminProcNodes} edges={adminProcEdges} />
-					{:else}
-						<Flowchart nodes={adminTbpNodes} edges={adminTbpEdges} />
-					{/if}
-				{/key}
-			</div>
+		<div class="relative">
+			{#key activeTab}
+				{#if activeTab === 'vendor'}
+					<Flowchart nodes={vendorNodes} edges={vendorEdges} />
+				{:else if activeTab === 'admin-proc'}
+					<Flowchart nodes={adminProcNodes} edges={adminProcEdges} />
+				{:else}
+					<Flowchart nodes={adminTbpNodes} edges={adminTbpEdges} />
+				{/if}
+			{/key}
 		</div>
 
 		<!-- Details Section -->
-		<div class="mt-16 grid gap-12 lg:grid-cols-3">
+		<div class="mt-12 grid gap-8 lg:grid-cols-3">
 			<div
-				class="rounded-[2rem] border border-slate-200/50 bg-white p-8 shadow-sm transition-all hover:shadow-xl"
+				class="rounded-3xl border border-slate-200/60 bg-white p-8 shadow-sm transition-all hover:shadow-md"
 			>
 				<div
-					class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600"
+					class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-slate-50 text-slate-600"
 				>
-					<span class="material-symbols-outlined text-2xl">interactive_space</span>
+					<span class="material-symbols-outlined text-xl">interactive_space</span>
 				</div>
-				<h3 class="mb-4 text-xl font-bold text-slate-900">
+				<h3 class="mb-3 text-lg font-bold text-slate-900">
 					{appState.t.flowchart.sections.interactive.title}
 				</h3>
-				<p class="text-sm leading-relaxed text-slate-500">
+				<p class="text-[13px] leading-relaxed text-slate-500">
 					{appState.t.flowchart.sections.interactive.desc}
 				</p>
 			</div>
 			<div
-				class="rounded-[2rem] border border-slate-200/50 bg-white p-8 shadow-sm transition-all hover:shadow-xl"
+				class="rounded-3xl border border-slate-200/60 bg-white p-8 shadow-sm transition-all hover:shadow-md"
 			>
 				<div
-					class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600"
+					class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-slate-50 text-slate-600"
 				>
-					<span class="material-symbols-outlined text-2xl">rule</span>
+					<span class="material-symbols-outlined text-xl">rule</span>
 				</div>
-				<h3 class="mb-4 text-xl font-bold text-slate-900">
+				<h3 class="mb-3 text-lg font-bold text-slate-900">
 					{appState.t.flowchart.sections.logic.title}
 				</h3>
-				<p class="text-sm leading-relaxed text-slate-500">
+				<p class="text-[13px] leading-relaxed text-slate-500">
 					{appState.t.flowchart.sections.logic.desc}
 				</p>
 			</div>
 			<div
-				class="rounded-[2rem] border border-slate-200/50 bg-white p-8 shadow-sm transition-all hover:shadow-xl"
+				class="rounded-3xl border border-slate-200/60 bg-white p-8 shadow-sm transition-all hover:shadow-md"
 			>
 				<div
-					class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-purple-50 text-purple-600"
+					class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-slate-50 text-slate-600"
 				>
-					<span class="material-symbols-outlined text-2xl">security</span>
+					<span class="material-symbols-outlined text-xl">security</span>
 				</div>
-				<h3 class="mb-4 text-xl font-bold text-slate-900">
+				<h3 class="mb-3 text-lg font-bold text-slate-900">
 					{appState.t.flowchart.sections.security.title}
 				</h3>
-				<p class="text-sm leading-relaxed text-slate-500">
+				<p class="text-[13px] leading-relaxed text-slate-500">
 					{appState.t.flowchart.sections.security.desc}
 				</p>
 			</div>

@@ -76,13 +76,13 @@
 </script>
 
 <div class="flex h-screen w-full flex-col bg-slate-50/50">
-	<!-- Header: Premium Glassmorphic Control Bar -->
+	<!-- Header: Premium Control Bar -->
 	<header
-		class="z-10 flex items-center justify-between border-b border-white/40 bg-white/70 px-8 py-5 shadow-sm backdrop-blur-2xl"
+		class="z-10 flex h-20 items-center justify-between border-b border-slate-200/60 bg-white/80 px-8 backdrop-blur-xl"
 	>
 		<div class="flex items-center gap-8">
 			<div>
-				<h1 class="text-xl font-black tracking-tight text-slate-900">
+				<h1 class="text-xl font-bold tracking-tight text-slate-900">
 					{appState.t.erDiagram.title}
 				</h1>
 				<p class="text-[10px] font-bold tracking-widest text-slate-400 uppercase">
@@ -91,28 +91,25 @@
 			</div>
 		</div>
 
-		<div class="flex items-center gap-3">
+		<div class="flex items-center gap-2">
 			<button
 				onclick={() => (window.location.href = '/diagram/er-diagram/detail')}
-				class="group flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-xs font-black tracking-widest text-slate-600 uppercase transition-all hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 active:scale-95"
+				class="group flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-[11px] font-bold tracking-widest text-slate-600 uppercase transition-all hover:bg-slate-50 hover:text-slate-900 active:scale-95"
 			>
-				<span class="material-symbols-outlined text-[18px]">visibility</span>
-				{appState.t.erDiagram.detailTitle.split(' ')[0]} View
+				{appState.t.erDiagram.detailTitle.split(' ')[0]}
 			</button>
 
 			<button
 				onclick={exportDiagram}
-				class="group flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-xs font-black tracking-widest text-slate-600 uppercase transition-all hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 active:scale-95"
+				class="group flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-[11px] font-bold tracking-widest text-slate-600 uppercase transition-all hover:bg-slate-50 hover:text-slate-900 active:scale-95"
 			>
-				<span class="material-symbols-outlined text-[18px]">download</span>
 				{appState.t.erDiagram.exportImage}
 			</button>
 
 			<button
 				onclick={applyAutoLayout}
-				class="group flex cursor-pointer items-center gap-2 rounded-xl bg-blue-600 px-5 py-2.5 text-xs font-black tracking-widest text-white uppercase shadow-lg shadow-blue-500/20 transition-all hover:bg-blue-700 hover:shadow-blue-500/40 active:scale-95"
+				class="group flex cursor-pointer items-center gap-2 rounded-xl bg-slate-900 px-4 py-2 text-[11px] font-bold tracking-widest text-white uppercase shadow-lg shadow-slate-900/10 transition-all hover:bg-slate-800 active:scale-95"
 			>
-				<span class="material-symbols-outlined text-[18px]">dynamic_feed</span>
 				{appState.t.erDiagram.autoLayout}
 			</button>
 		</div>
