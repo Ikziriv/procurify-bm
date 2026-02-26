@@ -21,6 +21,12 @@ export const auth = betterAuth({
 			verification: schema.verification,
 		}
 	}),
+	baseURL: env.BETTER_AUTH_URL,
+	trustedOrigins: [
+		'https://procurify-bm.vercel.app',
+		'https://procurify-bm-git-main-ikzirivs-projects.vercel.app',
+		'https://procurify-vbj6fw5is-ikzirivs-projects.vercel.app'
+	],
 	user: {
 		additionalFields: {
 			role: {

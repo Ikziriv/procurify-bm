@@ -13,8 +13,7 @@ export const GET: RequestHandler = async ({ locals }) => {
             return json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        // Fetch submissions
-        // If the user is USER_PROCUREMENT, we only want to show submissions for procurements they created.
+        // Fetch submissions - limited to 100 for performance
         const items = await db.query.submissions.findMany({
             with: {
                 procurement: {
@@ -27,33 +26,44 @@ export const GET: RequestHandler = async ({ locals }) => {
                     }
                 }
             },
-            orderBy: (sub, { desc }) => [desc(sub.submittedAt)]
+            orderBy: (sub, { desc }) => [desc(sub.submittedAt)],
+            limit: 100
         });
 
-        // Fetch status history for each submission
-        // In a real app, we would join this or use a separate query.
-        // For simplicity and matching the current findMany style:
-        const submissionsWithHistory = await Promise.all(items.map(async (item) => {
-            const history = await db.query.statusHistory.findMany({
-                where: (sh, { and, eq }) => and(
-                    eq(sh.entityType, 'SUBMISSION'),
-                    eq(sh.entityId, item.id)
-                ),
-                with: {
-                    changedBy: {
-                        columns: { name: true }
-                    }
-                },
-                orderBy: (sh, { desc }) => [desc(sh.createdAt)]
-            });
-            return { ...item, statusHistory: history };
+        if (items.length === 0) {
+            return json({ submissions: [] });
+        }
+
+        // Optimization: Batch fetch status history for all found submissions in one query
+        const submissionIds = items.map(item => item.id);
+        const allHistory = await db.query.statusHistory.findMany({
+            where: (sh, { and, eq, inArray }) => and(
+                eq(sh.entityType, 'SUBMISSION'),
+                inArray(sh.entityId, submissionIds)
+            ),
+            with: {
+                changedBy: {
+                    columns: { name: true }
+                }
+            },
+            orderBy: (sh, { desc }) => [desc(sh.createdAt)]
+        });
+
+        // Group history by entityId
+        const historyMap = allHistory.reduce((acc, curr) => {
+            if (!acc[curr.entityId]) acc[curr.entityId] = [];
+            acc[curr.entityId].push(curr);
+            return acc;
+        }, {} as Record<string, any[]>);
+
+        // Map history back to submissions
+        const submissionsWithHistory = items.map(item => ({
+            ...item,
+            statusHistory: historyMap[item.id] || []
         }));
 
-
-        // Due to drizzle-orm relational query limitations for filtering by joined table columns in findMany (without doing a complex subquery/join), 
-        // we can filter the results in memory since they are lightweight for this demo. 
-        // For production with massive rows, you'd use a traditional `db.select().from(submissions).innerJoin(...)` query.
-
+        // Due to drizzle-orm relational query limitations for filtering by joined table columns in findMany
+        // we filter the results in memory. With a limit of 100, this is extremely fast.
         let filteredItems = submissionsWithHistory;
         if (user.role === 'USER_PROCUREMENT') {
             filteredItems = submissionsWithHistory.filter(sub => sub.procurement?.createdBy === user.id);

@@ -3,7 +3,7 @@
 	import { appState } from '$lib/state.svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { page } from '$app/state';
-	import { Shield, Briefcase, User, Factory, ChevronRight, Check } from '@lucide/svelte';
+	import { Shield, Briefcase, User, Factory, ChevronRight, Check, Landmark } from '@lucide/svelte';
 
 	let email = $state('');
 	let password = $state('');
@@ -40,6 +40,13 @@
 			color: 'text-emerald-600',
 			bg: 'bg-emerald-50',
 			border: 'border-emerald-100'
+		},
+		{
+			id: 'ADMIN_TBP',
+			icon: Landmark,
+			color: 'text-indigo-600',
+			bg: 'bg-indigo-50',
+			border: 'border-indigo-100'
 		},
 		{
 			id: 'SUPER_ADMIN',

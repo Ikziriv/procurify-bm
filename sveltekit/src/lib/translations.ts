@@ -237,6 +237,7 @@ export const translations = {
             resetFailed: 'Failed to reset password',
             roles: {
                 SUPER_ADMIN: 'Super Administrator',
+                ADMIN_TBP: 'TBP Administrator',
                 ADMIN_PROCUREMENT: 'Procurement Admin',
                 USER_PROCUREMENT: 'Standard Vendor',
                 MANUFACT_PROCUREMENT: 'Manufacturer'
@@ -677,6 +678,7 @@ export const translations = {
             resetFailed: 'Gagal mengatur ulang kata sandi',
             roles: {
                 SUPER_ADMIN: 'Administrator Utama',
+                ADMIN_TBP: 'Admin TBP',
                 ADMIN_PROCUREMENT: 'Admin Pengadaan',
                 USER_PROCUREMENT: 'Vendor Standar',
                 MANUFACT_PROCUREMENT: 'Manufaktur'
