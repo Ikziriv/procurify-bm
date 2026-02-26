@@ -1,11 +1,14 @@
+import 'dotenv/config'; // Universal hydration for Dev/Standalone
 import { drizzle } from 'drizzle-orm/neon-http';
 import { neon } from '@neondatabase/serverless';
 import * as schema from './schema';
-import { env } from '$env/dynamic/private';
-import { dev } from '$app/environment';
 
-if (!env.DATABASE_URL) {
-    const message = dev
+// Support for both SvelteKit and standalone Node
+const DATABASE_URL = process.env.DATABASE_URL;
+const isDev = process.env.NODE_ENV !== 'production';
+
+if (!DATABASE_URL) {
+    const message = isDev
         ? 'DATABASE_URL is not set. Check your .env file.'
         : 'DATABASE_URL is not set in production.';
     throw new Error(message);
@@ -16,13 +19,13 @@ if (!env.DATABASE_URL) {
  * For Neon RLS, we pass the JWT as an authToken in the neon client configuration.
  */
 export const createDb = (token?: string) => {
-    const client = neon(env.DATABASE_URL, {
+    const client = neon(DATABASE_URL, {
         authToken: token
     });
 
     return drizzle(client, {
         schema,
-        logger: dev
+        logger: isDev
     });
 };
 

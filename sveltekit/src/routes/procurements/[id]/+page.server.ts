@@ -13,6 +13,8 @@ export const load: PageServerLoad = async ({ params, locals }) => {
         with: {
             items: true,
             rules: true,
+            province: true,
+            regency: true,
             submissions: {
                 with: {
                     items: true,

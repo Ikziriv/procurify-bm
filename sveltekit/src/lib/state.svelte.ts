@@ -12,6 +12,7 @@ class AppState {
     sidebarCollapsed = $state<boolean>(false);
     showNotifications = $state<boolean>(false);
     profileNotificationDismissed = $state<boolean>(false);
+    isLive = $state<boolean>(false);
 
     t = $derived(translations[this.language]);
 
@@ -66,40 +67,25 @@ class AppState {
                 this.profileNotificationDismissed = storedDismissed === 'true';
             }
 
-            // Dummy notifications for UI demonstration
-            if (this.notifications.length === 0) {
-                this.notifications = [
-                    {
-                        id: '1',
-                        title: 'Tender Baru Terbit',
-                        message: 'Pembangunan Jembatan Beton Bertulang Tahap II telah terbit.',
-                        type: 'INFO',
-                        read: false,
-                        createdAt: new Date(Date.now() - 1000 * 60 * 5) // 5m ago
-                    },
-                    {
-                        id: '2',
-                        title: 'Update Pengajuan',
-                        message: 'Pengajuan vendor Anda untuk proyek Renovasi Kantor telah disetujui.',
-                        type: 'SUCCESS',
-                        read: false,
-                        createdAt: new Date(Date.now() - 1000 * 60 * 60 * 2) // 2h ago
-                    },
-                    {
-                        id: '3',
-                        title: 'Peringatan Audit',
-                        message: 'Laporan audit bulanan memerlukan perhatian segera.',
-                        type: 'WARNING',
-                        read: true,
-                        createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24) // 1d ago
-                    }
-                ];
-            }
+            // Remove dummy notifications initialization
+            // Real notifications will be fetched from API or pushed via Ably
         }
     }
 
     setUser(user: any) {
         this.currentUser = user;
+        if (user && typeof window !== 'undefined') {
+            import('$lib/state/notification-manager.svelte').then(({ notificationManager }) => {
+                notificationManager.init(user.id);
+            });
+        }
+    }
+
+    addNotification(notification: any) {
+        // Avoid duplicates if any
+        if (!this.notifications.some(n => n.id === notification.id)) {
+            this.notifications = [notification, ...this.notifications];
+        }
     }
 
     async logout() {

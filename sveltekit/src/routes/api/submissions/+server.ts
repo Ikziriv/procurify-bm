@@ -4,6 +4,7 @@ import { db } from '$lib/server/db';
 import { submissions, procurements, submissionItems } from '$lib/server/db/schema';
 import { nanoid } from 'nanoid';
 import { eq, desc } from 'drizzle-orm';
+import { ActivityService } from '$lib/server/services/activity-service';
 
 export const GET: RequestHandler = async ({ locals }) => {
     try {
@@ -98,6 +99,14 @@ export const POST: RequestHandler = async ({ request, locals }) => {
             }));
             await db.insert(submissionItems).values(itemsData);
         }
+
+        await ActivityService.logRequest(request, {
+            userId: user.id,
+            action: 'SUBMISSION_CREATE',
+            entityType: 'SUBMISSION',
+            entityId: id,
+            metadata: { procurementId: data.procurementId, companyName: data.companyName }
+        });
 
         return json({ success: true, id }, { status: 201 });
     } catch (error) {

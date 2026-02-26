@@ -4,6 +4,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "./db";
 import * as schema from "./db/schema";
 import { env } from '$env/dynamic/private';
+import { ActivityService } from "./services/activity-service";
 
 /**
  * Better Auth initialization.
@@ -35,6 +36,41 @@ export const auth = betterAuth({
 	plugins: [
 		username()
 	],
+	databaseHooks: {
+		user: {
+			create: {
+				after: async (user) => {
+					await ActivityService.log({
+						userId: user.id,
+						action: 'AUTH_SIGN_UP',
+						metadata: { email: user.email, name: user.name }
+					});
+				}
+			}
+		},
+		session: {
+			create: {
+				after: async (session) => {
+					await ActivityService.log({
+						userId: session.userId,
+						action: 'AUTH_SIGN_IN',
+						ipAddress: session.ipAddress as string,
+						userAgent: (session as any).user_agent as string,
+						metadata: { sessionId: session.id }
+					});
+				}
+			}
+		}
+	},
+	onSessionDelete: async (session: any) => {
+		await ActivityService.log({
+			userId: session.userId,
+			action: 'AUTH_SIGN_OUT',
+			ipAddress: session.ipAddress as string,
+			userAgent: (session as any).user_agent as string,
+			metadata: { sessionId: session.id }
+		});
+	},
 	// We can add more plugins here as the app grows
 	secret: env.BETTER_AUTH_SECRET
 });

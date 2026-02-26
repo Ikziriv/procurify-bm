@@ -1,0 +1,178 @@
+﻿Loading svelte-check in workspace: c:\Users\user\Documents\GitHub\procurify-bm\sveltekit
+Getting Svelte diagnostics...
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\lib\components\Header.svelte[39m:246:7
+[33mWarn[39m: Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events (svelte)
+[36m					{#if showUserDropdown}
+						[35m<div
+							class="absolute right-0 mt-3 w-64 origin-top-right overflow-hidden rounded-3xl border border-slate-200/60 bg-white/90 p-2 shadow-2xl backdrop-blur-xl"
+							in:fly={{ y: 10, duration: 200 }}
+							out:fade={{ duration: 150 }}
+							onclick={(e) => e.stopPropagation()}
+						>
+							<!-- User Info Header -->
+							<div class="mb-2 flex items-center gap-4 p-4 pb-2">
+								<img
+									src={currentUser.image || 'https://picsum.photos/100'}
+									alt="Avatar"
+									class="h-12 w-12 rounded-2xl object-cover shadow-sm"
+								/>
+								<div class="min-w-0 flex-1">
+									<p class="truncate text-xs font-black tracking-tight text-slate-900 uppercase">
+										{currentUser.name}
+									</p>
+									<p class="truncate text-[9px] font-bold tracking-widest text-blue-600 uppercase">
+										{currentUser.role?.replace('_', ' ') || 'Procurement'}
+									</p>
+								</div>
+							</div>
+
+							<div class="h-px w-full bg-slate-100"></div>
+
+							<!-- Menu Items -->
+							<div class="mt-2 space-y-1">
+								<a
+									href="/profile"
+									onclick={closeUserDropdown}
+									class="group flex items-center gap-3 rounded-2xl p-3 text-slate-600 transition-all hover:bg-slate-50 hover:text-blue-600"
+								>
+									<div
+										class="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 transition-all group-hover:bg-blue-100 group-hover:text-blue-600"
+									>
+										<span class="material-symbols-outlined text-sm">person</span>
+									</div>
+									<span class="text-[10px] font-black tracking-widest uppercase">My Profile</span>
+								</a>
+
+								<button
+									onclick={() => {
+										closeUserDropdown();
+										showLogoutModal = true;
+									}}
+									class="group flex w-full items-center gap-3 rounded-2xl p-3 text-rose-500 transition-all hover:bg-rose-50"
+								>
+									<div
+										class="flex h-8 w-8 items-center justify-center rounded-xl bg-rose-100 transition-all group-hover:bg-rose-500 group-hover:text-white"
+									>
+										<span class="material-symbols-outlined text-sm">logout</span>
+									</div>
+									<span class="text-[10px] font-black tracking-widest uppercase">Sign Out</span>
+								</button>
+							</div>
+						</div>[36m
+					{/if}[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\lib\components\Header.svelte[39m:246:7
+[33mWarn[39m: `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions (svelte)
+[36m					{#if showUserDropdown}
+						[35m<div
+							class="absolute right-0 mt-3 w-64 origin-top-right overflow-hidden rounded-3xl border border-slate-200/60 bg-white/90 p-2 shadow-2xl backdrop-blur-xl"
+							in:fly={{ y: 10, duration: 200 }}
+							out:fade={{ duration: 150 }}
+							onclick={(e) => e.stopPropagation()}
+						>
+							<!-- User Info Header -->
+							<div class="mb-2 flex items-center gap-4 p-4 pb-2">
+								<img
+									src={currentUser.image || 'https://picsum.photos/100'}
+									alt="Avatar"
+									class="h-12 w-12 rounded-2xl object-cover shadow-sm"
+								/>
+								<div class="min-w-0 flex-1">
+									<p class="truncate text-xs font-black tracking-tight text-slate-900 uppercase">
+										{currentUser.name}
+									</p>
+									<p class="truncate text-[9px] font-bold tracking-widest text-blue-600 uppercase">
+										{currentUser.role?.replace('_', ' ') || 'Procurement'}
+									</p>
+								</div>
+							</div>
+
+							<div class="h-px w-full bg-slate-100"></div>
+
+							<!-- Menu Items -->
+							<div class="mt-2 space-y-1">
+								<a
+									href="/profile"
+									onclick={closeUserDropdown}
+									class="group flex items-center gap-3 rounded-2xl p-3 text-slate-600 transition-all hover:bg-slate-50 hover:text-blue-600"
+								>
+									<div
+										class="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 transition-all group-hover:bg-blue-100 group-hover:text-blue-600"
+									>
+										<span class="material-symbols-outlined text-sm">person</span>
+									</div>
+									<span class="text-[10px] font-black tracking-widest uppercase">My Profile</span>
+								</a>
+
+								<button
+									onclick={() => {
+										closeUserDropdown();
+										showLogoutModal = true;
+									}}
+									class="group flex w-full items-center gap-3 rounded-2xl p-3 text-rose-500 transition-all hover:bg-rose-50"
+								>
+									<div
+										class="flex h-8 w-8 items-center justify-center rounded-xl bg-rose-100 transition-all group-hover:bg-rose-500 group-hover:text-white"
+									>
+										<span class="material-symbols-outlined text-sm">logout</span>
+									</div>
+									<span class="text-[10px] font-black tracking-widest uppercase">Sign Out</span>
+								</button>
+							</div>
+						</div>[36m
+					{/if}[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\auth\pungis\+page.svelte[39m:138:5
+[33mWarn[39m: A form label must be associated with a control
+https://svelte.dev/e/a11y_label_has_associated_control (svelte)
+[36m			<div class="space-y-6">
+				[35m<label class="ml-2 text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase">
+					Select Your Role
+				</label>[36m
+				<div class="grid grid-cols-1 gap-4">[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\procurements\[id]\+page.svelte[39m:31:32
+[33mWarn[39m: This reference only captures the initial value of `data`. Did you mean to reference it inside a derived instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m
+	let hasSharedProfile = $state([35mdata[36m.hasSharedProfile);[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\procurements\[id]\+page.svelte[39m:78:33
+[31mError[39m: Property 'general' does not exist on type '{ sidebar: { dashboard: string; procurements: string; users: string; submissions: string; loggedInAs: string; explore: string; general: string; language: string; authority: string; activeSession: string; verifiedAccount: string; }; ... 12 more ...; pagination: { ...; }; } | { ...; }'.
+  Property 'general' does not exist on type '{ sidebar: { dashboard: string; procurements: string; users: string; submissions: string; loggedInAs: string; explore: string; general: string; language: string; authority: string; activeSession: string; verifiedAccount: string; }; ... 12 more ...; pagination: { ...; }; }'. (ts)
+[36m			showModal = false;
+			appState.addToast(appState.t.[35mgeneral[36m.success, t.submitSuccess, 'SUCCESS');
+			queryClient.invalidateQueries({ queryKey: ['procurement', procurement.id] });[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\procurements\[id]\+page.svelte[39m:82:33
+[31mError[39m: Property 'general' does not exist on type '{ sidebar: { dashboard: string; procurements: string; users: string; submissions: string; loggedInAs: string; explore: string; general: string; language: string; authority: string; activeSession: string; verifiedAccount: string; }; ... 12 more ...; pagination: { ...; }; } | { ...; }'.
+  Property 'general' does not exist on type '{ sidebar: { dashboard: string; procurements: string; users: string; submissions: string; loggedInAs: string; explore: string; general: string; language: string; authority: string; activeSession: string; verifiedAccount: string; }; ... 12 more ...; pagination: { ...; }; }'. (ts)
+[36m		onError: (error) => {
+			appState.addToast(appState.t.[35mgeneral[36m.error, error.message || t.submitError, 'ERROR');
+		}[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\profile\+page.svelte[39m:12:32
+[33mWarn[39m: This reference only captures the initial value of `user`. Did you mean to reference it inside a derived instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m	let success = $state(false);
+	let selectedProvince = $state([35muser[36m.companyProfile?.provinceId || '');
+	let selectedRegency = $state(user.companyProfile?.regencyId || '');[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\profile\+page.svelte[39m:13:31
+[33mWarn[39m: This reference only captures the initial value of `user`. Did you mean to reference it inside a derived instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m	let selectedProvince = $state(user.companyProfile?.provinceId || '');
+	let selectedRegency = $state([35muser[36m.companyProfile?.regencyId || '');[39m
+
+c:\Users\user\Documents\GitHub\procurify-bm\sveltekit\[32msrc\routes\submissions\+page.svelte[39m:90:33
+[33mWarn[39m: This reference only captures the initial value of `options`. Did you mean to reference it inside a closure instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m	// Create headless table instance from core
+	const table = createTable<any>([35moptions[36m as any);[39m
+
+====================================
+[31msvelte-check found 2 errors and 7 warnings in 5 files
+[39m

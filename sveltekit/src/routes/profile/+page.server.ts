@@ -1,6 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
-import { user, companyProfiles, governmentProfiles, provinces, regencies } from '$lib/server/db/schema';
+import { user, companyProfiles, governmentProfiles, provinces, regencies, systemConfigs } from '$lib/server/db/schema';
 import { eq } from 'drizzle-orm';
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -9,13 +9,18 @@ export const load: PageServerLoad = async ({ locals }) => {
         throw redirect(303, '/auth');
     }
 
-    const dbUser = await locals.db.query.user.findFirst({
-        where: eq(user.id, sessionUser.id),
-        with: {
-            companyProfile: true,
-            governmentProfile: true
-        }
-    });
+    const [dbUser, config] = await Promise.all([
+        locals.db.query.user.findFirst({
+            where: eq(user.id, sessionUser.id),
+            with: {
+                companyProfile: true,
+                governmentProfile: true
+            }
+        }),
+        locals.db.query.systemConfigs.findFirst({
+            where: eq(systemConfigs.key, 'RESTRICT_INSTITUTIONS')
+        })
+    ]);
 
     if (!dbUser) {
         throw redirect(303, '/auth');
@@ -30,7 +35,8 @@ export const load: PageServerLoad = async ({ locals }) => {
     return {
         profile: dbUser,
         provinces: allProvinces,
-        regencies: allRegencies
+        regencies: allRegencies,
+        restrictInstitutions: config?.value === 'true'
     };
 };
 
@@ -70,6 +76,7 @@ export const actions: Actions = {
                 const employeeCount = formData.get('employeeCount') as string;
                 const address = formData.get('address') as string;
                 const nib = formData.get('nib') as string;
+                const usernameSiinas = formData.get('usernameSiinas') as string;
                 const provinceId = formData.get('provinceId') as string;
                 const regencyId = formData.get('regencyId') as string;
 
@@ -83,6 +90,7 @@ export const actions: Actions = {
                         employeeCount,
                         address,
                         nib,
+                        usernameSiinas,
                         provinceId: provinceId || null,
                         regencyId: regencyId || null
                     })
@@ -96,6 +104,7 @@ export const actions: Actions = {
                             employeeCount,
                             address,
                             nib,
+                            usernameSiinas,
                             provinceId: provinceId || null,
                             regencyId: regencyId || null
                         }

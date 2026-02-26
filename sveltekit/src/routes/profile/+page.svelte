@@ -2,6 +2,8 @@
 	import { enhance } from '$app/forms';
 	import { appState } from '$lib/state.svelte';
 	import { fade, fly } from 'svelte/transition';
+	import InstitutionAutocomplete from '$lib/components/InstitutionAutocomplete.svelte';
+	import { searchInstitutions } from '$lib/data/klpd';
 	import type { ActionData, PageData } from './$types';
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
@@ -11,6 +13,10 @@
 	let success = $state(false);
 	let selectedProvince = $state(user.companyProfile?.provinceId || '');
 	let selectedRegency = $state(user.companyProfile?.regencyId || '');
+	let institutionName = $state(user.governmentProfile?.institutionName || '');
+	let hasSiinas = $state(
+		!!(user.companyProfile?.usernameSiinas && user.companyProfile?.usernameSiinas !== '-')
+	);
 
 	const filteredRegencies = $derived(
 		data.regencies.filter((r) => r.provinceId === selectedProvince)
@@ -33,18 +39,14 @@
 			return () => clearTimeout(timer);
 		}
 	});
+
+	const allowedIds = ['kementerian-pekerjaan-umum', 'kementerian-perumahan-dan-kawasan-permukiman'];
+	const canSelectAll = $derived(
+		!data.restrictInstitutions || user.role === 'SUPER_ADMIN' || user.role === 'ADMIN_TBP'
+	);
 </script>
 
 <div class="mx-auto max-w-4xl px-4 py-12 lg:px-8" in:fade={{ duration: 800 }}>
-	<header class="mb-12">
-		<h1 class="text-4xl font-black tracking-tight text-slate-900 lg:text-6xl">
-			{appState.t.profile.title}
-		</h1>
-		<p class="mt-4 text-base font-medium text-slate-500">
-			{appState.t.profile.subtitle}
-		</p>
-	</header>
-
 	{#if success}
 		<div
 			class="mb-8 flex items-center gap-3 rounded-2xl border border-emerald-100 bg-emerald-50 p-4 text-sm font-bold text-emerald-600"
@@ -119,6 +121,24 @@
 						Email addresses are managed through the identity provider.
 					</p>
 				</div>
+
+				{#if isGov}
+					<div class="space-y-2 md:col-span-2">
+						<label
+							for="nip"
+							class="text-[10px] font-black tracking-widest text-slate-400 uppercase"
+						>
+							{appState.t.profile.nip}
+						</label>
+						<input
+							id="nip"
+							name="nip"
+							type="text"
+							value={user.governmentProfile?.nip || ''}
+							class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-sm font-bold text-slate-900 transition-all outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10"
+						/>
+					</div>
+				{/if}
 			</div>
 		</section>
 
@@ -137,24 +157,14 @@
 				</div>
 
 				<div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-					<div class="space-y-2 md:col-span-2">
-						<label
-							for="institutionName"
-							class="text-[10px] font-black tracking-widest text-slate-400 uppercase"
-						>
-							{appState.t.profile.institutionName}
-						</label>
-						<input
-							id="institutionName"
-							name="institutionName"
-							type="text"
-							value={user.governmentProfile?.institutionName || ''}
-							required
-							class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-sm font-bold text-slate-900 transition-all outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10"
-						/>
-					</div>
+					<InstitutionAutocomplete
+						label={appState.t.profile.institutionName}
+						bind:value={institutionName}
+						isSelectable={(inst) => canSelectAll || allowedIds.includes(inst.id)}
+						required
+					/>
 
-					<div class="space-y-2">
+					<div class="space-y-2 md:col-span-2">
 						<label
 							for="department"
 							class="text-[10px] font-black tracking-widest text-slate-400 uppercase"
@@ -166,22 +176,6 @@
 							name="department"
 							type="text"
 							value={user.governmentProfile?.department || ''}
-							class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-sm font-bold text-slate-900 transition-all outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10"
-						/>
-					</div>
-
-					<div class="space-y-2">
-						<label
-							for="nip"
-							class="text-[10px] font-black tracking-widest text-slate-400 uppercase"
-						>
-							{appState.t.profile.nip}
-						</label>
-						<input
-							id="nip"
-							name="nip"
-							type="text"
-							value={user.governmentProfile?.nip || ''}
 							class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-sm font-bold text-slate-900 transition-all outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10"
 						/>
 					</div>
@@ -230,6 +224,58 @@
 							value={user.companyProfile?.nib || ''}
 							class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-sm font-bold text-slate-900 transition-all outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10"
 						/>
+					</div>
+
+					<div class="space-y-4 rounded-3xl border border-slate-100 bg-slate-50/50 p-6">
+						<div class="flex items-center justify-between">
+							<div class="space-y-1">
+								<h3 class="text-sm font-bold text-slate-900">
+									{appState.t.profile.hasSiinasAccount}
+								</h3>
+								<p class="text-xs text-slate-500">
+									Enable this if your company has an active SIINas account
+								</p>
+							</div>
+							<button
+								type="button"
+								role="switch"
+								aria-checked={hasSiinas}
+								onclick={() => (hasSiinas = !hasSiinas)}
+								class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none {hasSiinas
+									? 'bg-blue-600'
+									: 'bg-slate-200'}"
+							>
+								<span
+									class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {hasSiinas
+										? 'translate-x-5'
+										: 'translate-x-0'}"
+								></span>
+							</button>
+						</div>
+
+						{#if hasSiinas}
+							<div class="space-y-2" transition:fade>
+								<label
+									for="usernameSiinas"
+									class="text-[10px] font-black tracking-widest text-slate-400 uppercase"
+								>
+									{appState.t.profile.usernameSiinas}
+								</label>
+								<input
+									id="usernameSiinas"
+									name="usernameSiinas"
+									type="text"
+									value={user.companyProfile?.usernameSiinas !== '-'
+										? user.companyProfile?.usernameSiinas
+										: ''}
+									placeholder="Enter your SIINas username"
+									required
+									class="w-full rounded-2xl border border-slate-200 bg-white px-6 py-4 text-sm font-bold text-slate-900 transition-all outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+								/>
+							</div>
+						{:else}
+							<input type="hidden" name="usernameSiinas" value="-" />
+						{/if}
 					</div>
 
 					<div class="space-y-2">

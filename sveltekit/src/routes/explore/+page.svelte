@@ -2,84 +2,54 @@
 	import { appState } from '$lib/state.svelte';
 	import ProcurementCard from '$lib/components/ProcurementCard.svelte';
 	import HeroDashboard from '$lib/components/HeroDashboard.svelte';
+	import SearchAutocomplete from '$lib/components/SearchAutocomplete.svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { createQuery } from '@tanstack/svelte-query';
-	import {
-		createTable,
-		getCoreRowModel,
-		getFilteredRowModel,
-		getSortedRowModel,
-		createColumnHelper
-	} from '@tanstack/table-core';
-	import { createForm } from '@tanstack/svelte-form';
 	import { type Procurement } from '$lib/server/db/schema';
 
 	let { data } = $props();
 	const t = $derived(appState.t.landing);
+	const pt = $derived(appState.t.pagination);
 
-	// 1. TanStack Query: Fetch procurements from our new API
-	const query = createQuery<Procurement[]>(() => ({
-		queryKey: ['procurements'],
+	// 1. Pagination & Search State
+	let page = $state(1);
+	let pageSize = $state(10);
+	let searchTerm = $state('');
+	let debouncedSearch = $state('');
+
+	// Debounce search input
+	let debounceTimer: ReturnType<typeof setTimeout>;
+	$effect(() => {
+		clearTimeout(debounceTimer);
+		debounceTimer = setTimeout(() => {
+			debouncedSearch = searchTerm;
+			page = 1; // Reset to first page on search
+		}, 400);
+	});
+
+	// 2. TanStack Query: Fetch paginated procurements
+	const query = createQuery<{
+		items: Procurement[];
+		totalCount: number;
+		page: number;
+		pageSize: number;
+		totalPages: number;
+	}>(() => ({
+		queryKey: ['procurements-public', page, pageSize, debouncedSearch],
 		queryFn: async () => {
-			const res = await fetch('/api/procurements');
+			const params = new URLSearchParams({
+				page: page.toString(),
+				pageSize: pageSize.toString(),
+				search: debouncedSearch
+			});
+			const res = await fetch(`/api/public/procurements?${params.toString()}`);
 			if (!res.ok) throw new Error('Network response was not ok');
 			return res.json();
 		}
 	}));
 
-	// 2. TanStack Form: Manage search state
-	const form = createForm(() => ({
-		defaultValues: {
-			search: ''
-		}
-	}));
-
-	// 3. TanStack Table: Headless data management
-	const columnHelper = createColumnHelper<Procurement>();
-
-	const columns = [
-		columnHelper.accessor('title', { header: 'Title' }),
-		columnHelper.accessor('budget', { header: 'Budget' }),
-		columnHelper.accessor('deadline', { header: 'Deadline' })
-	];
-
-	// Map search state to table filtering
-	let globalFilter = $state('');
-	$effect(() => {
-		// Sync form value to global filter
-		globalFilter = form.state.values.search;
-	});
-
-	const table = $derived(
-		createTable({
-			get data() {
-				return query.data ?? [];
-			},
-			columns,
-			get state() {
-				return {
-					globalFilter
-				};
-			},
-			onStateChange: (updater) => {
-				if (typeof updater === 'function') {
-					// This would handle bulk state updates if needed
-					// For now we just sync individual state pieces
-				}
-			},
-			onGlobalFilterChange: (updater) => {
-				if (typeof updater === 'function') {
-					globalFilter = updater(globalFilter);
-				} else {
-					globalFilter = updater;
-				}
-			},
-			getCoreRowModel: getCoreRowModel(),
-			getFilteredRowModel: getFilteredRowModel(),
-			getSortedRowModel: getSortedRowModel(),
-			renderFallbackValue: null
-		})
-	);
+	// 3. Page Layout derived translations
+	// (Keeping script clean by using direct data binding)
 </script>
 
 <div class="min-h-screen space-y-24 py-12" in:fade={{ duration: 800 }}>
@@ -90,10 +60,12 @@
 		></div>
 
 		<div class="flex h-auto w-full items-center gap-16">
-			<!-- Hero Dashboard Component -->
-			<div class="flex h-full w-full flex-col md:flex-row">
-				<HeroDashboard procurements={query.data ?? []} />
-			</div>
+			<!-- Hero Dashboard Component - Only for registered users -->
+			{#if appState.currentUser}
+				<div class="flex h-full w-full flex-col md:flex-row">
+					<HeroDashboard procurements={query.data?.items ?? []} />
+				</div>
+			{/if}
 		</div>
 	</header>
 
@@ -107,55 +79,68 @@
 				<h3 class="text-4xl font-black tracking-tight text-slate-900">{t.activeOpps}</h3>
 			</div>
 
-			<!-- TanStack Form: Search Interface -->
+			<!-- Search Interface -->
 			<div class="w-full max-w-md">
-				<form
-					onsubmit={(e) => {
-						e.preventDefault();
-						e.stopPropagation();
+				<SearchAutocomplete
+					bind:value={searchTerm}
+					placeholder={t.searchPlaceholder}
+					onSearch={(val) => {
+						searchTerm = val;
+						debouncedSearch = val;
+						page = 1;
 					}}
-				>
-					<form.Field name="search">
-						{#snippet children(field)}
-							<div class="group relative">
-								<span
-									class="material-symbols-outlined absolute top-1/2 left-5 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-blue-600"
-									>search</span
-								>
-								<input
-									name={field.name}
-									value={field.state.value}
-									oninput={(e) => field.handleChange(e.currentTarget.value)}
-									onblur={field.handleBlur}
-									placeholder={t.searchPlaceholder}
-									class="w-full rounded-2xl border border-slate-200 bg-white py-4 pr-6 pl-14 text-sm font-medium transition-all outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
-								/>
-							</div>
-						{/snippet}
-					</form.Field>
-				</form>
+				/>
 			</div>
 		</div>
 
-		<div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+		<div class="grid grid-cols-1 gap-6">
 			{#if query.isLoading}
 				{#each Array(4) as _, i}
 					<div class="h-64 animate-pulse rounded-[2.5rem] bg-slate-100"></div>
 				{/each}
-			{:else if table.getRowModel().rows.length > 0}
-				{#each table.getRowModel().rows as row, i}
-					{@const proc = row.original}
+			{:else if query.data && query.data.items.length > 0}
+				{#each query.data.items as proc, i}
 					<div in:fly={{ y: 20, duration: 600, delay: i * 100 }}>
 						<ProcurementCard
 							id={proc.id}
 							title={proc.title}
-							type="Enterprise"
+							type={proc.typeId || 'General'}
 							amount={proc.budget}
 							deadline={proc.deadline}
 							deadlineLabel={t.deadlineLabel}
 						/>
 					</div>
 				{/each}
+
+				<!-- Pagination Controls -->
+				{#if query.data.totalPages > 1}
+					<div class="mt-12 flex items-center justify-between border-t border-slate-100 pt-12">
+						<div class="text-sm font-medium text-slate-400">
+							{pt.page}
+							<span class="font-bold text-slate-900">{query.data.page}</span>
+							{pt.of}
+							<span class="font-bold text-slate-900">{query.data.totalPages}</span>
+						</div>
+						<div class="flex items-center gap-4">
+							<button
+								onclick={() => (page = Math.max(1, page - 1))}
+								disabled={page === 1}
+								class="flex h-12 items-center gap-2 rounded-xl border border-slate-200 bg-white px-6 text-xs font-black tracking-widest text-slate-900 uppercase transition-all hover:bg-slate-50 disabled:opacity-30 disabled:hover:bg-white"
+							>
+								<span class="material-symbols-outlined text-base">arrow_back</span>
+								{pt.previous}
+							</button>
+							<button
+								onclick={() => (page = Math.min(query.data?.totalPages || 1, page + 1))}
+								disabled={page === query.data.totalPages}
+								class="flex h-12 items-center gap-2 rounded-xl bg-slate-900 px-6 text-xs font-black tracking-widest text-white uppercase transition-all hover:bg-slate-800 disabled:opacity-30"
+							>
+								{pt.next}
+								<span class="material-symbols-outlined text-base">arrow_forward</span>
+							</button>
+						</div>
+					</div>
+				{/if}
 			{:else}
 				<div
 					class="col-span-full rounded-[3rem] border-2 border-dashed border-slate-100 py-24 text-center"

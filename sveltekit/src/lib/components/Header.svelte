@@ -14,9 +14,26 @@
 
 	const currentUser = $derived(appState.currentUser);
 
+	let showUserDropdown = $state(false);
 	let showLogoutModal = $state(false);
 	let isLoggingOut = $state(false);
 	let isLogoutSuccess = $state(false);
+
+	function toggleUserDropdown(e: Event) {
+		e.stopPropagation();
+		showUserDropdown = !showUserDropdown;
+	}
+
+	function closeUserDropdown() {
+		showUserDropdown = false;
+	}
+
+	$effect(() => {
+		if (showUserDropdown) {
+			window.addEventListener('click', closeUserDropdown);
+			return () => window.removeEventListener('click', closeUserDropdown);
+		}
+	});
 
 	async function handleConfirmLogout() {
 		isLoggingOut = true;
@@ -110,7 +127,7 @@
 <header
 	class="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200/60 bg-white/80 px-4 backdrop-blur-xl lg:h-20 lg:px-10"
 >
-	<div class="flex w-full items-center justify-between lg:w-auto lg:justify-start lg:gap-6">
+	<div class="flex w-full items-center justify-between lg:w-full lg:justify-start lg:gap-6">
 		<button
 			onclick={() => appState.toggleSidebar()}
 			class="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200/60 bg-white text-slate-500 transition-all hover:border-slate-300 hover:bg-slate-50 active:scale-95 lg:h-12 lg:w-12 lg:rounded-2xl"
@@ -171,7 +188,7 @@
 			{/if}
 		</div>
 
-		<div class="flex items-center gap-3 lg:gap-8">
+		<div class="flex w-full items-center justify-between gap-3 lg:gap-8">
 			<div class="relative" id="notification-container">
 				<button
 					onclick={(e) => {
@@ -185,46 +202,104 @@
 					<span class="material-symbols-outlined text-[22px]">notifications</span>
 					{#if appState.notifications.filter((n) => !n.read).length > 0}
 						<span
-							class="absolute top-2.5 right-2.5 h-2 w-2 animate-pulse rounded-full border-2 border-white bg-blue-600 shadow-lg shadow-blue-500/50 lg:top-3 lg:right-3 lg:h-2.5 lg:w-2.5"
-						></span>
+							class="absolute top-2.5 right-2.5 flex h-2 w-2 lg:top-3 lg:right-3 lg:h-2.5 lg:w-2.5"
+						>
+							<span
+								class="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75"
+							></span>
+							<span
+								class="relative inline-flex h-2 w-2 rounded-full border-2 border-white bg-blue-600 shadow-lg shadow-blue-500/50 lg:h-2.5 lg:w-2.5"
+							></span>
+						</span>
 					{/if}
 				</button>
 			</div>
 
 			{#if currentUser}
-				<div class="group flex items-center gap-3 lg:gap-2">
-					<div class="hidden text-right sm:block">
-						<p class="text-[10px] font-black tracking-widest text-slate-900 lg:text-xs">
-							{currentUser.name?.toUpperCase()}
-						</p>
-						<p class="text-[9px] font-bold tracking-tighter text-slate-400 lg:text-[10px]">
-							{currentUser.role?.replace('_', ' ') || 'Procurement'}
-						</p>
-					</div>
-					<a
-						href="/profile"
-						class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-slate-200/60 bg-white text-slate-500 transition-all hover:border-slate-300 hover:bg-slate-50 active:scale-95 lg:h-12 lg:w-12 lg:rounded-2xl"
-						title="My Profile"
-					>
-						<span class="material-symbols-outlined text-[20px]">person</span>
-					</a>
+				<div class="relative">
 					<button
-						onclick={() => (showLogoutModal = true)}
-						class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-slate-200/60 bg-white text-rose-500 transition-all hover:border-rose-200 hover:bg-rose-50 active:scale-95 lg:h-12 lg:w-12 lg:rounded-2xl"
-						title="Sign Out"
+						onclick={toggleUserDropdown}
+						class="group flex items-center gap-3 transition-all active:scale-95 lg:gap-4"
 					>
-						<span class="material-symbols-outlined text-[20px]">logout</span>
-					</button>
-					<div class="xs:block relative hidden">
-						<img
-							src={currentUser.image || 'https://picsum.photos/100'}
-							alt="Avatar"
-							class="h-10 w-10 rounded-xl border-2 border-slate-100 object-cover shadow-sm transition-transform group-hover:scale-110 lg:h-12 lg:w-12 lg:rounded-[1.25rem]"
-						/>
+						<div class="xs:block relative hidden">
+							<img
+								src={currentUser.image || 'https://picsum.photos/100'}
+								alt="Avatar"
+								class="h-10 w-10 rounded-xl border-2 border-slate-100 object-cover shadow-sm transition-transform group-hover:scale-110 lg:h-12 lg:w-12 lg:rounded-[1.25rem]"
+							/>
+							<div
+								class="absolute -right-1 -bottom-1 h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-500 shadow-lg lg:h-4 lg:w-4"
+							></div>
+						</div>
 						<div
-							class="absolute -right-1 -bottom-1 h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-500 shadow-lg lg:h-4 lg:w-4"
-						></div>
-					</div>
+							class="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200/60 bg-white text-slate-500 transition-all hover:border-slate-300 hover:bg-slate-50 lg:h-12 lg:w-12 lg:rounded-2xl"
+						>
+							<span
+								class="material-symbols-outlined text-[20px] transition-transform {showUserDropdown
+									? 'rotate-180'
+									: ''}">expand_more</span
+							>
+						</div>
+					</button>
+
+					{#if showUserDropdown}
+						<div
+							class="absolute right-0 mt-3 w-64 origin-top-right overflow-hidden rounded-3xl border border-slate-200/60 bg-white/90 p-2 shadow-2xl backdrop-blur-xl"
+							in:fly={{ y: 10, duration: 200 }}
+							out:fade={{ duration: 150 }}
+							onclick={(e) => e.stopPropagation()}
+						>
+							<!-- User Info Header -->
+							<div class="mb-2 flex items-center gap-4 p-4 pb-2">
+								<img
+									src={currentUser.image || 'https://picsum.photos/100'}
+									alt="Avatar"
+									class="h-12 w-12 rounded-2xl object-cover shadow-sm"
+								/>
+								<div class="min-w-0 flex-1">
+									<p class="truncate text-xs font-black tracking-tight text-slate-900 uppercase">
+										{currentUser.name}
+									</p>
+									<p class="truncate text-[9px] font-bold tracking-widest text-blue-600 uppercase">
+										{currentUser.role?.replace('_', ' ') || 'Procurement'}
+									</p>
+								</div>
+							</div>
+
+							<div class="h-px w-full bg-slate-100"></div>
+
+							<!-- Menu Items -->
+							<div class="mt-2 space-y-1">
+								<a
+									href="/profile"
+									onclick={closeUserDropdown}
+									class="group flex items-center gap-3 rounded-2xl p-3 text-slate-600 transition-all hover:bg-slate-50 hover:text-blue-600"
+								>
+									<div
+										class="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 transition-all group-hover:bg-blue-100 group-hover:text-blue-600"
+									>
+										<span class="material-symbols-outlined text-sm">person</span>
+									</div>
+									<span class="text-[10px] font-black tracking-widest uppercase">My Profile</span>
+								</a>
+
+								<button
+									onclick={() => {
+										closeUserDropdown();
+										showLogoutModal = true;
+									}}
+									class="group flex w-full items-center gap-3 rounded-2xl p-3 text-rose-500 transition-all hover:bg-rose-50"
+								>
+									<div
+										class="flex h-8 w-8 items-center justify-center rounded-xl bg-rose-100 transition-all group-hover:bg-rose-500 group-hover:text-white"
+									>
+										<span class="material-symbols-outlined text-sm">logout</span>
+									</div>
+									<span class="text-[10px] font-black tracking-widest uppercase">Sign Out</span>
+								</button>
+							</div>
+						</div>
+					{/if}
 				</div>
 			{:else}
 				<a

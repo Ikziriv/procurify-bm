@@ -4,6 +4,7 @@ import { db } from '$lib/server/db';
 import { procurements } from '$lib/server/db/schema';
 import { nanoid } from 'nanoid';
 import { eq, and } from 'drizzle-orm';
+import { ActivityService } from '$lib/server/services/activity-service';
 
 export const GET: RequestHandler = async ({ locals }) => {
     try {
@@ -12,8 +13,12 @@ export const GET: RequestHandler = async ({ locals }) => {
             return json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const items = await db.query.procurements.findMany({
+        const whereClause = user.role === 'SUPER_ADMIN'
+            ? undefined
+            : eq(procurements.createdBy, user.id);
 
+        const items = await db.query.procurements.findMany({
+            where: whereClause,
             with: {
                 user: {
                     columns: { id: true, name: true, role: true },
@@ -24,6 +29,8 @@ export const GET: RequestHandler = async ({ locals }) => {
                 },
                 method: true,
                 type: true,
+                province: true,
+                regency: true,
                 submissions: true
             },
             orderBy: (proc, { desc }) => [desc(proc.createdAt)]
@@ -39,7 +46,7 @@ export const GET: RequestHandler = async ({ locals }) => {
 export const POST: RequestHandler = async ({ request, locals }) => {
     try {
         const user = locals.user;
-        if (!user || user.role !== 'USER_PROCUREMENT') {
+        if (!user || !['ADMIN_PROCUREMENT', 'SUPER_ADMIN'].includes(user.role)) {
             return json({ error: 'Unauthorized' }, { status: 401 });
         }
 
@@ -55,8 +62,18 @@ export const POST: RequestHandler = async ({ request, locals }) => {
             budget: data.budget || 'Rp 0',
             deadline: data.deadline,
             status: 'OPEN',
+            provinceId: data.provinceId || null,
+            regencyId: data.regencyId || null,
+            location: data.location || null,
             createdBy: user.id
-            // Handle other relational data as needed (methodId, typeId)
+        });
+
+        await ActivityService.logRequest(request, {
+            userId: user.id,
+            action: 'PROCUREMENT_CREATE',
+            entityType: 'PROCUREMENT',
+            entityId: id,
+            metadata: { title: data.title }
         });
 
         return json({ success: true, id }, { status: 201 });
@@ -69,7 +86,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 export const PUT: RequestHandler = async ({ request, locals }) => {
     try {
         const user = locals.user;
-        if (!user || user.role !== 'USER_PROCUREMENT') {
+        if (!user || !['USER_PROCUREMENT', 'ADMIN_PROCUREMENT', 'MANUFACT_PROCUREMENT', 'SUPER_ADMIN'].includes(user.role)) {
             return json({ error: 'Unauthorized' }, { status: 401 });
         }
 
@@ -90,11 +107,22 @@ export const PUT: RequestHandler = async ({ request, locals }) => {
                 description: data.description || '',
                 budget: data.budget || 'Rp 0',
                 deadline: data.deadline,
-                status: data.status || 'OPEN'
+                status: data.status || 'OPEN',
+                provinceId: data.provinceId || null,
+                regencyId: data.regencyId || null,
+                location: data.location || null
             })
             .where(
                 and(eq(procurements.id, data.id), eq(procurements.createdBy, user.id))
             );
+
+        await ActivityService.logRequest(request, {
+            userId: user.id,
+            action: 'PROCUREMENT_UPDATE',
+            entityType: 'PROCUREMENT',
+            entityId: data.id,
+            metadata: { title: data.title, status: data.status }
+        });
 
         return json({ success: true });
     } catch (error) {
@@ -103,10 +131,10 @@ export const PUT: RequestHandler = async ({ request, locals }) => {
     }
 };
 
-export const DELETE: RequestHandler = async ({ url, locals }) => {
+export const DELETE: RequestHandler = async ({ url, locals, request }) => {
     try {
         const user = locals.user;
-        if (!user || user.role !== 'USER_PROCUREMENT') {
+        if (!user || !['USER_PROCUREMENT', 'ADMIN_PROCUREMENT', 'MANUFACT_PROCUREMENT', 'SUPER_ADMIN'].includes(user.role)) {
             return json({ error: 'Unauthorized' }, { status: 401 });
         }
 
@@ -121,6 +149,13 @@ export const DELETE: RequestHandler = async ({ url, locals }) => {
             .where(
                 and(eq(procurements.id, id), eq(procurements.createdBy, user.id))
             );
+
+        await ActivityService.logRequest(request, {
+            userId: user.id,
+            action: 'PROCUREMENT_DELETE',
+            entityType: 'PROCUREMENT',
+            entityId: id
+        });
 
         return json({ success: true });
     } catch (error) {

@@ -5,7 +5,7 @@
 
 	let { procurements = [] } = $props<{ procurements: Procurement[] }>();
 
-	const t = $derived(appState.t.landing);
+	const t = $derived(appState.t.heroDashboard);
 
 	// Derived metrics for the dashboard
 	const activeCount = $derived(procurements.length);
@@ -44,14 +44,14 @@
 						<span class="material-symbols-outlined text-xl">payments</span>
 					</div>
 					<span class="text-[10px] font-black tracking-[0.2em] text-blue-600 uppercase"
-						>Live Value Managed</span
+						>{t.liveValueManaged}</span
 					>
 				</div>
 				<h3 class="text-4xl font-black tracking-tighter text-slate-900 lg:text-5xl">
 					{formatIDR(totalBudget)}
 				</h3>
 				<p class="mt-2 text-xs font-bold text-slate-400">
-					Real-time aggregation across {activeCount} active tenders
+					{t.realTimeAggregation.replace('{count}', activeCount.toString())}
 				</p>
 			</div>
 
@@ -75,7 +75,7 @@
 		>
 			<div class="mb-3 flex items-center justify-between">
 				<span class="text-[9px] font-black tracking-widest text-slate-400 uppercase"
-					>Active Tenders</span
+					>{t.activeProcurements}</span
 				>
 				<div class="flex h-1.5 w-1.5 items-center justify-center">
 					<div class="absolute h-1.5 w-1.5 animate-ping rounded-full bg-emerald-500/40"></div>
@@ -93,7 +93,7 @@
 			class="rounded-[2.5rem] border border-white/20 bg-white/40 p-8 backdrop-blur-md transition-all hover:bg-white/60"
 		>
 			<span class="mb-3 block text-[9px] font-black tracking-widest text-slate-400 uppercase"
-				>Avg. Opportunity</span
+				>{t.avgOpportunity}</span
 			>
 			<div class="flex items-baseline gap-2">
 				<span class="text-2xl font-black tracking-tight text-slate-900"
@@ -108,12 +108,12 @@
 		>
 			<div class="mb-6 flex items-center justify-between">
 				<h4 class="text-[10px] font-black tracking-[0.2em] text-slate-500 uppercase">
-					Latest Network Activity
+					{t.procurementActivity}
 				</h4>
 				<span
 					class="flex h-5 items-center rounded-full bg-blue-50 px-2 text-[8px] font-black text-blue-600 uppercase"
 				>
-					Live Updates
+					{t.liveUpdates}
 				</span>
 			</div>
 
@@ -128,12 +128,12 @@
 						<div class="min-w-0 flex-1">
 							<p class="truncate text-xs font-bold text-slate-800">{activity.title}</p>
 							<p class="text-[10px] font-medium text-slate-400">
-								Just published • {formatIDR(Number(activity.budget))}
+								{t.justPublished} • {formatIDR(Number(activity.budget))}
 							</p>
 						</div>
 					</div>
 				{:else}
-					<p class="py-4 text-center text-xs font-medium text-slate-400">No recent activity</p>
+					<p class="py-4 text-center text-xs font-medium text-slate-400">{t.noRecentActivity}</p>
 				{/each}
 			</div>
 		</div>

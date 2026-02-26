@@ -61,7 +61,8 @@ const authorizationHandle: Handle = async ({ event, resolve }) => {
 	// Protected route configurations (base path -> allowed roles)
 	const routePermissions = [
 		{ path: '/dashboard', roles: ['SUPER_ADMIN', 'ADMIN_PROCUREMENT', 'USER_PROCUREMENT', 'MANUFACT_PROCUREMENT'] },
-		{ path: '/explore', roles: ['SUPER_ADMIN', 'ADMIN_PROCUREMENT', 'USER_PROCUREMENT', 'MANUFACT_PROCUREMENT', 'GUEST'] },
+		{ path: '/explore', roles: ['ANY'] },
+		{ path: '/api/public', roles: ['ANY'] },
 		{ path: '/procurements', roles: ['SUPER_ADMIN', 'ADMIN_PROCUREMENT', 'USER_PROCUREMENT', 'MANUFACT_PROCUREMENT'] },
 		{ path: '/users', roles: ['SUPER_ADMIN', 'ADMIN_PROCUREMENT'] },
 		{ path: '/submissions', roles: ['SUPER_ADMIN', 'ADMIN_PROCUREMENT', 'USER_PROCUREMENT', 'MANUFACT_PROCUREMENT'] },
@@ -71,7 +72,13 @@ const authorizationHandle: Handle = async ({ event, resolve }) => {
 	const requiredPermission = routePermissions.find(route => path.startsWith(route.path));
 
 	if (requiredPermission) {
+		// If ANY role is allowed, we don't strictly require a user object for authentication
+		if (requiredPermission.roles.includes('ANY')) {
+			return resolve(event);
+		}
+
 		if (!user) {
+
 			// Redirect unauthenticated users to the auth page
 			throw redirect(303, `/auth?callbackURL=${encodeURIComponent(path)}`);
 		}

@@ -14,12 +14,18 @@ export const translations = {
             activeSession: 'Active Session',
             verifiedAccount: 'Verified Account'
         },
+        general: {
+            success: 'Success',
+            error: 'Error',
+            warning: 'Warning',
+            info: 'Info'
+        },
         dashboard: {
             welcome: 'Welcome back',
             overview: 'Enterprise procurement overview and action center.',
             status: 'System Status',
             operational: 'Operational',
-            activeTenders: 'Active Tenders',
+            activeTenders: 'Active Procurements',
             totalSubmissions: 'Total Submissions',
             mySubmissions: 'My Submissions',
             pendingReview: 'Pending Review',
@@ -36,15 +42,15 @@ export const translations = {
             activityFeed: 'Activity Feed'
         },
         procurement: {
-            title: 'Procurement Opportunities',
-            subtitle: 'Find and manage active tenders in the system.',
-            publish: 'Publish Tender',
+            title: 'Procurement',
+            subtitle: 'Manage procurement in the system.',
+            publish: 'Publish Procurement',
             applyNow: 'Apply Now',
             applied: 'Applied',
             edit: 'Edit',
             close: 'Close',
             newTitle: 'Publish New Procurement',
-            tenderTitle: 'Tender Title',
+            tenderTitle: 'Procurement Title',
             aiHelp: 'Draft with AI',
             generating: 'Generating...',
             budget: 'Estimated Budget',
@@ -53,7 +59,71 @@ export const translations = {
             publishNow: 'Publish Now',
             incompleteProfile: 'Your company profile is incomplete. Please fill your company name and description for better procurement assessment.',
             completeProfileBtn: 'Complete Profile',
-            dismiss: 'Dismiss'
+            dismiss: 'Dismiss',
+            createTitle: 'Create Procurement',
+            editTitle: 'Edit Procurement',
+            formSubtitle: 'Fill in the details below',
+            labelTitle: 'Title',
+            labelDesc: 'Description',
+            labelBudget: 'Budget',
+            labelDeadline: 'Deadline',
+            labelStatus: 'Status',
+            placeholderTitle: 'E.g. Cloud Infrastructure Upgrade',
+            placeholderDesc: 'Provide details about the procurement...',
+            statusOpen: 'Open',
+            statusClosed: 'Closed',
+            statusDraft: 'Draft',
+            saveChanges: 'Save Changes',
+            processing: 'Processing...',
+            errorLoad: 'Failed to load procurements',
+            noFound: 'No Procurements Found',
+            noFoundDesc: 'Get started by creating your first procurement to invite vendors for bidding.',
+            tableTitleDesc: 'Title & Desc',
+            tableStatus: 'Status',
+            tableBudget: 'Budget',
+            tableDeadline: 'Deadline',
+            tableActions: 'Actions',
+            deleteConfirm: 'Are you sure you want to delete this procurement?',
+            delete: 'Delete',
+            viewDetails: 'View Details',
+            home: 'Home',
+            list: 'Procurements',
+            active: 'Active',
+            paused: 'Paused',
+            type: 'Type',
+            budgetRange: 'Budget Range',
+            downloadPdf: 'Download PDF',
+            takeAction: 'Take Action',
+            projectOverview: 'Project Overview',
+            lineItemDetails: 'Line Item Details',
+            lineItemSubtitle: 'Item specifications or services for this procurement',
+            itemSpec: 'Item / Specification',
+            qtyUnit: 'Qty & Unit',
+            estimatedCost: 'Estimated Cost',
+            estPriceLabel: 'ESTIMATED PRICE',
+            actions: 'Procurement Actions',
+            lead: 'Procurement Lead',
+            authMessage: 'You are authenticated. You can now submit your formal proposal for this procurement.',
+            submitProposal: 'Submit Proposal',
+            sharing: 'Sharing...',
+            unauthMessage: 'To participate in this tender and submit a proposal, you must first secure your account.',
+            refId: 'Official Reference ID',
+            actionsBtn: 'Actions',
+            submitSubtitle: 'Fill in your company details and item pricing',
+            companyName: 'Company Name',
+            companyDesc: 'Company Description / Proposal Summary',
+            companyDescPlaceholder: 'Provide details about your company and why you are the best fit...',
+            lineItemBids: 'Line Item Bids',
+            offeredPrice: 'Offered Price',
+            specLinkNotes: 'Specification Link/Notes',
+            specPlaceholder: 'Drive link or specifications...',
+            submitting: 'Submitting...',
+            confirmProposal: 'Confirm Proposal',
+            enterpriseProcurement: 'Enterprise Procurement',
+            priceNA: 'Price N/A',
+            submitSuccess: 'Your proposal has been successfully submitted for evaluation.',
+            submitError: 'Failed to submit proposal.',
+            labelLocation: 'Location Details'
         },
         userManagement: {
             title: 'Team Management',
@@ -116,6 +186,16 @@ export const translations = {
             feat2Desc: 'Connect with 1.2k+ verified vendors worldwide.',
             feat3Title: 'AI Efficiency',
             feat3Desc: 'Draft and evaluate proposals 10x faster with AI.'
+        },
+        heroDashboard: {
+            liveValueManaged: 'Live Value Managed',
+            realTimeAggregation: 'Real-time aggregation across {count} active procurements',
+            activeProcurements: 'Active Procurements',
+            avgOpportunity: 'Avg. Opportunity',
+            procurementActivity: 'Procurement Activity',
+            liveUpdates: 'Live Updates',
+            justPublished: 'Just published',
+            noRecentActivity: 'No recent activity'
         },
         auth: {
             welcomeBack: 'Welcome Back',
@@ -187,7 +267,7 @@ export const translations = {
             companyInfo: 'Company Profile',
             govInfo: 'Government Institution',
             name: 'Full Name',
-            email: 'Email Disclosure',
+            email: 'Email',
             phone: 'Contact Number',
             companyName: 'Company Name',
             institutionName: 'Institution Name',
@@ -200,6 +280,8 @@ export const translations = {
             province: 'Province',
             regency: 'Regency',
             website: 'Official Website',
+            usernameSiinas: 'Username SIINas',
+            hasSiinasAccount: 'Company has SIINas Account',
             description: 'Company Description / Summary',
             address: 'Headquarters Address',
             save: 'Save Changes',
@@ -223,11 +305,144 @@ export const translations = {
         },
         generalRequirements: {
             title: 'General Requirements'
+        },
+        pagination: {
+            next: 'Next',
+            previous: 'Previous',
+            page: 'Page',
+            of: 'of',
+            items: 'items'
+        },
+        flowchart: {
+            title: 'Business Flowcharts',
+            subtitle: 'Visualizing the interaction patterns and business logic across different user authorization levels within the Procurify-BM ecosystem.',
+            tabs: {
+                vendor: 'User Procurement',
+                adminProc: 'Admin Procurement',
+                adminTbp: 'Admin TBP'
+            },
+            sections: {
+                interactive: {
+                    title: 'Interactive Design',
+                    desc: 'All flowcharts are powered by XYFlow, allowing you to pan, zoom, and interact with specific steps to understand the depth of the logic.'
+                },
+                logic: {
+                    title: 'Logic Enforcement',
+                    desc: "The diagrams represent hardcoded business rules and database constraints defined in the system's Drizzle schema and server services."
+                },
+                security: {
+                    title: 'Security Layers',
+                    desc: 'Roles defined in the `roleEnum` (SUPER_ADMIN, ADMIN_TBP, etc.) are the foundation of these flows, ensuring strict data isolation.'
+                }
+            },
+            nodes: {
+                // Vendor
+                publicDiscovery: 'Public Procurement',
+                publicDiscoveryDesc: 'Explore active procurements on the public portal.',
+                register: 'Register / Login',
+                registerDesc: 'Access the platform as a verified vendor.',
+                completeProfile: 'Complete Profile',
+                completeProfileDesc: 'Enter NIB, KBLI, and Address for verification.',
+                submitProposal: 'Submit Proposal',
+                submitProposalDesc: 'Upload flyers, specifications, and pricing for items.',
+                notification: 'Notification',
+                notificationDesc: 'Receive real-time alerts on submission status.',
+                // Admin Proc
+                storeProc: 'Store Procurement',
+                storeProcDesc: 'Create procurement focusing on BMN catalog & BMN codes.',
+                monitorSubs: 'Monitor Submissions',
+                monitorSubsDesc: 'View all vendor proposals received for the procurement.',
+                approveSub: 'Approve Submission',
+                approveSubDesc: 'Evaluate and change submission status to ACCEPTED.',
+                closeProc: 'Close Procurement',
+                closeProcDesc: 'Finalize the process and lock further submissions.',
+                // Admin TBP
+                oversight: 'Oversight Dashboard',
+                oversightDesc: 'Global view of system performance and distributions.',
+                sysConfig: 'System Config',
+                sysConfigDesc: 'Manage global restrictions and platform parameters.',
+                userRestrictions: 'User Restrictions',
+                userRestrictionsDesc: 'Configure vendor access and institution enrollment.',
+                auditing: 'Activity Auditing',
+                auditingDesc: 'Review detailed user activity logs for compliance.',
+                labelTop: {
+                    entry: 'Entry',
+                    auth: 'Auth',
+                    identity: 'Identity',
+                    action: 'Action',
+                    feedback: 'Feedback',
+                    initiate: 'Initiate',
+                    discovery: 'Discovery',
+                    finalize: 'Finalize',
+                    monitoring: 'Monitoring',
+                    governance: 'Governance',
+                    control: 'Control',
+                    security: 'Security'
+                }
+            }
+        },
+        erDiagram: {
+            title: 'Database Architecture',
+            subtitle: 'Live ER diagram synchronized with Drizzle schema',
+            exportImage: 'Export Image',
+            autoLayout: 'Auto Layout',
+            tableLabel: 'Table',
+            back: 'Back',
+            synchronized: 'SYNCHRONIZED WITH DRIZZLE',
+            loading: 'Generating schema overview...',
+            detailTitle: 'Architecture Deep-Dive',
+            detailSubtitle: 'Technical schema exploration for system engineers'
+        },
+        standardFlowchart: {
+            title: 'Complex',
+            titleAccent: 'Governance',
+            description: 'A high-precision flowchart representing the procurement governance lifecycle, rendered with JointJS for industrial-grade standardization.',
+            tag: 'Standardized Logic',
+            schemaMapping: 'Schema Mapping',
+            schemaMappingDesc: 'This diagram is mapped against the procurements and bmn schema definitions. Transitions follow strictly enforced server-side state machine logic.',
+            constraintRules: 'Constraint Rules',
+            pdnConsistency: 'PDN Consistency',
+            pdnConsistencyDesc: 'Enforced by item-level aggregation.',
+            rolePropagation: 'Role Propagation',
+            rolePropagationDesc: 'Based on roleEnum definitions.',
+            nodes: {
+                start: 'START',
+                login: 'Procurement Officer\n(Login to TBP/SS)',
+                roleCheck: 'Is Admin?',
+                createProc: 'Select BMN Catalog\n& Define Item Spec',
+                pdnCheck: 'PDN ≥ 25%?',
+                publish: 'Publish to Public\nMarketplace',
+                end: 'END',
+                rejected: 'REJECTED'
+            },
+            links: {
+                yes: 'YES',
+                no: 'NO'
+            }
+        },
+        notifications: {
+            title: 'Notifications',
+            unreadCount: '{count} Unread Updates',
+            activityLive: 'Activity Live',
+            activityLog: 'Activity Log',
+            markAllRead: 'Mark all as read',
+            allCaughtUp: 'All caught up',
+            noNotifications: "You don't have any notifications at the moment.",
+            deepInsights: 'Deep Insights',
+            viewActivityLog: 'View Activity Log',
+            time: {
+                justNow: 'Just now',
+                ago: '{time}{unit} ago',
+                units: {
+                    m: 'm',
+                    h: 'h'
+                }
+            }
         }
     },
     ID: {
         sidebar: {
-            dashboard: 'Dasbor',
+            dashboard: 'Dashboard',
             procurements: 'Pengadaan',
             users: 'Tim & Admin',
             submissions: 'Pengajuan',
@@ -238,6 +453,12 @@ export const translations = {
             authority: 'Otoritas',
             activeSession: 'Sesi Aktif',
             verifiedAccount: 'Akun Terverifikasi'
+        },
+        general: {
+            success: 'Sukses',
+            error: 'Gagal',
+            warning: 'Peringatan',
+            info: 'Info'
         },
         dashboard: {
             welcome: 'Selamat datang',
@@ -261,8 +482,8 @@ export const translations = {
             activityFeed: 'Feed Aktivitas'
         },
         procurement: {
-            title: 'Peluang Pengadaan',
-            subtitle: 'Temukan dan kelola tender aktif dalam sistem.',
+            title: 'Pengadaan',
+            subtitle: 'Kelola pengadaan dalam sistem.',
             publish: 'Terbitkan Tender',
             applyNow: 'Lamar Sekarang',
             applied: 'Sudah Dilamar',
@@ -278,7 +499,71 @@ export const translations = {
             publishNow: 'Terbitkan Sekarang',
             incompleteProfile: 'Profil perusahaan Anda belum lengkap. Harap lengkapi nama dan deskripsi perusahaan untuk penilaian pengadaan yang lebih baik.',
             completeProfileBtn: 'Lengkapi Profil',
-            dismiss: 'Sembunyikan'
+            dismiss: 'Sembunyikan',
+            createTitle: 'Buat Pengadaan',
+            editTitle: 'Ubah Pengadaan',
+            formSubtitle: 'Isi detail di bawah ini',
+            labelTitle: 'Judul',
+            labelDesc: 'Deskripsi',
+            labelBudget: 'Anggaran',
+            labelDeadline: 'Tenggat Waktu',
+            labelStatus: 'Status',
+            placeholderTitle: 'Misal: Upgrade Infrastruktur Cloud',
+            placeholderDesc: 'Berikan rincian tentang pengadaan...',
+            statusOpen: 'Buka',
+            statusClosed: 'Ditutup',
+            statusDraft: 'Draf',
+            saveChanges: 'Simpan Perubahan',
+            processing: 'Memproses...',
+            errorLoad: 'Gagal memuat pengadaan',
+            noFound: 'Pengadaan Tidak Ditemukan',
+            noFoundDesc: 'Mulailah dengan membuat pengadaan pertama Anda untuk mengundang vendor mengajukan penawaran.',
+            tableTitleDesc: 'Judul & Deskripsi',
+            tableStatus: 'Status',
+            tableBudget: 'Anggaran',
+            tableDeadline: 'Tenggat Waktu',
+            tableActions: 'Aksi',
+            deleteConfirm: 'Apakah Anda yakin ingin menghapus pengadaan ini?',
+            delete: 'Hapus',
+            viewDetails: 'Lihat Detail',
+            home: 'Beranda',
+            list: 'Pengadaan',
+            active: 'Aktif',
+            paused: 'Ditangguhkan',
+            type: 'Jenis',
+            budgetRange: 'Rentang Anggaran',
+            downloadPdf: 'Unduh PDF',
+            takeAction: 'Ambil Tindakan',
+            projectOverview: 'Ikhtisar Proyek',
+            lineItemDetails: 'Detail Item Baris',
+            lineItemSubtitle: 'Rincian spesifikasi barang atau jasa untuk pengadaan ini',
+            itemSpec: 'Item / Spesifikasi',
+            qtyUnit: 'Jumlah & Satuan',
+            estimatedCost: 'Estimasi Biaya',
+            estPriceLabel: 'ESTIMASI HARGA',
+            actions: 'Tindakan Pengadaan',
+            lead: 'Penanggung Jawab Pengadaan',
+            authMessage: 'Anda telah terautentikasi. Anda sekarang dapat mengirimkan proposal formal Anda untuk pengadaan ini.',
+            submitProposal: 'Submit Proposal',
+            sharing: 'Membagikan...',
+            unauthMessage: 'Untuk berpartisipasi dalam tender ini dan mengirimkan proposal, Anda harus terlebih dahulu mengamankan akun Anda.',
+            refId: 'ID Referensi Resmi',
+            actionsBtn: 'Aksi',
+            submitSubtitle: 'Isi detail perusahaan dan harga item Anda',
+            companyName: 'Nama Perusahaan',
+            companyDesc: 'Deskripsi Perusahaan / Ringkasan Proposal',
+            companyDescPlaceholder: 'Berikan detail tentang perusahaan Anda dan mengapa Anda adalah pilihan terbaik...',
+            lineItemBids: 'Penawaran Item Baris',
+            offeredPrice: 'Harga Penawaran',
+            specLinkNotes: 'Tautan/Catatan Spesifikasi',
+            specPlaceholder: 'Tautan Drive atau spesifikasi...',
+            submitting: 'Mengirimkan...',
+            confirmProposal: 'Konfirmasi Proposal',
+            enterpriseProcurement: 'Pengadaan Perusahaan',
+            priceNA: 'Harga Tidak Tersedia',
+            submitSuccess: 'Proposal Anda berhasil disubmit untuk dievaluasi.',
+            submitError: 'Gagal mengirim proposal.',
+            labelLocation: 'Informasi Lokasi'
         },
         userManagement: {
             title: 'Manajemen Tim',
@@ -341,6 +626,16 @@ export const translations = {
             feat2Desc: 'Terhubung dengan 1.2rb+ vendor terverifikasi di seluruh dunia.',
             feat3Title: 'Efisiensi AI',
             feat3Desc: 'Draf dan evaluasi proposal 10x lebih cepat dengan AI.'
+        },
+        heroDashboard: {
+            liveValueManaged: 'Nilai Berjalan Dikelola',
+            realTimeAggregation: 'Agregasi real-time di {count} pengadaan aktif',
+            activeProcurements: 'Pengadaan Aktif',
+            avgOpportunity: 'Rata-rata Peluang',
+            procurementActivity: 'Aktivitas Pengadaan',
+            liveUpdates: 'Pembaruan Langsung',
+            justPublished: 'Baru saja diterbitkan',
+            noRecentActivity: 'Tidak ada aktivitas terbaru'
         },
         auth: {
             welcomeBack: 'Selamat Datang',
@@ -412,7 +707,7 @@ export const translations = {
             companyInfo: 'Profil Perusahaan',
             govInfo: 'Institusi Pemerintah',
             name: 'Nama Lengkap',
-            email: 'Pengungkapan Email',
+            email: 'Email',
             phone: 'Nomor Kontak',
             companyName: 'Nama Perusahaan',
             institutionName: 'Nama Institusi',
@@ -425,6 +720,8 @@ export const translations = {
             province: 'Provinsi',
             regency: 'Kabupaten/Kota',
             website: 'Situs Web Resmi',
+            usernameSiinas: 'Username SIINas',
+            hasSiinasAccount: 'Perusahaan memiliki Akun SIINas',
             description: 'Deskripsi / Ringkasan Perusahaan',
             address: 'Alamat Kantor Pusat',
             save: 'Simpan Perubahan',
@@ -448,6 +745,139 @@ export const translations = {
         },
         generalRequirements: {
             title: 'Persyaratan Umum'
+        },
+        pagination: {
+            next: 'Berikutnya',
+            previous: 'Sebelumnya',
+            page: 'Halaman',
+            of: 'dari',
+            items: 'item'
+        },
+        flowchart: {
+            title: 'Alur Bisnis',
+            subtitle: 'Memvisualisasikan pola interaksi dan logika bisnis di berbagai tingkat otorisasi pengguna dalam ekosistem Procurify-BM.',
+            tabs: {
+                vendor: 'Pengadaan Pengguna',
+                adminProc: 'Admin Pengadaan',
+                adminTbp: 'Admin TBP'
+            },
+            sections: {
+                interactive: {
+                    title: 'Desain Interaktif',
+                    desc: 'Semua flowchart didukung oleh XYFlow, memungkinkan Anda untuk menggeser, memperbesar, dan berinteraksi dengan langkah-langkah spesifik untuk memahami kedalaman logika.'
+                },
+                logic: {
+                    title: 'Penegakan Logika',
+                    desc: 'Diagram mewakili aturan bisnis hardcoded dan batasan basis data yang didefinisikan dalam skema Drizzle dan layanan server sistem.'
+                },
+                security: {
+                    title: 'Lapisan Keamanan',
+                    desc: 'Peran yang ditentukan dalam `roleEnum` (SUPER_ADMIN, ADMIN_TBP, dll.) adalah fondasi dari alur ini, memastikan isolasi data yang ketat.'
+                }
+            },
+            nodes: {
+                // Vendor
+                publicDiscovery: 'Pengadaan Publik',
+                publicDiscoveryDesc: 'Jelajahi pengadaan aktif di portal publik.',
+                register: 'Daftar / Masuk',
+                registerDesc: 'Akses platform sebagai vendor terverifikasi.',
+                completeProfile: 'Lengkapi Profil',
+                completeProfileDesc: 'Masukkan NIB, KBLI, dan Alamat untuk verifikasi.',
+                submitProposal: 'Ajukan Proposal',
+                submitProposalDesc: 'Unggah flyer, spesifikasi, dan harga untuk barang.',
+                notification: 'Notifikasi',
+                notificationDesc: 'Terima peringatan real-time tentang status pengajuan.',
+                // Admin Proc
+                storeProc: 'Simpan Pengadaan',
+                storeProcDesc: 'Buat pengadaan yang berfokus pada katalog BMN & kode BMN.',
+                monitorSubs: 'Pantau Pengajuan',
+                monitorSubsDesc: 'Lihat semua proposal vendor yang diterima untuk pengadaan.',
+                approveSub: 'Setujui Pengajuan',
+                approveSubDesc: 'Evaluasi dan ubah status pengajuan menjadi DITERIMA.',
+                closeProc: 'Tutup Pengadaan',
+                closeProcDesc: 'Finalisasi proses dan kunci pengajuan lebih lanjut.',
+                // Admin TBP
+                oversight: 'Dasbor Pengawasan',
+                oversightDesc: 'Tampilan global kinerja sistem dan distribusi.',
+                sysConfig: 'Konfigurasi Sistem',
+                sysConfigDesc: 'Kelola batasan global dan parameter platform.',
+                userRestrictions: 'Batasan Pengguna',
+                userRestrictionsDesc: 'Konfigurasi akses vendor dan pendaftaran institusi.',
+                auditing: 'Audit Aktivitas',
+                auditingDesc: 'Tinjau log aktivitas pengguna terperinci untuk kepatuhan.',
+                labelTop: {
+                    entry: 'Masuk',
+                    auth: 'Autentikasi',
+                    identity: 'Identitas',
+                    action: 'Aksi',
+                    feedback: 'Umpan Balik',
+                    initiate: 'Inisiasi',
+                    discovery: 'Penemuan',
+                    finalize: 'Finalisasi',
+                    monitoring: 'Pemantauan',
+                    governance: 'Tata Kelola',
+                    control: 'Kontrol',
+                    security: 'Keamanan'
+                }
+            }
+        },
+        erDiagram: {
+            title: 'Arsitektur Database',
+            subtitle: 'Diagram ER sinkron dengan skema Drizzle',
+            exportImage: 'Ekspor Gambar',
+            autoLayout: 'Tata Letak Otomatis',
+            tableLabel: 'Tabel',
+            back: 'Kembali',
+            synchronized: 'TERKONEKSI DENGAN DRIZZLE',
+            loading: 'Menghasilkan ikhtisar skema...',
+            detailTitle: 'Pendalaman Arsitektur',
+            detailSubtitle: 'Eksplorasi skema teknis untuk insinyur sistem'
+        },
+        standardFlowchart: {
+            title: 'Tata Kelola',
+            titleAccent: 'Kompleks',
+            description: 'Flowchart presisi tinggi yang mewakili siklus hidup tata kelola pengadaan, dirender dengan JointJS untuk standarisasi tingkat industri.',
+            tag: 'Logika Terstandarisasi',
+            schemaMapping: 'Pemetaan Skema',
+            schemaMappingDesc: 'Diagram ini dipetakan terhadap definisi skema pengadaan dan bmn. Transisi mengikuti logika state machine sisi server yang ditegakkan secara ketat.',
+            constraintRules: 'Aturan Batasan',
+            pdnConsistency: 'Konsistensi PDN',
+            pdnConsistencyDesc: 'Ditegakkan oleh agregasi tingkat item.',
+            rolePropagation: 'Propagasi Peran',
+            rolePropagationDesc: 'Berdasarkan definisi roleEnum.',
+            nodes: {
+                start: 'MULAI',
+                login: 'Pejabat Pengadaan\n(Login ke TBP/SS)',
+                roleCheck: 'Apakah Admin?',
+                createProc: 'Pilih Katalog BMN\n& Tentukan Spek Item',
+                pdnCheck: 'PDN ≥ 25%?',
+                publish: 'Terbitkan ke Pasar\nPublik',
+                end: 'SELESAI',
+                rejected: 'DITOLAK'
+            },
+            links: {
+                yes: 'YA',
+                no: 'TIDAK'
+            }
+        },
+        notifications: {
+            title: 'Notifikasi',
+            unreadCount: '{count} Pembaruan Belum Dibaca',
+            activityLive: 'Aktivitas Berjalan',
+            activityLog: 'Log Aktivitas',
+            markAllRead: 'Tandai semua telah dibaca',
+            allCaughtUp: 'Semua sudah terbaca',
+            noNotifications: 'Anda tidak memiliki notifikasi saat ini.',
+            deepInsights: 'Wawasan Mendalam',
+            viewActivityLog: 'Lihat Log Aktivitas',
+            time: {
+                justNow: 'Baru saja',
+                ago: '{time}{unit} yang lalu',
+                units: {
+                    m: 'm',
+                    h: 'j'
+                }
+            }
         }
     }
 };

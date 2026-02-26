@@ -1,15 +1,10 @@
 <script lang="ts">
 	import { appState } from '$lib/state.svelte';
 	import { page } from '$app/state';
+	import { afterNavigate } from '$app/navigation';
 	import { fade } from 'svelte/transition';
 
 	const navItems = $derived([
-		{
-			id: 'dashboard',
-			label: appState.t.sidebar.dashboard,
-			icon: 'grid_view',
-			roles: ['SUPER_ADMIN', 'ADMIN_PROCUREMENT', 'USER_PROCUREMENT']
-		},
 		{
 			id: 'explore',
 			label: appState.t.sidebar.explore,
@@ -21,6 +16,12 @@
 				'MANUFACT_PROCUREMENT',
 				'GUEST'
 			]
+		},
+		{
+			id: 'dashboard',
+			label: appState.t.sidebar.dashboard,
+			icon: 'grid_view',
+			roles: ['SUPER_ADMIN', 'ADMIN_PROCUREMENT', 'USER_PROCUREMENT']
 		},
 		{
 			id: 'procurements',
@@ -51,6 +52,12 @@
 		const target = e.target as HTMLSelectElement;
 		console.log('Switching to user:', target.value);
 	}
+
+	afterNavigate(() => {
+		if (window.innerWidth < 1024) {
+			appState.sidebarCollapsed = true;
+		}
+	});
 </script>
 
 {#if !appState.sidebarCollapsed}
@@ -80,10 +87,18 @@
 			</div>
 			{#if !appState.sidebarCollapsed}
 				<a href="/" class="flex flex-col whitespace-nowrap" transition:fade={{ duration: 200 }}>
-					<h1 class="text-xl font-black tracking-tighter text-white">BM2026</h1>
-					<span class="text-[10px] font-bold tracking-[0.2em] text-blue-400/80 uppercase"
-						>Business Matching</span
-					>
+					<h1 class="text-xl font-black tracking-tighter text-white">SITAMPAN</h1>
+					<div class="flex flex-col -space-y-1">
+						<span class="text-[10px] font-bold tracking-[0.2em] text-blue-400/80 uppercase"
+							>Sistem Informasi</span
+						>
+						<span class="text-[10px] font-bold tracking-[0.2em] text-blue-400/80 uppercase"
+							>Tahapan & Pemasaran</span
+						>
+						<span class="text-[10px] font-bold tracking-[0.2em] text-blue-400/80 uppercase"
+							>Nasional 2026</span
+						>
+					</div>
 				</a>
 			{/if}
 		</div>
@@ -104,11 +119,6 @@
 				href="/{item.id}"
 				data-sveltekit-preload-data="hover"
 				data-sveltekit-preload-code="hover"
-				onclick={() => {
-					if (window.innerWidth < 1024) {
-						appState.sidebarCollapsed = true;
-					}
-				}}
 				title={appState.sidebarCollapsed ? item.label : ''}
 				class="group relative flex w-full items-center gap-3.5 rounded-xl px-4 py-3 text-sm font-bold transition-all duration-300
                 {activePath === item.id

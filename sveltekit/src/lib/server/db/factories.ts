@@ -153,6 +153,7 @@ export class CompanyProfileFactory {
             nib: faker.string.numeric(13),
             provinceId: overrides.provinceId || null,
             regencyId: overrides.regencyId || null,
+            usernameSiinas: faker.internet.username(),
             ...overrides
         };
     }

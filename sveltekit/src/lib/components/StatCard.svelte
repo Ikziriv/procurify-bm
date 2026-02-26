@@ -21,26 +21,32 @@
 </script>
 
 <div
-	class="group rounded-[2.5rem] border border-slate-200/60 bg-white p-8 shadow-sm transition-all hover:shadow-xl hover:shadow-blue-500/5"
+	class="group relative overflow-hidden rounded-[2.5rem] border border-slate-200/50 bg-white p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 hover:border-blue-200/50 hover:shadow-[0_20px_50px_rgba(37,99,235,0.1)]"
 >
-	<div class="mb-6 flex items-start justify-between">
-		<div
-			class="flex h-14 w-14 items-center justify-center rounded-2xl transition-transform group-hover:scale-110 {iconBg}"
-		>
-			<span class="material-symbols-outlined text-3xl">{icon}</span>
-		</div>
-		{#if status}
-			<span
-				class="rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-black tracking-widest text-emerald-600 uppercase"
+	<div
+		class="absolute -top-8 -right-8 h-32 w-32 rounded-full bg-slate-50 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+	></div>
+
+	<div class="relative z-10">
+		<div class="mb-8 flex items-start justify-between">
+			<div
+				class="flex h-16 w-16 items-center justify-center rounded-2xl ring-1 ring-slate-100 transition-all duration-500 group-hover:scale-110 group-hover:ring-blue-100 {iconBg}"
 			>
-				{status}
-			</span>
-		{/if}
+				<span class="material-symbols-outlined text-3xl">{icon}</span>
+			</div>
+			{#if status}
+				<span
+					class="rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-black tracking-widest text-emerald-600 uppercase"
+				>
+					{status}
+				</span>
+			{/if}
+		</div>
+		<p class="mb-2 text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase">
+			{title}
+		</p>
+		<h3 class="text-3xl font-black tracking-tight text-slate-900 lg:text-4xl">
+			{value}
+		</h3>
 	</div>
-	<p class="mb-1 text-[10px] font-black tracking-widest text-slate-400 uppercase">
-		{title}
-	</p>
-	<h3 class="text-2xl font-black tracking-tighter text-slate-900">
-		{value}
-	</h3>
 </div>

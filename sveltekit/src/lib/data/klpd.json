@@ -1,0 +1,825 @@
+[
+  {
+    "id": "kementerian-koordinator-bidang-politik-dan-keamanan",
+    "name": "Kementerian Koordinator Bidang Politik dan Keamanan",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenko Polkam"
+  },
+  {
+    "id": "kementerian-koordinator-bidang-hukum-hak-asasi-manusia-imigrasi-dan-pemasyarakatan",
+    "name": "Kementerian Koordinator Bidang Hukum, Hak Asasi Manusia, Imigrasi, dan Pemasyarakatan",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenko Kumham Imipas"
+  },
+  {
+    "id": "kementerian-koordinator-bidang-perekonomian",
+    "name": "Kementerian Koordinator Bidang Perekonomian",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenko Perekonomian"
+  },
+  {
+    "id": "kementerian-koordinator-bidang-pangan",
+    "name": "Kementerian Koordinator Bidang Pangan",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenko Pangan"
+  },
+  {
+    "id": "kementerian-koordinator-bidang-pembangunan-manusia-dan-kebudayaan",
+    "name": "Kementerian Koordinator Bidang Pembangunan Manusia dan Kebudayaan",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenko PMK"
+  },
+  {
+    "id": "kementerian-koordinator-bidang-pemberdayaan-masyarakat",
+    "name": "Kementerian Koordinator Bidang Pemberdayaan Masyarakat",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenko Dayamas"
+  },
+  {
+    "id": "kementerian-koordinator-bidang-infrastruktur-dan-pembangunan-kewilayahan",
+    "name": "Kementerian Koordinator Bidang Infrastruktur dan Pembangunan Kewilayahan",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenko Infrastruktur"
+  },
+  {
+    "id": "kementerian-sekretariat-negara",
+    "name": "Kementerian Sekretariat Negara",
+    "category": "MINISTRY",
+    "abbreviation": "Setneg"
+  },
+  {
+    "id": "kementerian-dalam-negeri",
+    "name": "Kementerian Dalam Negeri",
+    "category": "MINISTRY",
+    "abbreviation": "Kemendagri"
+  },
+  {
+    "id": "kementerian-luar-negeri",
+    "name": "Kementerian Luar Negeri",
+    "category": "MINISTRY",
+    "abbreviation": "Kemlu"
+  },
+  {
+    "id": "kementerian-pertahanan",
+    "name": "Kementerian Pertahanan",
+    "category": "MINISTRY",
+    "abbreviation": "Kemhan"
+  },
+  {
+    "id": "kementerian-agama",
+    "name": "Kementerian Agama",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenag"
+  },
+  {
+    "id": "kementerian-hukum",
+    "name": "Kementerian Hukum",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenkum"
+  },
+  {
+    "id": "kementerian-hak-asasi-manusia",
+    "name": "Kementerian Hak Asasi Manusia",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenham"
+  },
+  {
+    "id": "kementerian-imigrasi-dan-pemasyarakatan",
+    "name": "Kementerian Imigrasi dan Pemasyarakatan",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenimipas"
+  },
+  {
+    "id": "kementerian-keuangan",
+    "name": "Kementerian Keuangan",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenkeu"
+  },
+  {
+    "id": "kementerian-pendidikan-dasar-dan-menengah",
+    "name": "Kementerian Pendidikan Dasar dan Menengah",
+    "category": "MINISTRY",
+    "abbreviation": "Kemendikdasmen"
+  },
+  {
+    "id": "kementerian-pendidikan-tinggi-sains-dan-teknologi",
+    "name": "Kementerian Pendidikan Tinggi, Sains, dan Teknologi",
+    "category": "MINISTRY",
+    "abbreviation": "Kemendiktisaintek"
+  },
+  {
+    "id": "kementerian-kebudayaan",
+    "name": "Kementerian Kebudayaan",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenbud"
+  },
+  {
+    "id": "kementerian-kesehatan",
+    "name": "Kementerian Kesehatan",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenkes"
+  },
+  {
+    "id": "kementerian-sosial",
+    "name": "Kementerian Sosial",
+    "category": "MINISTRY",
+    "abbreviation": "Kemensos"
+  },
+  {
+    "id": "kementerian-ketenagakerjaan",
+    "name": "Kementerian Ketenagakerjaan",
+    "category": "MINISTRY",
+    "abbreviation": "Kemnaker"
+  },
+  {
+    "id": "kementerian-pelindungan-pekerja-migran-indonesia-bppmi",
+    "name": "Kementerian Pelindungan Pekerja Migran Indonesia/BPPMI",
+    "category": "MINISTRY"
+  },
+  {
+    "id": "kementerian-perindustrian",
+    "name": "Kementerian Perindustrian",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenperin"
+  },
+  {
+    "id": "kementerian-perdagangan",
+    "name": "Kementerian Perdagangan",
+    "category": "MINISTRY",
+    "abbreviation": "Kemendag"
+  },
+  {
+    "id": "kementerian-energi-dan-sumber-daya-mineral",
+    "name": "Kementerian Energi Dan Sumber Daya Mineral",
+    "category": "MINISTRY"
+  },
+  {
+    "id": "kementerian-pekerjaan-umum",
+    "name": "Kementerian Pekerjaan Umum",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenpu"
+  },
+  {
+    "id": "kementerian-perumahan-dan-kawasan-permukiman",
+    "name": "Kementerian Perumahan dan Kawasan Permukiman",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenperumahan"
+  },
+  {
+    "id": "kementerian-perhubungan",
+    "name": "Kementerian Perhubungan",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenhub"
+  },
+  {
+    "id": "kementerian-komunikasi-dan-digital",
+    "name": "Kementerian Komunikasi dan Digital",
+    "category": "MINISTRY",
+    "abbreviation": "Komdigi"
+  },
+  {
+    "id": "kementerian-pertanian",
+    "name": "Kementerian Pertanian",
+    "category": "MINISTRY",
+    "abbreviation": "Kementan"
+  },
+  {
+    "id": "kementerian-kehutanan",
+    "name": "Kementerian Kehutanan",
+    "category": "MINISTRY",
+    "abbreviation": "Kemenhut"
+  },
+  {
+    "id": "kementerian-kelautan-dan-perikanan",
+    "name": "Kementerian Kelautan Dan Perikanan",
+    "category": "MINISTRY",
+    "abbreviation": "KKP"
+  },
+  {
+    "id": "kementerian-desa-dan-pembangunan-daerah-tertinggal",
+    "name": "Kementerian Desa dan Pembangunan Daerah Tertinggal",
+    "category": "MINISTRY"
+  },
+  {
+    "id": "kementerian-transmigrasi",
+    "name": "Kementerian Transmigrasi",
+    "category": "MINISTRY"
+  },
+  {
+    "id": "kementerian-agraria-dan-tata-ruang-bpn",
+    "name": "Kementerian Agraria dan Tata Ruang/BPN",
+    "category": "MINISTRY",
+    "abbreviation": "ATR/BPN"
+  },
+  {
+    "id": "kementerian-perencanaan-pembangunan-nasional-bappenas",
+    "name": "Kementerian Perencanaan Pembangunan Nasional/Bappenas",
+    "category": "MINISTRY",
+    "abbreviation": "Bappenas"
+  },
+  {
+    "id": "kementerian-pendayagunaan-aparatur-negara-dan-reformasi-birokrasi",
+    "name": "Kementerian Pendayagunaan Aparatur Negara Dan Reformasi Birokrasi",
+    "category": "MINISTRY"
+  },
+  {
+    "id": "kementerian-badan-usaha-milik-negara",
+    "name": "Kementerian Badan Usaha Milik Negara",
+    "category": "MINISTRY"
+  },
+  {
+    "id": "kementerian-kependudukan-dan-pembangunan-keluarga-bkkbn",
+    "name": "Kementerian Kependudukan dan Pembangunan Keluarga/BKKBN",
+    "category": "MINISTRY"
+  },
+  {
+    "id": "kementerian-lingkungan-hidup-badan-pengendalian-lingkungan-hidup",
+    "name": "Kementerian Lingkungan Hidup/Badan Pengendalian Lingkungan Hidup",
+    "category": "MINISTRY"
+  },
+  {
+    "id": "kementerian-investasi-dan-hilirisasi-bkpm",
+    "name": "Kementerian Investasi dan Hilirisasi/BKPM",
+    "category": "MINISTRY"
+  },
+  {
+    "id": "kementerian-koperasi",
+    "name": "Kementerian Koperasi",
+    "category": "MINISTRY"
+  },
+  {
+    "id": "kementerian-usaha-mikro-kecil-dan-menengah",
+    "name": "Kementerian Usaha Mikro, Kecil, dan Menengah",
+    "category": "MINISTRY"
+  },
+  {
+    "id": "kementerian-pemberdayaan-perempuan-dan-perlindungan-anak",
+    "name": "Kementerian Pemberdayaan Perempuan Dan Perlindungan Anak",
+    "category": "MINISTRY"
+  },
+  {
+    "id": "kementerian-pariwisata",
+    "name": "Kementerian Pariwisata",
+    "category": "MINISTRY"
+  },
+  {
+    "id": "kementerian-ekonomi-kreatif-badan-ekonomi-kreatif",
+    "name": "Kementerian Ekonomi Kreatif/Badan Ekonomi Kreatif",
+    "category": "MINISTRY"
+  },
+  {
+    "id": "kementerian-pemuda-dan-olah-raga",
+    "name": "Kementerian Pemuda Dan Olah Raga",
+    "category": "MINISTRY"
+  },
+  {
+    "id": "kejaksaan-republik-indonesia",
+    "name": "Kejaksaan Republik Indonesia",
+    "category": "AGENCY"
+  },
+  {
+    "id": "kepolisian-negara-republik-indonesia",
+    "name": "Kepolisian Negara Republik Indonesia",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-intelijen-negara",
+    "name": "Badan Intelijen Negara",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-gizi-nasional",
+    "name": "Badan Gizi Nasional",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-karantina-indonesia",
+    "name": "Badan Karantina Indonesia",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-keamanan-laut",
+    "name": "Badan Keamanan Laut",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-kepegawaian-negara",
+    "name": "Badan Kepegawaian Negara",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-meteorologi-klimatologi-dan-geofisika",
+    "name": "Badan Meteorologi, Klimatologi Dan Geofisika",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-narkotika-nasional",
+    "name": "Badan Narkotika Nasional",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-nasional-penanggulangan-bencana",
+    "name": "Badan Nasional Penanggulangan Bencana",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-nasional-penanggulangan-terorisme",
+    "name": "Badan Nasional Penanggulangan Terorisme",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-nasional-pencarian-dan-pertolongan",
+    "name": "Badan Nasional Pencarian dan Pertolongan",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-nasional-pengelola-perbatasan",
+    "name": "Badan Nasional Pengelola Perbatasan",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-pangan-nasional",
+    "name": "Badan Pangan Nasional",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-pembinaan-ideologi-pancasila",
+    "name": "Badan Pembinaan Ideologi Pancasila",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-pemeriksa-keuangan",
+    "name": "Badan Pemeriksa Keuangan",
+    "category": "AGENCY",
+    "abbreviation": "BPK"
+  },
+  {
+    "id": "badan-pengawasan-keuangan-dan-pembangunan",
+    "name": "Badan Pengawasan Keuangan Dan Pembangunan",
+    "category": "AGENCY",
+    "abbreviation": "BPKP"
+  },
+  {
+    "id": "badan-pengawas-obat-dan-makanan",
+    "name": "Badan Pengawas Obat Dan Makanan",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-pengawas-pemilihan-umum",
+    "name": "Badan Pengawas Pemilihan Umum",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-pengawas-tenaga-nuklir",
+    "name": "Badan Pengawas Tenaga Nuklir",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-pengelola-investasi-daya-anagata-nusantara",
+    "name": "Badan Pengelola Investasi Daya Anagata Nusantara",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-pusat-statistik",
+    "name": "Badan Pusat Statistik",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-riset-dan-inovasi-nasional",
+    "name": "Badan Riset dan Inovasi Nasional",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-siber-dan-sandi-negara",
+    "name": "Badan Siber dan Sandi Negara",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-standardisasi-nasional",
+    "name": "Badan Standardisasi Nasional",
+    "category": "AGENCY"
+  },
+  {
+    "id": "badan-teknologi-informasi-dan-intelijen-keuangan",
+    "name": "Badan Teknologi, Informasi, dan Intelijen Keuangan",
+    "category": "AGENCY"
+  },
+  {
+    "id": "lembaga-administrasi-negara",
+    "name": "Lembaga Administrasi Negara",
+    "category": "AGENCY"
+  },
+  {
+    "id": "lembaga-kebijakan-pengadaan-barang-jasa-pemerintah",
+    "name": "Lembaga Kebijakan Pengadaan Barang/Jasa Pemerintah",
+    "category": "AGENCY",
+    "abbreviation": "LKPP"
+  },
+  {
+    "id": "lembaga-ketahanan-nasional",
+    "name": "Lembaga Ketahanan Nasional",
+    "category": "AGENCY"
+  },
+  {
+    "id": "mahkamah-agung",
+    "name": "Mahkamah Agung",
+    "category": "AGENCY"
+  },
+  {
+    "id": "mahkamah-konstitusi-ri",
+    "name": "Mahkamah Konstitusi Ri",
+    "category": "AGENCY"
+  },
+  {
+    "id": "majelis-permusyawaratan-rakyat",
+    "name": "Majelis Permusyawaratan Rakyat",
+    "category": "AGENCY"
+  },
+  {
+    "id": "ombudsman-republik-indonesia",
+    "name": "Ombudsman Republik Indonesia",
+    "category": "AGENCY"
+  },
+  {
+    "id": "otorita-ibu-kota-nusantara-oikn",
+    "name": "Otorita Ibu Kota Nusantara (OIKN)",
+    "category": "AGENCY"
+  },
+  {
+    "id": "perpustakaan-nasional-republik-indonesia",
+    "name": "Perpustakaan Nasional Republik Indonesia",
+    "category": "AGENCY"
+  },
+  {
+    "id": "pusat-pelaporan-dan-analisis-transaksi-keuangan",
+    "name": "Pusat Pelaporan Dan Analisis Transaksi Keuangan",
+    "category": "AGENCY"
+  },
+  {
+    "id": "sekretariat-kabinet",
+    "name": "Sekretariat Kabinet",
+    "category": "AGENCY"
+  },
+  {
+    "id": "provinsi-aceh",
+    "name": "Provinsi Aceh",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-bali",
+    "name": "Provinsi Bali",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-bangka-belitung",
+    "name": "Provinsi Bangka Belitung",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-banten",
+    "name": "Provinsi Banten",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-bengkulu",
+    "name": "Provinsi Bengkulu",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-di-yogyakarta",
+    "name": "Provinsi DI Yogyakarta",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-dki-jakarta",
+    "name": "Provinsi DKI Jakarta",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-gorontalo",
+    "name": "Provinsi Gorontalo",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-jambi",
+    "name": "Provinsi Jambi",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-jawa-barat",
+    "name": "Provinsi Jawa Barat",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-jawa-tengah",
+    "name": "Provinsi Jawa Tengah",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-jawa-timur",
+    "name": "Provinsi Jawa Timur",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-kalimantan-barat",
+    "name": "Provinsi Kalimantan Barat",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-kalimantan-selatan",
+    "name": "Provinsi Kalimantan Selatan",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-kalimantan-tengah",
+    "name": "Provinsi Kalimantan Tengah",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-kalimantan-timur",
+    "name": "Provinsi Kalimantan Timur",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-kalimantan-utara",
+    "name": "Provinsi Kalimantan Utara",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-kepulauan-riau",
+    "name": "Provinsi Kepulauan Riau",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-lampung",
+    "name": "Provinsi Lampung",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-maluku",
+    "name": "Provinsi Maluku",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-maluku-utara",
+    "name": "Provinsi Maluku Utara",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-nusa-tenggara-barat",
+    "name": "Provinsi Nusa Tenggara Barat",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-nusa-tenggara-timur",
+    "name": "Provinsi Nusa Tenggara Timur",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-papua",
+    "name": "Provinsi Papua",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-papua-barat",
+    "name": "Provinsi Papua Barat",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-papua-barat-daya",
+    "name": "Provinsi Papua Barat Daya",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-papua-pegunungan",
+    "name": "Provinsi Papua Pegunungan",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-papua-selatan",
+    "name": "Provinsi Papua Selatan",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-papua-tengah",
+    "name": "Provinsi Papua Tengah",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-riau",
+    "name": "Provinsi Riau",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-sulawesi-barat",
+    "name": "Provinsi Sulawesi Barat",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-sulawesi-selatan",
+    "name": "Provinsi Sulawesi Selatan",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-sulawesi-tengah",
+    "name": "Provinsi Sulawesi Tengah",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-sulawesi-tenggara",
+    "name": "Provinsi Sulawesi Tenggara",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-sulawesi-utara",
+    "name": "Provinsi Sulawesi Utara",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-sumatera-barat",
+    "name": "Provinsi Sumatera Barat",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-sumatera-selatan",
+    "name": "Provinsi Sumatera Selatan",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "provinsi-sumatera-utara",
+    "name": "Provinsi Sumatera Utara",
+    "category": "PROVINCE"
+  },
+  {
+    "id": "kota-ambon",
+    "name": "Kota Ambon",
+    "category": "CITY"
+  },
+  {
+    "id": "kota-balikpapan",
+    "name": "Kota Balikpapan",
+    "category": "CITY"
+  },
+  {
+    "id": "kota-banda-aceh",
+    "name": "Kota Banda Aceh",
+    "category": "CITY",
+    "provinceId": "provinsi-aceh"
+  },
+  {
+    "id": "kota-bandung",
+    "name": "Kota Bandung",
+    "category": "CITY",
+    "provinceId": "provinsi-jawa-barat"
+  },
+  {
+    "id": "kota-batam",
+    "name": "Kota Batam",
+    "category": "CITY"
+  },
+  {
+    "id": "kota-bekasi",
+    "name": "Kota Bekasi",
+    "category": "CITY",
+    "provinceId": "provinsi-jawa-barat"
+  },
+  {
+    "id": "kota-bogor",
+    "name": "Kota Bogor",
+    "category": "CITY",
+    "provinceId": "provinsi-jawa-barat"
+  },
+  {
+    "id": "kota-depok",
+    "name": "Kota Depok",
+    "category": "CITY",
+    "provinceId": "provinsi-jawa-barat"
+  },
+  {
+    "id": "kota-jakarta-pusat",
+    "name": "Kota Jakarta Pusat",
+    "category": "CITY",
+    "provinceId": "provinsi-dki-jakarta"
+  },
+  {
+    "id": "kota-jakarta-selatan",
+    "name": "Kota Jakarta Selatan",
+    "category": "CITY",
+    "provinceId": "provinsi-dki-jakarta"
+  },
+  {
+    "id": "kota-jakarta-timur",
+    "name": "Kota Jakarta Timur",
+    "category": "CITY",
+    "provinceId": "provinsi-dki-jakarta"
+  },
+  {
+    "id": "kota-jakarta-utara",
+    "name": "Kota Jakarta Utara",
+    "category": "CITY",
+    "provinceId": "provinsi-dki-jakarta"
+  },
+  {
+    "id": "kota-jakarta-barat",
+    "name": "Kota Jakarta Barat",
+    "category": "CITY",
+    "provinceId": "provinsi-dki-jakarta"
+  },
+  {
+    "id": "kota-makassar",
+    "name": "Kota Makassar",
+    "category": "CITY",
+    "provinceId": "provinsi-sulawesi-selatan"
+  },
+  {
+    "id": "kota-malang",
+    "name": "Kota Malang",
+    "category": "CITY",
+    "provinceId": "provinsi-jawa-timur"
+  },
+  {
+    "id": "kota-medan",
+    "name": "Kota Medan",
+    "category": "CITY"
+  },
+  {
+    "id": "kota-palembang",
+    "name": "Kota Palembang",
+    "category": "CITY"
+  },
+  {
+    "id": "kota-semarang",
+    "name": "Kota Semarang",
+    "category": "CITY",
+    "provinceId": "provinsi-jawa-tengah"
+  },
+  {
+    "id": "kota-surabaya",
+    "name": "Kota Surabaya",
+    "category": "CITY",
+    "provinceId": "provinsi-jawa-timur"
+  },
+  {
+    "id": "kota-tangerang",
+    "name": "Kota Tangerang",
+    "category": "CITY"
+  },
+  {
+    "id": "kota-tangerang-selatan",
+    "name": "Kota Tangerang Selatan",
+    "category": "CITY"
+  },
+  {
+    "id": "kab-aceh-besar",
+    "name": "Kab. Aceh Besar",
+    "category": "REGENCY",
+    "provinceId": "provinsi-aceh"
+  },
+  {
+    "id": "kab-bandung",
+    "name": "Kab. Bandung",
+    "category": "REGENCY",
+    "provinceId": "provinsi-jawa-barat"
+  },
+  {
+    "id": "kab-bogor",
+    "name": "Kab. Bogor",
+    "category": "REGENCY",
+    "provinceId": "provinsi-jawa-barat"
+  },
+  {
+    "id": "kab-gowa",
+    "name": "Kab. Gowa",
+    "category": "REGENCY",
+    "provinceId": "provinsi-sulawesi-selatan"
+  },
+  {
+    "id": "kab-malang",
+    "name": "Kab. Malang",
+    "category": "REGENCY",
+    "provinceId": "provinsi-jawa-timur"
+  },
+  {
+    "id": "kab-maros",
+    "name": "Kab. Maros",
+    "category": "REGENCY",
+    "provinceId": "provinsi-sulawesi-selatan"
+  },
+  {
+    "id": "kab-sidoarjo",
+    "name": "Kab. Sidoarjo",
+    "category": "REGENCY",
+    "provinceId": "provinsi-jawa-timur"
+  },
+  {
+    "id": "kab-sleman",
+    "name": "Kab. Sleman",
+    "category": "REGENCY",
+    "provinceId": "provinsi-jawa-tengah"
+  },
+  {
+    "id": "kab-tangerang",
+    "name": "Kab. Tangerang",
+    "category": "REGENCY"
+  }
+]

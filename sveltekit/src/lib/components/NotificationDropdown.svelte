@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { appState } from '$lib/state.svelte';
+	import { notificationManager } from '$lib/state/notification-manager.svelte';
 	import { fly, fade } from 'svelte/transition';
 
 	let { open = $bindable() } = $props<{ open: boolean }>();
@@ -46,20 +47,24 @@
 		const diff = now.getTime() - date.getTime();
 		const minutes = Math.floor(diff / 60000);
 		const hours = Math.floor(minutes / 60);
+		const nt = appState.t.notifications.time;
 
-		if (minutes < 1) return 'Just now';
-		if (minutes < 60) return `${minutes}m ago`;
-		if (hours < 24) return `${hours}h ago`;
-		return date.toLocaleDateString();
+		if (minutes < 1) return nt.justNow;
+		if (minutes < 60)
+			return nt.ago.replace('{time}', minutes.toString()).replace('{unit}', nt.units.m);
+		if (hours < 24) return nt.ago.replace('{time}', hours.toString()).replace('{unit}', nt.units.h);
+		return date.toLocaleDateString(appState.language === 'ID' ? 'id-ID' : 'en-US');
 	}
 
 	function markAsRead(id: string) {
-		appState.markAsRead(id);
+		notificationManager.markAsRead(id);
 	}
 
 	function markAllAsRead() {
-		appState.markAllAsRead();
+		notificationManager.markAllAsRead();
 	}
+
+	const t = $derived(appState.t.notifications);
 </script>
 
 {#if open}
@@ -89,9 +94,12 @@
 						<span class="material-symbols-outlined text-xl">notifications</span>
 					</div>
 					<div>
-						<h3 class="text-sm font-black tracking-tight text-slate-900">Notifications</h3>
+						<h3 class="text-sm font-black tracking-tight text-slate-900">{t.title}</h3>
 						<p class="text-[10px] font-bold tracking-widest text-slate-400 uppercase">
-							{appState.notifications.filter((n) => !n.read).length} Unread Updates
+							{t.unreadCount.replace(
+								'{count}',
+								appState.notifications.filter((n) => !n.read).length.toString()
+							)}
 						</p>
 					</div>
 				</div>
@@ -105,9 +113,16 @@
 
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-1.5">
-					<span class="h-1.5 w-1.5 animate-pulse rounded-full bg-blue-600"></span>
-					<span class="text-[10px] font-black tracking-wider text-blue-600 uppercase"
-						>Activity Feed</span
+					<span
+						class="h-1.5 w-1.5 {appState.isLive
+							? 'animate-pulse bg-blue-600'
+							: 'bg-slate-300'} rounded-full"
+					></span>
+					<span
+						class="text-[10px] font-black tracking-wider {appState.isLive
+							? 'text-blue-600'
+							: 'text-slate-400'} uppercase"
+						>{appState.isLive ? t.activityLive : t.activityLog}</span
 					>
 				</div>
 				{#if appState.notifications.some((n) => !n.read)}
@@ -115,7 +130,7 @@
 						onclick={markAllAsRead}
 						class="group flex items-center gap-2 text-[10px] font-black tracking-widest text-slate-400 uppercase transition-all hover:text-blue-600"
 					>
-						Mark all as read
+						{t.markAllRead}
 						<span
 							class="material-symbols-outlined text-[14px] transition-transform group-hover:translate-x-0.5"
 							>done_all</span
@@ -134,9 +149,11 @@
 					>
 						<span class="material-symbols-outlined text-6xl">notifications_paused</span>
 					</div>
-					<h4 class="text-xs font-black tracking-widest text-slate-900 uppercase">All caught up</h4>
+					<h4 class="text-xs font-black tracking-widest text-slate-900 uppercase">
+						{t.allCaughtUp}
+					</h4>
 					<p class="mt-2 max-w-[200px] text-[11px] font-medium text-slate-400">
-						You don't have any notifications at the moment.
+						{t.noNotifications}
 					</p>
 				</div>
 			{:else}
@@ -189,9 +206,9 @@
 			>
 				<div class="flex flex-col items-start gap-0.5">
 					<span class="text-[10px] font-black tracking-[0.2em] text-blue-400 uppercase"
-						>Deep Insights</span
+						>{t.deepInsights}</span
 					>
-					<span class="text-xs font-black tracking-tight">View Activity Log</span>
+					<span class="text-xs font-black tracking-tight">{t.viewActivityLog}</span>
 				</div>
 				<span class="material-symbols-outlined transition-transform group-hover:translate-x-1"
 					>arrow_forward</span

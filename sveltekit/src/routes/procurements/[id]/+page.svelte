@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { appState } from '$lib/state.svelte';
 	import { formatDate } from '$lib/utils/date';
-	import { fade, fly, slide } from 'svelte/transition';
+	import { fade, fly } from 'svelte/transition';
 	import type { PageData } from './$types';
 	import type { ProcurementWithDetails } from '$lib/server/db/schema';
 	import { createMutation, useQueryClient } from '@tanstack/svelte-query';
 	import Drawer from '$lib/components/Drawer.svelte';
 
 	let { data }: { data: PageData } = $props();
+	const t = $derived(appState.t.procurement);
 	const procurement = $derived(data.procurement) as unknown as ProcurementWithDetails;
 	const creator = $derived(data.creator);
 	const queryClient = useQueryClient();
@@ -52,7 +53,7 @@
 		formData = {
 			companyName: userProfile?.companyProfile?.companyName || '',
 			companyDescription: userProfile?.companyProfile?.description || '',
-			items: procurement.items.map((i) => ({
+			items: procurement.items.map((i: any) => ({
 				procurementItemId: i.id,
 				name: i.name,
 				offeredPrice: '',
@@ -74,11 +75,11 @@
 		},
 		onSuccess: () => {
 			showModal = false;
-			appState.addToast('Sukses', 'Proposal Anda berhasil disubmit untuk dievaluasi.', 'SUCCESS');
+			appState.addToast(appState.t.general.success, t.submitSuccess, 'SUCCESS');
 			queryClient.invalidateQueries({ queryKey: ['procurement', procurement.id] });
 		},
 		onError: (error) => {
-			appState.addToast('Gagal', error.message || 'Gagal mengirim proposal.', 'ERROR');
+			appState.addToast(appState.t.general.error, error.message || t.submitError, 'ERROR');
 		}
 	}));
 
@@ -111,10 +112,16 @@
 
 	// Meta info for the detail page
 	const metaStats = $derived([
-		{ label: 'Type', value: 'Enterprise Procurement', icon: 'category' },
-		{ label: 'Budget Range', value: procurement.budget, icon: 'payments' },
-		{ label: 'Deadline', value: formatDate(procurement.deadline), icon: 'event' },
-		{ label: 'Status', value: procurement.status, icon: 'stars' }
+		{ label: t.type, value: t.enterpriseProcurement, icon: 'category', color: 'blue' },
+		{ label: t.budgetRange, value: procurement.budget, icon: 'payments', color: 'emerald' },
+		{ label: t.deadline, value: formatDate(procurement.deadline), icon: 'event', color: 'amber' },
+		{
+			label: 'Location',
+			value: `${procurement.regency?.name || ''}, ${procurement.province?.name || ''}`,
+			icon: 'location_on',
+			color: 'rose'
+		},
+		{ label: t.labelStatus, value: procurement.status, icon: 'stars', color: 'indigo' }
 	]);
 
 	function formatRupiah(value: string | number) {
@@ -140,9 +147,9 @@
 	<nav
 		class="mb-12 flex items-center gap-2 text-xs font-black tracking-widest text-slate-400 uppercase"
 	>
-		<a href="/" class="transition-colors hover:text-blue-600">Home</a>
+		<a href="/" class="transition-colors hover:text-blue-600">{t.home}</a>
 		<span class="material-symbols-outlined text-[10px]">chevron_right</span>
-		<a href="/#feed" class="transition-colors hover:text-blue-600">Procurements</a>
+		<a href="/#feed" class="transition-colors hover:text-blue-600">{t.list}</a>
 		<span class="material-symbols-outlined text-[10px]">chevron_right</span>
 		<span class="text-slate-900">{procurement.id.slice(0, 8)}</span>
 	</nav>
@@ -151,190 +158,259 @@
 		<!-- Main Content -->
 		<div class="lg:col-span-12">
 			<header
-				class="mb-12 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center"
+				class="relative mb-16 flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end"
 			>
-				<div class="space-y-4">
+				<div class="max-w-4xl space-y-6">
 					<div class="flex flex-wrap items-center gap-3" in:fly={{ y: 10, duration: 600 }}>
 						<div
-							class="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[10px] font-black tracking-[0.2em] uppercase transition-colors
+							class="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[10px] font-black tracking-[0.2em] uppercase transition-all
 								{procurement.status === 'OPEN'
-								? 'border-blue-100 bg-blue-50/50 text-blue-600'
+								? 'border-blue-200 bg-blue-50/50 text-blue-600 shadow-sm shadow-blue-100/50'
 								: 'border-slate-200 bg-slate-50 text-slate-400'}"
 						>
-							<span class="material-symbols-outlined text-xs">
+							<span class="material-symbols-outlined text-[14px]">
 								{procurement.status === 'OPEN' ? 'verified' : 'pause_circle'}
 							</span>
-							{procurement.status === 'OPEN' ? 'Active Tender' : 'Tender Paused'}
+							{procurement.status === 'OPEN' ? t.active : t.paused}
 						</div>
 
 						{#if procurement.isPdn}
 							<div
-								class="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[10px] font-black tracking-[0.2em] uppercase transition-colors
-									{procurement.status === 'OPEN'
-									? 'border-emerald-100 bg-emerald-50 text-emerald-600'
-									: 'border-slate-200 bg-slate-50 text-slate-400'}"
+								class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50/50 px-4 py-1.5 text-[10px] font-black tracking-[0.2em] text-emerald-600 uppercase shadow-sm shadow-emerald-100/50 transition-all"
 							>
-								<span class="material-symbols-outlined text-xs">workspace_premium</span>
+								<span class="material-symbols-outlined text-[14px]">workspace_premium</span>
 								PDN
 							</div>
 						{/if}
 
 						{#if procurement.isTkdn}
 							<div
-								class="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[10px] font-black tracking-[0.2em] uppercase transition-colors
-									{procurement.status === 'OPEN'
-									? 'border-indigo-100 bg-indigo-50 text-indigo-600'
-									: 'border-slate-200 bg-slate-50 text-slate-400'}"
+								class="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50/50 px-4 py-1.5 text-[10px] font-black tracking-[0.2em] text-indigo-600 uppercase shadow-sm shadow-indigo-100/50 transition-all"
 							>
-								<span class="material-symbols-outlined text-xs">fact_check</span>
+								<span class="material-symbols-outlined text-[14px]">fact_check</span>
 								TKDN {procurement.tkdnPercentage}%
 							</div>
 						{/if}
 					</div>
+
 					<h1
-						class="text-4xl font-black tracking-tight text-slate-900 lg:text-7xl"
+						class="text-5xl leading-[1.1] font-black tracking-tight text-slate-900 uppercase lg:text-6xl"
 						in:fly={{ y: 20, duration: 600, delay: 100 }}
 					>
 						{procurement.title}
 					</h1>
 				</div>
-
-				<button
-					onclick={() => (drawerOpen = true)}
-					class="group flex items-center gap-3 rounded-2xl bg-slate-900 px-8 py-5 text-xs font-black tracking-[0.3em] text-white uppercase shadow-xl shadow-slate-900/20 transition-all hover:bg-black active:scale-95"
-				>
-					Take Action
-					<span
-						class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1"
-						>arrow_forward</span
-					>
-				</button>
 			</header>
 
-			<div
-				class="grid grid-cols-2 gap-8 border-y border-slate-100 py-12 md:grid-cols-4"
-				in:fade={{ delay: 300 }}
-			>
+			<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4" in:fade={{ delay: 300 }}>
 				{#each metaStats as stat}
-					<div class="space-y-1">
-						<span
-							class="flex items-center gap-1.5 text-[10px] font-black tracking-widest text-slate-400 uppercase"
+					<div
+						class="group relative overflow-hidden rounded-[2rem] border border-slate-200/60 bg-white/40 p-8 transition-all hover:border-slate-300 hover:bg-white hover:shadow-2xl hover:shadow-slate-200/50"
+					>
+						<div class="relative z-10 flex flex-col gap-5">
+							<div
+								class="flex h-12 w-12 items-center justify-center rounded-2xl ring-1 transition-all ring-inset group-hover:scale-110
+									{stat.color === 'blue' ? 'bg-blue-50 text-blue-600 ring-blue-500/20' : ''}
+									{stat.color === 'emerald' ? 'bg-emerald-50 text-emerald-600 ring-emerald-500/20' : ''}
+									{stat.color === 'amber' ? 'bg-amber-50 text-amber-600 ring-amber-500/20' : ''}
+									{stat.color === 'indigo' ? 'bg-indigo-50 text-indigo-600 ring-indigo-500/20' : ''}"
+							>
+								<span class="material-symbols-outlined text-2xl">{stat.icon}</span>
+							</div>
+							<div class="space-y-1">
+								<span
+									class="block text-[10px] font-black tracking-[0.25em] text-slate-400 uppercase"
+								>
+									{stat.label}
+								</span>
+								<p class="text-sm font-black text-slate-900 uppercase">
+									{stat.value}
+								</p>
+							</div>
+						</div>
+
+						<!-- Decorative background element -->
+						<div
+							class="absolute -right-4 -bottom-4 translate-x-4 translate-y-4 opacity-[0.03] transition-transform group-hover:translate-x-0 group-hover:translate-y-0"
 						>
-							<span class="material-symbols-outlined text-sm">{stat.icon}</span>
-							{stat.label}
-						</span>
-						<p class="text-sm font-black text-slate-900 uppercase">{stat.value}</p>
+							<span class="material-symbols-outlined text-8xl">{stat.icon}</span>
+						</div>
 					</div>
 				{/each}
 			</div>
 
-			<article
-				class="prose mt-12 max-w-none font-medium text-slate-600 prose-slate"
-				in:fade={{ delay: 500 }}
-			>
-				<h3 class="text-xl font-bold text-slate-900">Project Overview</h3>
-				<p class="leading-relaxed">
+			<div class="flex w-full shrink-0 flex-col items-center gap-4 py-4 md:flex-row md:py-8">
+				<a
+					href="/api/procurements/{procurement.id}/download"
+					class="group flex h-16 w-full items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-6 text-[10px] font-black tracking-[0.3em] text-slate-900 uppercase transition-all hover:border-slate-300 hover:bg-slate-50 active:scale-95 sm:h-20 sm:px-8"
+					download
+				>
+					<span
+						class="material-symbols-outlined text-lg transition-transform group-hover:-translate-y-1"
+						>download</span
+					>
+					{t.downloadPdf}
+				</a>
+
+				<button
+					onclick={() => (drawerOpen = true)}
+					class="group flex h-16 w-full items-center justify-between gap-4 rounded-2xl bg-slate-900 px-8 text-xs font-black tracking-[0.3em] text-white uppercase shadow-2xl shadow-slate-900/20 transition-all hover:bg-black active:scale-95 sm:h-20 sm:px-12"
+				>
+					{t.takeAction}
+					<span
+						class="material-symbols-outlined text-lg transition-transform group-hover:translate-x-1"
+						>arrow_forward</span
+					>
+				</button>
+			</div>
+
+			<article class="prose mt-8 max-w-none prose-slate" in:fade={{ delay: 500 }}>
+				<div class="flex items-center gap-4">
+					<div class="h-10 w-1.5 rounded-full bg-blue-600"></div>
+					<h3 class="text-3xl font-black tracking-tight text-slate-900 uppercase">
+						{t.projectOverview}
+					</h3>
+				</div>
+				<p class="mt-8 text-lg leading-[1.8] font-medium text-slate-600">
 					{procurement.description}
 				</p>
 
-				<div
-					class="mt-8 rounded-[2.5rem] border border-slate-200/60 bg-white/60 p-8 shadow-sm ring-1 ring-slate-200/50 backdrop-blur-xl"
-				>
-					<div class="mb-8 flex items-center justify-between">
-						<div>
-							<h4 class="text-sm font-black tracking-[0.2em] text-slate-900 uppercase">
-								Line Item Details
+				{#if procurement.province || procurement.regency || procurement.location}
+					<div
+						class="mt-12 space-y-4 rounded-[2rem] border border-slate-100 bg-slate-50/50 p-8 transition-all hover:bg-slate-50"
+					>
+						<div class="flex items-center gap-3">
+							<div
+								class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-blue-600"
+							>
+								<span class="material-symbols-outlined text-xl">location_on</span>
+							</div>
+							<h4 class="text-sm font-black tracking-[0.15em] text-slate-900 uppercase">
+								{t.labelLocation || 'Location Information'}
 							</h4>
-							<p class="mt-2 text-xs font-semibold tracking-wide text-slate-500">
-								Rincian spesifikasi barang atau jasa
-							</p>
 						</div>
-						<div
-							class="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-50 text-slate-400 ring-1 ring-slate-200/50 ring-inset"
-						>
-							<span class="material-symbols-outlined">inventory_2</span>
+						<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+							{#if procurement.province}
+								<div class="space-y-1">
+									<p class="text-[10px] font-black tracking-widest text-slate-400 uppercase">
+										{appState.t.profile.province}
+									</p>
+									<p class="text-sm font-black text-slate-900">{procurement.province.name}</p>
+								</div>
+							{/if}
+							{#if procurement.regency}
+								<div class="space-y-1">
+									<p class="text-[10px] font-black tracking-widest text-slate-400 uppercase">
+										{appState.t.profile.regency}
+									</p>
+									<p class="text-sm font-black text-slate-900">{procurement.regency.name}</p>
+								</div>
+							{/if}
+							{#if procurement.location}
+								<div class="space-y-1 lg:col-span-1">
+									<p class="text-[10px] font-black tracking-widest text-slate-400 uppercase">
+										{appState.t.profile.address}
+									</p>
+									<p class="text-sm font-medium text-slate-600">{procurement.location}</p>
+								</div>
+							{/if}
+						</div>
+					</div>
+				{/if}
+
+				<div
+					class="mt-16 overflow-hidden rounded-[3rem] border border-slate-200/60 bg-white shadow-2xl shadow-slate-200/40 transition-all hover:shadow-slate-300/50"
+				>
+					<div class="border-b border-slate-100 bg-slate-50/50 p-10">
+						<div class="flex items-center justify-between">
+							<div class="space-y-2">
+								<h4 class="text-lg font-black tracking-[0.1em] text-slate-900 uppercase">
+									{t.lineItemDetails}
+								</h4>
+								<p class="text-sm font-bold tracking-wide text-slate-400">
+									{t.lineItemSubtitle}
+								</p>
+							</div>
+							<div
+								class="flex h-16 w-16 items-center justify-center rounded-[1.5rem] bg-white text-slate-900 shadow-sm ring-1 ring-slate-200 transition-transform ring-inset hover:scale-110"
+							>
+								<span class="material-symbols-outlined text-2xl">inventory_2</span>
+							</div>
 						</div>
 					</div>
 
-					<div
-						class="overflow-hidden rounded-3xl border border-slate-200/60 bg-white shadow-sm ring-1 ring-black/[0.03]"
-					>
-						<table class="w-full text-left text-xs">
+					<div class="overflow-x-auto">
+						<table class="w-full text-left">
 							<thead>
-								<tr class="border-b border-slate-200/60 bg-slate-50/80">
+								<tr class="bg-slate-50/30">
 									<th
-										class="px-6 py-4 text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase"
-										>Item</th
+										class="px-10 py-6 text-[10px] font-black tracking-[0.25em] text-slate-400 uppercase"
+										>{t.itemSpec}</th
 									>
 									<th
-										class="w-24 px-6 py-4 text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase"
-										>Qty</th
+										class="w-32 px-10 py-6 text-[10px] font-black tracking-[0.25em] text-slate-400 uppercase"
+										>{t.qtyUnit}</th
 									>
 									<th
-										class="w-24 px-6 py-4 text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase"
-										>Unit</th
-									>
-									<th
-										class="w-48 px-6 py-4 text-right text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase"
-										>Estimasi Biaya</th
+										class="w-56 px-10 py-6 text-right text-[10px] font-black tracking-[0.25em] text-slate-400 uppercase"
+										>{t.estimatedCost}</th
 									>
 								</tr>
 							</thead>
-							<tbody class="divide-y divide-slate-100/80 font-bold text-slate-600">
+							<tbody class="divide-y divide-slate-100">
 								{#each procurement.items as item}
-									<tr class="group transition-colors hover:bg-slate-50/50">
-										<td class="px-6 py-5">
-											<div class="flex items-center gap-3">
-												<div class="font-black tracking-widest text-slate-900 uppercase">
-													{item.name}
+									<tr class="group transition-colors hover:bg-slate-50/30">
+										<td class="px-10 py-8">
+											<div class="flex flex-col gap-3">
+												<div class="flex items-center gap-3">
+													<span class="text-base font-black text-slate-900 uppercase">
+														{item.name}
+													</span>
+													<div class="flex gap-2">
+														{#if item.isPdn}
+															<span
+																class="inline-flex items-center rounded-lg border border-emerald-100 bg-emerald-50 px-2.5 py-1 text-[9px] font-black tracking-[0.15em] text-emerald-600 uppercase shadow-sm shadow-emerald-50"
+																>PDN</span
+															>
+														{/if}
+														{#if item.isTkdn}
+															<span
+																class="inline-flex items-center rounded-lg border border-blue-100 bg-blue-50 px-2.5 py-1 text-[9px] font-black tracking-[0.15em] text-blue-600 uppercase shadow-sm shadow-blue-50"
+																>TKDN {item.tkdnPercentage}%</span
+															>
+														{/if}
+													</div>
 												</div>
-												<div
-													class="flex gap-1.5 opacity-80 transition-opacity group-hover:opacity-100"
-												>
-													{#if item.isPdn}
-														<span
-															class="inline-flex items-center rounded-lg bg-emerald-50 px-2 py-1 text-[9px] font-black tracking-widest text-emerald-600 uppercase ring-1 ring-emerald-500/20 ring-inset"
-															>PDN</span
-														>
-													{/if}
-													{#if item.isTkdn}
-														<span
-															class="inline-flex items-center rounded-lg bg-blue-50 px-2.5 py-1 text-[9px] font-black tracking-widest text-blue-600 uppercase ring-1 ring-blue-500/20 ring-inset"
-															>TKDN {item.tkdnPercentage}%</span
-														>
-													{/if}
-												</div>
+												{#if item.description}
+													<p class="max-w-2xl text-xs leading-relaxed font-bold text-slate-400">
+														{item.description}
+													</p>
+												{/if}
 											</div>
-											{#if item.description}
-												<div
-													class="mt-2 max-w-lg text-[11px] leading-relaxed font-semibold text-slate-500"
+										</td>
+										<td class="px-10 py-8 align-top">
+											<div class="flex flex-col gap-1">
+												<span class="text-sm font-black text-slate-900">
+													{item.quantity}
+												</span>
+												<span
+													class="text-[10px] font-black tracking-[0.1em] text-slate-400 uppercase"
 												>
-													{item.description}
-												</div>
-											{/if}
+													{item.unit}
+												</span>
+											</div>
 										</td>
-										<td class="px-6 py-5 align-top">
-											<span
-												class="inline-flex h-8 min-w-8 items-center justify-center rounded-xl bg-slate-100/80 px-2.5 text-xs font-black text-slate-700 ring-1 ring-slate-200/50 ring-inset"
-											>
-												{item.quantity}
-											</span>
-										</td>
-										<td class="px-6 py-5 align-top">
-											<span class="text-xs font-black tracking-widest text-slate-500 uppercase"
-												>{item.unit}</span
-											>
-										</td>
-										<td class="px-6 py-5 text-right align-top font-black text-slate-900">
-											{#if item.estimatedPrice}
-												<div
-													class="inline-flex items-center rounded-xl bg-slate-50 px-3 py-1.5 text-xs ring-1 ring-slate-200/60 transition-colors ring-inset group-hover:bg-white group-hover:shadow-sm"
+										<td class="px-10 py-8 text-right align-top">
+											<div class="inline-flex flex-col items-end gap-1">
+												<span class="text-sm font-black text-slate-900">
+													{item.estimatedPrice || t.priceNA}
+												</span>
+												<span
+													class="text-[10px] font-black tracking-[0.1em] text-slate-400 uppercase"
 												>
-													{item.estimatedPrice}
-												</div>
-											{:else}
-												<span class="text-slate-400 italic">N/A</span>
-											{/if}
+													{t.estPriceLabel}
+												</span>
+											</div>
 										</td>
 									</tr>
 								{/each}
@@ -343,31 +419,43 @@
 					</div>
 				</div>
 
-				<div class="mt-8 rounded-[2rem] border border-blue-100/50 bg-blue-50/30 p-8">
-					<h4 class="mb-4 text-sm font-black tracking-widest text-blue-900 uppercase">
-						{appState.t.generalRequirements.title}
-					</h4>
-					<ul class="space-y-3 font-bold text-blue-900/70">
+				<!-- General Requirements Section -->
+				<div
+					class="mt-8 overflow-hidden rounded-[2.5rem] border border-blue-100 bg-blue-50/30 p-10 transition-all hover:bg-blue-50/50"
+				>
+					<div class="mb-8 flex items-center gap-4">
+						<div
+							class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-blue-600"
+						>
+							<span class="material-symbols-outlined text-xl">gavel</span>
+						</div>
+						<h4 class="text-sm font-black tracking-[0.15em] text-blue-900 uppercase">
+							{appState.t.generalRequirements.title}
+						</h4>
+					</div>
+					<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 						{#each procurement.rules as rule}
-							<li class="flex items-start gap-4">
+							<div
+								class="group flex items-start gap-4 rounded-2xl bg-white/60 p-5 shadow-sm ring-1 ring-blue-100/50 transition-all hover:bg-white hover:shadow-md"
+							>
 								<span
-									class="material-symbols-outlined mt-1 text-[10px] font-black text-blue-500 transition-transform group-hover:scale-110"
+									class="material-symbols-outlined shrink-0 text-lg font-black text-blue-500 transition-transform group-hover:scale-110"
 									>check_circle</span
 								>
-								<span class="leading-relaxed">{rule.rule}</span>
-							</li>
+								<span class="text-sm leading-relaxed font-bold text-blue-900/80">{rule.rule}</span>
+							</div>
 						{/each}
-					</ul>
+					</div>
 				</div>
 			</article>
 		</div>
 
-		<Drawer open={drawerOpen} onClose={() => (drawerOpen = false)} title="Procurement Actions">
+		<Drawer open={drawerOpen} onClose={() => (drawerOpen = false)} title={t.actions}>
 			<div class="space-y-12">
 				<!-- Lead Info -->
 				<div class="space-y-6">
 					<h4 class="text-[10px] font-black tracking-[0.3em] text-slate-400 uppercase">
-						Procurement Lead
+						{t.lead}
 					</h4>
 					<div class="flex items-center gap-5">
 						<img
@@ -393,7 +481,7 @@
 					<div class="space-y-8">
 						<div class="rounded-3xl bg-blue-50/50 p-8">
 							<p class="text-xs leading-relaxed font-bold text-blue-900">
-								You are authenticated. You can now submit your formal proposal for this procurement.
+								{t.authMessage}
 							</p>
 						</div>
 						<button
@@ -403,7 +491,7 @@
 							}}
 							class="group flex w-full items-center justify-center gap-4 rounded-3xl bg-blue-600 py-8 text-xs font-black tracking-[0.3em] text-white uppercase shadow-2xl shadow-blue-600/40 transition-all hover:bg-blue-700 hover:shadow-blue-700/50 active:scale-95"
 						>
-							Submit Proposal
+							{t.submitProposal}
 							<span
 								class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1"
 								>send</span
@@ -419,7 +507,7 @@
 									: 'border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 disabled:opacity-50'}"
 							>
 								{#if shareProfile.isPending}
-									Sharing...
+									{t.sharing}
 								{:else if hasSharedProfile}
 									{appState.t.vendorProfile.profileShared}
 								{:else}
@@ -435,15 +523,14 @@
 					<div class="space-y-8">
 						<div class="rounded-3xl bg-slate-50 p-8">
 							<p class="text-xs leading-relaxed font-bold text-slate-500">
-								To participate in this tender and submit a proposal, you must first secure your
-								account.
+								{t.unauthMessage}
 							</p>
 						</div>
 						<a
 							href="/auth?callbackURL=/procurements/{data.procurement.id}"
 							class="group flex w-full items-center justify-center gap-4 rounded-3xl bg-slate-900 py-8 text-xs font-black tracking-[0.3em] text-white uppercase shadow-2xl transition-all hover:bg-black active:scale-95"
 						>
-							Apply Now
+							{t.applyNow}
 							<span
 								class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1"
 								>login</span
@@ -454,7 +541,7 @@
 
 				<div class="rounded-2xl border border-slate-100 bg-slate-50/50 p-6">
 					<p class="text-center text-[9px] font-black tracking-widest text-slate-400 uppercase">
-						Official Reference ID <br />
+						{t.refId} <br />
 						<span class="mt-1 block text-slate-600">{procurement.id}</span>
 					</p>
 				</div>
@@ -467,7 +554,7 @@
 				onclick={() => (drawerOpen = true)}
 				class="flex items-center gap-3 rounded-full bg-slate-900 px-8 py-5 text-[10px] font-black tracking-[0.3em] text-white uppercase shadow-2xl shadow-slate-900/40 transition-all hover:scale-105 active:scale-95"
 			>
-				Actions
+				{t.actionsBtn}
 				<div class="h-1.5 w-1.5 animate-pulse rounded-full bg-blue-400"></div>
 			</button>
 		</div>
@@ -486,9 +573,9 @@
 		>
 			<div class="flex items-center justify-between border-b border-slate-100 p-6 md:p-8">
 				<div>
-					<h3 class="text-2xl font-black tracking-tight text-slate-900">Submit Proposal</h3>
+					<h3 class="text-2xl font-black tracking-tight text-slate-900">{t.submitProposal}</h3>
 					<p class="mt-2 text-xs font-bold tracking-widest text-slate-400 uppercase">
-						Fill in your company details and item pricing
+						{t.submitSubtitle}
 					</p>
 				</div>
 				<button
@@ -586,7 +673,7 @@
 						<label
 							for="companyName"
 							class="mb-2 block text-[10px] font-black tracking-widest text-slate-400 uppercase"
-							>Company Name</label
+							>{t.companyName}</label
 						>
 						<input
 							id="companyName"
@@ -594,14 +681,14 @@
 							bind:value={formData.companyName}
 							required
 							class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-800 transition-all outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10"
-							placeholder="E.g. PT Maju Bersama"
+							placeholder={t.placeholderTitle}
 						/>
 					</div>
 					<div>
 						<label
 							for="companyDescription"
 							class="mb-2 block text-[10px] font-black tracking-widest text-slate-400 uppercase"
-							>Company Description / Proposal Summary</label
+							>{t.companyDesc}</label
 						>
 						<textarea
 							id="companyDescription"
@@ -609,14 +696,14 @@
 							required
 							rows="3"
 							class="w-full resize-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-600 transition-all outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10"
-							placeholder="Provide details about your company and why you are the best fit..."
+							placeholder={t.companyDescPlaceholder}
 						></textarea>
 					</div>
 
 					{#if formData.items.length > 0}
 						<div>
 							<h4 class="mt-6 mb-4 text-sm font-black tracking-widest text-slate-900 uppercase">
-								Line Item Bids
+								{t.lineItemBids}
 							</h4>
 							<div class="space-y-4">
 								{#each formData.items as item, i}
@@ -627,7 +714,7 @@
 												<label
 													for="offeredPrice-{item.procurementItemId}"
 													class="mb-2 block text-[10px] font-black tracking-widest text-slate-400 uppercase"
-													>Offered Price</label
+													>{t.offeredPrice}</label
 												>
 												<input
 													id="offeredPrice-{item.procurementItemId}"
@@ -643,14 +730,14 @@
 												<label
 													for="spec-{item.procurementItemId}"
 													class="mb-2 block text-[10px] font-black tracking-widest text-slate-400 uppercase"
-													>Specification Link/Notes</label
+													>{t.specLinkNotes}</label
 												>
 												<input
 													id="spec-{item.procurementItemId}"
 													type="text"
 													bind:value={item.specification}
 													class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-600 transition-all outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10"
-													placeholder="Drive link or specifications..."
+													placeholder={t.specPlaceholder}
 												/>
 											</div>
 										</div>
@@ -667,7 +754,7 @@
 						onclick={() => (showModal = false)}
 						class="flex-1 cursor-pointer rounded-2xl border border-slate-200/60 bg-white py-4 text-xs font-black tracking-widest text-slate-600 uppercase transition-all hover:bg-slate-50 hover:text-slate-900 active:scale-95 disabled:opacity-50"
 					>
-						Cancel
+						{t.cancel}
 					</button>
 					<button
 						type="submit"
@@ -675,9 +762,9 @@
 						class="relative flex-1 cursor-pointer overflow-hidden rounded-2xl bg-blue-600 py-4 text-center text-xs font-black tracking-widest text-white uppercase shadow-lg shadow-blue-500/20 transition-all hover:bg-blue-500 hover:shadow-blue-500/40 active:scale-95 disabled:opacity-50"
 					>
 						{#if submitProposal.isPending}
-							Submitting...
+							{t.submitting}
 						{:else}
-							Confirm Proposal
+							{t.confirmProposal}
 						{/if}
 					</button>
 				</div>

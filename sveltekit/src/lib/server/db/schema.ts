@@ -1,7 +1,7 @@
 import { pgTable, serial, integer, text, timestamp, boolean, varchar, pgEnum } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
-export const roleEnum = pgEnum('role', ['SUPER_ADMIN', 'ADMIN_PROCUREMENT', 'USER_PROCUREMENT', 'MANUFACT_PROCUREMENT']);
+export const roleEnum = pgEnum('role', ['SUPER_ADMIN', 'ADMIN_TBP', 'ADMIN_PROCUREMENT', 'USER_PROCUREMENT', 'MANUFACT_PROCUREMENT']);
 export const statusEnum = pgEnum('status', ['OPEN', 'CLOSED', 'DRAFT']);
 export const submissionStatusEnum = pgEnum('submission_status', ['PENDING', 'ACCEPTED', 'REJECTED']);
 export const subscriptionStatusEnum = pgEnum('subscription_status', ['ACTIVE', 'EXPIRED', 'CANCELED']);
@@ -141,7 +141,8 @@ export const companyProfiles = pgTable('company_profiles', {
 	address: text('address'),
 	nib: text('nib'), // Nomor Induk Berusaha
 	provinceId: text('province_id').references(() => provinces.id),
-	regencyId: text('regency_id').references(() => regencies.id)
+	regencyId: text('regency_id').references(() => regencies.id),
+	usernameSiinas: text('username_siinas').default('-')
 });
 
 
@@ -247,6 +248,9 @@ export const procurements = pgTable('procurements', {
 	typeId: text('type_id').references(() => procurementTypes.id),
 	basId: text('bas_id').references(() => bas.id),
 	bmnId: text('bmn_id').references(() => bmn.id),
+	provinceId: text('province_id').references(() => provinces.id),
+	regencyId: text('regency_id').references(() => regencies.id),
+	location: text('location'),
 	isPdn: boolean('is_pdn').default(true).notNull(),
 	isTkdn: boolean('is_tkdn').default(false).notNull(),
 	tkdnPercentage: integer('tkdn_percentage').default(0).notNull(),
@@ -608,6 +612,14 @@ export const procurementsRelations = relations(procurements, ({ one, many }) => 
 		fields: [procurements.bmnId],
 		references: [bmn.id]
 	}),
+	province: one(provinces, {
+		fields: [procurements.provinceId],
+		references: [provinces.id]
+	}),
+	regency: one(regencies, {
+		fields: [procurements.regencyId],
+		references: [regencies.id]
+	}),
 	submissions: many(submissions),
 	kblis: many(procurementKblis),
 	kbkis: many(procurementKbkis),
@@ -715,8 +727,14 @@ export type ProcurementMethod = typeof procurementMethods.$inferSelect;
 export type ProcurementItem = typeof procurementItems.$inferSelect;
 export type Submission = typeof submissions.$inferSelect;
 export type ContactPerson = typeof contactPersons.$inferSelect;
-export type ProcurementWithItems = Procurement & { items: ProcurementItem[] };
+export type Province = typeof provinces.$inferSelect;
+export type Regency = typeof regencies.$inferSelect;
 export type ProcurementRule = typeof procurementRules.$inferSelect;
+export type ProcurementWithItems = Procurement & {
+	items: ProcurementItem[];
+	province?: Province | null;
+	regency?: Regency | null;
+};
 export type ProcurementWithDetails = ProcurementWithItems & { rules: ProcurementRule[] };
 export type SubmissionInaprocLink = typeof submissionInaprocLinks.$inferSelect;
 

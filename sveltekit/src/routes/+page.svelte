@@ -50,8 +50,10 @@
 			</div>
 		</div>
 
-		<!-- Hero Metrics -->
-		<HeroDashboard procurements={data.procurements} />
+		<!-- Hero Metrics - Only for registered users -->
+		{#if appState.currentUser}
+			<HeroDashboard procurements={data.procurements} />
+		{/if}
 
 		<!-- Recent Activity / Tracking List -->
 		<div class="mt-16 space-y-6" in:fly={{ y: 30, duration: 800, delay: 400 }}>
